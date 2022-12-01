@@ -1,0 +1,15 @@
+.searchDiv{
+    width: 500px;
+    height: 55px;
+    margin-top: 0;
+    margin-bottom: 0;
+    transition: all 500ms ease-in-out;
+}
+
+#input-div{
+    width: 400px;
+}
+
+.ico{
+    padding: 20px 50px;
+}
