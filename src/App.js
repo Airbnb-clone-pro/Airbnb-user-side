@@ -1,12 +1,11 @@
-import logo from './logo.svg';
-import './App.css';
-
-function App() {
+import React from 'react'
+import ProductCards from './cards/ProductCards'
+const App = () => {
   return (
-    <div className="App">
-      Airbnb
+    <div >
+      <ProductCards />
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
