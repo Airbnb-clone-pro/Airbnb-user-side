@@ -1,18 +1,19 @@
-import React, { useState } from 'react';
-import './sign-up.scss'
+import React, { useState, useContext } from 'react';
+import './sign-up.css'
 import { Modal } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
-import axiosInstance from '../axios config/axiosInstance';
-
+import axiosInstance from '../../axios config/axiosInstance';
+import { useDispatch, useSelector } from 'react-redux';
+import { signupContext } from '../../contexts/singupModel';
+import { setUser as setUserState } from '../../store/actions/setUser';
 
 
 const Signup = (props) => {
 
-    const [show, setShow] = useState(false);
+    const { showsignup, setShowsignup } = useContext(signupContext)
+    const handleCloseSignup = () => setShowsignup(false)
 
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
-
+    const dispatch = useDispatch()
 
     const [user, setUser] = useState({
         firstName: "",
@@ -97,14 +98,25 @@ const Signup = (props) => {
 
 
     const handleForm = (ev) => {
+
+
         ev.preventDefault();
         if (!errors.fNameError && !errors.lNameError && !errors.emailError && !errors.passwordError && !errors.birthDateError) {
 
-            console.log(user);
+
+            // dispatch(setUserState(user))
+
+            // console.log(user);
             axiosInstance.post('/users', user).then((res) => {
                 console.log(res);
-                // ev.target.submit()
-                // alert("Form Sent Successfully")
+                console.log(res.data.token);
+                if (res.data.token) {
+                    localStorage.setItem('token', res.data.token);
+                    setShowsignup(false)
+                    ev.target.submit()
+
+                    // alert("Form Sent Successfully")
+                }
             }).catch((err) => {
 
             })
@@ -119,18 +131,20 @@ const Signup = (props) => {
 
 
         <div className=''>
-            <Button variant="primary" onClick={handleShow}>
+            {/* <Button variant="primary" onClick={handleShow}>
                 Launch demo modal
-            </Button>
-            <Modal show={show} onHide={handleClose} className="" {...props}
+            </Button> */}
+            <Modal show={showsignup} onHide={handleCloseSignup} className="" {...props}
             // size="lg"
             // aria-labelledby="contained-modal-title-vcenter"
             // centered
             >
+
+
                 <Modal.Body style={{ borderRadius: '2rem' }} className="">
                     <div className="signup-container ">
                         <div className="finish-signup p-0">
-                            <h5 className="text-center">Finish signing up</h5>
+                            <h5 className="text-center" closeButton>Finish signing up</h5>
                         </div>
                         <form onSubmit={(e) => { handleForm(e) }} className=" "  >
 
@@ -155,7 +169,7 @@ const Signup = (props) => {
                                     />
                                 </div>
                             </div >
-                            <p className={`error ${!errors.fNameError && !errors.lNameError ? "d-none" : ""} `}><i class=" fa-solid fa-circle-exclamation "></i>{errors.fNameError + errors.lNameError}</p>
+                            <p className={`error ${!errors.fNameError && !errors.lNameError ? "d-none" : ""} `}><i className=" fa-solid fa-circle-exclamation "></i>{errors.fNameError + errors.lNameError}</p>
                             <span>Make sure it matches the name on your government ID.</span>
                             <br />
                             <div>
@@ -168,7 +182,7 @@ const Signup = (props) => {
                                         placeholder="BirthDate"
                                     />
                                 </div>
-                                <p className={`error ${!errors.birthDateError ? "d-none" : ""} `}><i class=" fa-solid fa-circle-exclamation "></i>{errors.birthDateError}</p>
+                                <p className={`error ${!errors.birthDateError ? "d-none" : ""} `}><i className=" fa-solid fa-circle-exclamation "></i>{errors.birthDateError}</p>
                             </div>
 
                             <span>
@@ -185,7 +199,7 @@ const Signup = (props) => {
                                         placeholder="Email"
                                     />
                                 </div>
-                                <p className={`error ${!errors.emailError ? "d-none" : ""} `}><i class=" fa-solid fa-circle-exclamation "></i>{errors.emailError}</p>
+                                <p className={`error ${!errors.emailError ? "d-none" : ""} `}><i className=" fa-solid fa-circle-exclamation "></i>{errors.emailError}</p>
                             </div>
                             <span>We'll email you trip confirmations and receipts.</span>
                             <br />
@@ -194,14 +208,14 @@ const Signup = (props) => {
                             <div>
                                 <div className={` input-container ${(errors.passwordError ? "border-danger shadow-none" : "")}`}>
 
-                                    <input type="text"
+                                    <input type="password"
                                         value={user.password}
                                         name="password"
                                         onChange={(e) => { handleInputChange(e) }}
                                         placeholder="password"
                                     />
                                 </div>
-                                <p className={`error ${!errors.passwordError ? "d-none" : ""} `}><i class=" fa-solid fa-circle-exclamation "></i>{errors.passwordError}</p>
+                                <p className={`error ${!errors.passwordError ? "d-none" : ""} `}><i className=" fa-solid fa-circle-exclamation "></i>{errors.passwordError}</p>
                             </div>
 
                             <span>

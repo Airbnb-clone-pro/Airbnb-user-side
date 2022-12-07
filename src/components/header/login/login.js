@@ -1,15 +1,14 @@
 import React, { useState } from 'react';
-import '../sign-up/sign-up.scss'
+import '../sign-up/sign-up.css'
 import { Modal } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
-import axiosInstance from '../axios config/axiosInstance';
+import axiosInstance from '../../axios config/axiosInstance';
 
 
 import { FaFacebookSquare, FaApple } from 'react-icons/fa';
 import { FiSmartphone } from 'react-icons/fi';
 
 import { FcGoogle, } from 'react-icons/fc';
-// import GoogleLogin from 'react-google-login';
 
 
 
@@ -118,7 +117,7 @@ const Login = () => {
                                         placeholder="Email"
                                     />
                                 </div>
-                                <p className={`error ${!errors.emailError ? "d-none" : ""} `}><i class=" fa-solid fa-circle-exclamation "></i>{errors.emailError}</p>
+                                <p className={`error ${!errors.emailError ? "d-none" : ""} `}><i className=" fa-solid fa-circle-exclamation "></i>{errors.emailError}</p>
                             </div>
 
 
@@ -132,7 +131,7 @@ const Login = () => {
                                         placeholder="password"
                                     />
                                 </div>
-                                <p className={`error ${!errors.passwordError ? "d-none" : ""} `}><i class=" fa-solid fa-circle-exclamation "></i>{errors.passwordError}</p>
+                                <p className={`error ${!errors.passwordError ? "d-none" : ""} `}><i className=" fa-solid fa-circle-exclamation "></i>{errors.passwordError}</p>
                             </div>
                             <br />
 

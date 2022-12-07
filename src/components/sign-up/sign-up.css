@@ -1,12 +1,11 @@
-
 .signup-container {
 	width: 100%;
 	margin: auto;
-	
+
 }
 
 .signup-container form {
-	width:100%;
+	width: 100%;
 	padding: 1rem;
 	display: flex;
 	flex-direction: column;
@@ -18,43 +17,50 @@
 .input-container {
 	width: 100%;
 	border-radius: 10px;
-	border: 1.2px solid rgb(110, 108, 108);
+	border: 1.7px solid rgb(110, 108, 108);
 }
 
 .full-name:hover,
 .input-container:hover {
-	
-	border: 1.4px solid rgb(52, 50, 50);
+
+	border: 1.8px solid rgb(52, 50, 50);
 
 }
+
 .name-input {
-	padding: .7rem;
+	padding: .3rem;
 	width: 100%;
 }
+
 .name-input input,
 .input-container input {
 	width: 100%;
 	border: none;
 	outline: none;
 }
+
 .last-name {
 	border-top: 1px solid rgb(110, 108, 108);
 }
 
 .input-container {
-	padding: .7rem;
+	padding: .3rem;
 }
+
 .signup-container form span {
 	padding: 0.5rem;
 }
+
 .send-reminder label {
 	margin-left: 0.5rem;
 }
+
 .finish-signup {
 	height: 2.3rem;
 	padding: 2rem;
 	border-bottom: solid 2px rgb(226, 226, 226);
 }
+
 .agree-btn {
 	padding: .5rem 2rem;
 	border-radius: 10px;
@@ -63,10 +69,12 @@
 	border: none;
 	font-size: 1.2rem;
 }
+
 #fName:focus,
 #lName:focus {
 	border: 2px solid lightgray;
 }
+
 .error {
 	color: red;
 }
@@ -83,6 +91,7 @@
 		padding: 0;
 	}
 }
+
 @media only screen and (min-width: 768px) {
 	.signup-container {
 		width: 100%;
@@ -92,7 +101,7 @@
 
 
 
-  .social-login__btn {
+.social-login__btn {
 	cursor: pointer !important;
 	margin-top: 15px;
 	text-align: center !important;
@@ -100,64 +109,70 @@
 	font-size: 14px !important;
 	color: rgb(25, 22, 22) !important;
 	padding: 7px 12px !important;
-	// font-weight: 800 !important;
+	font-weight: 800 !important;
 	border: 1px solid #231c1cea;
 	border-radius: 8px !important;
 	background: transparent !important;
 	box-shadow: none !important;
 	min-width: 71.1935px !important;
 	width: 100% !important;
-  }
-  .social-login__btn:hover {
+}
+
+.social-login__btn:hover {
 	border: 1.2px solid rgb(142, 138, 138);
-	
-  }
-  
-  /* .social-login button:hover {
+
+}
+
+/* .social-login button:hover {
 	border: 2px solid black;
   } */
-  .new-account a {
+.new-account a {
 	text-decoration: underline;
 	color: rgb(34, 34, 34);
-  }
+}
 
-  .google-container,
-  .facebook-container,
-  .apple-container,
-  .email-container {
+.google-container,
+.facebook-container,
+.apple-container,
+.email-container {
 	display: flex;
 	flex-direction: row;
 	justify-content: center;
 	align-items: center;
 	align-content: center;
-	// margin: auto;
-  }
-  .facebook-text-container,
-  .apple-text-container,
-  .google-text-container,
-  .email-text-container {
+	margin: auto;
+}
+
+.facebook-text-container,
+.apple-text-container,
+.google-text-container,
+.email-text-container {
 	text-align: center;
 	padding-left: 1rem;
 	width: 90%;
-  }
-  .facebook-icon-container,
-  .apple-icon-container,
-  .google-icon-container,
-  .email-icon-container {
+}
+
+.facebook-icon-container,
+.apple-icon-container,
+.google-icon-container,
+.email-icon-container {
 	text-align: right;
 	width: 5%;
-  }
-  @media only screen and (max-width: 511px) {
+}
+
+@media only screen and (max-width: 511px) {
+
 	.facebook-icon-container,
 	.apple-icon-container,
 	.google-icon-container,
 	.email-icon-container {
-	  width: 20%;
+		width: 20%;
 	}
+
 	.facebook-text-container,
 	.apple-text-container,
 	.google-text-container,
 	.email-text-container {
-	  width: 80%;
+		width: 80%;
 	}
-  }
+}
