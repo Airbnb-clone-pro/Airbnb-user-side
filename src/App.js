@@ -3,13 +3,14 @@ import "./App.css";
 import AccountSettings from "./pages/account-settings/account-settings";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import PersonalInfo from "./pages/personal-info/Personal-info";
+import Header from "./components/header";
 
 function App() {
   return (
-    <>
-      <div className="App">Airbnb</div>
+    
       <Router>
-        <div>
+          <Header/>
+        <div className="app">
           <Switch>
             <Route path="/account-settings" exact component={AccountSettings} />
             <Route
@@ -20,7 +21,6 @@ function App() {
           </Switch>
         </div>
       </Router>
-    </>
   );
 }
 
