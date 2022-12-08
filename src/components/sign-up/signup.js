@@ -5,7 +5,8 @@ import Button from 'react-bootstrap/Button';
 import axiosInstance from '../../axios config/axiosInstance';
 import { useDispatch, useSelector } from 'react-redux';
 import { signupContext } from '../../contexts/singupModel';
-import { setUser as setUserState } from '../../store/actions/setUser';
+import { setUser as setUserState } from '../../store/actions/setElement';
+import { useHistory } from 'react-router-dom';
 
 
 const Signup = (props) => {
@@ -96,16 +97,14 @@ const Signup = (props) => {
 
     }
 
+    const history = useHistory()
 
     const handleForm = (ev) => {
 
 
         ev.preventDefault();
         if (!errors.fNameError && !errors.lNameError && !errors.emailError && !errors.passwordError && !errors.birthDateError) {
-
-
             // dispatch(setUserState(user))
-
             // console.log(user);
             axiosInstance.post('/users', user).then((res) => {
                 console.log(res);
@@ -113,7 +112,9 @@ const Signup = (props) => {
                 if (res.data.token) {
                     localStorage.setItem('token', res.data.token);
                     setShowsignup(false)
-                    ev.target.submit()
+                    history.push('/')
+
+                    // ev.target.submit()
 
                     // alert("Form Sent Successfully")
                 }
@@ -208,7 +209,7 @@ const Signup = (props) => {
                             <div>
                                 <div className={` input-container ${(errors.passwordError ? "border-danger shadow-none" : "")}`}>
 
-                                    <input type="password"
+                                    <input type="text"
                                         value={user.password}
                                         name="password"
                                         onChange={(e) => { handleInputChange(e) }}

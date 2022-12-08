@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import Navbar from '../../components/header/Header';
 import { Container } from "react-bootstrap";
 import SingleCard from './../../components/card/card'
+import CatList from '../../components/catList/catList';
 
 
 const Home = () => {
@@ -82,7 +83,8 @@ const Home = () => {
 
     return (
         <div>
-            <Navbar />
+            {/* <Navbar /> */}
+            <CatList />
 
             <Container>
                 <div className="row row-cols-md-3 row-cols-1 row-cols-sm-2 row-cols-lg-4 mt-5">

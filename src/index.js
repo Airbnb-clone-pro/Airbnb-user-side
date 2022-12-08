@@ -7,9 +7,14 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import { Provider } from 'react-redux';
 import store from './store/store';
+// import 'bootstrap/dist/css/bootstrap.min.css';
+// import '@fortawesome/fontawesome-free/css/all.min.css';
+import "./i18n/config";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap-icons/font/bootstrap-icons.css";
+import "./styles.css";
 
-
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
 
 

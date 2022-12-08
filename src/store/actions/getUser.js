@@ -1,7 +1,7 @@
 import axiosInstance from '../../axios config/axiosInstance';
 import { useDispatch, useSelector } from 'react-redux';
 import { useContext, useEffect } from 'react';
-import { setUser } from './setUser';
+import { setUser } from './setElement';
 import { authContext } from '../../contexts/auth';
 
 
@@ -12,9 +12,6 @@ export function GetUser() {
     // }, []);
 
     const token = localStorage.getItem('token')
-
-
-
 
     console.log(token);
     if (token) {

@@ -76,15 +76,12 @@ const Login = () => {
                     localStorage.setItem('token', res.data.token);
 
                     setShowLogin(false)
-                    ev.target.submit()
-
+                    // ev.target.submit()
+                    history.push('/')
                     // alert("Form Sent Successfully")
                 }
             }).catch((err) => {
-
             })
-
-
         } else {
             alert("Please Enter Valid Date")
         }
@@ -114,7 +111,7 @@ const Login = () => {
                         <div className="finish-signup p-0">
                             <h5 className="text-center">Log in </h5>
                         </div>
-                        <form onSubmit={(e) => { handleForm(e) }} className=" "  >
+                        <form onSubmit={(e) => { handleForm(e) }} className=" " method='GET' >
                             <h4 className='pb-2'>Welcome to Airbnb</h4>
                             <div className='pb-2'>
                                 <div className={`input-container ${(errors.emailError ? "border-danger shadow-none" : "")}`}>

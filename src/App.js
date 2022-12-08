@@ -12,12 +12,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { GetUser } from './store/actions/getUser';
 import { AuthProvider } from './contexts/auth';
 import Home from './pages/home/home';
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route
-} from "react-router-dom";
-
+import AccountSettings from "./pages/account-settings/account-settings";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import PersonalInfo from "./pages/personal-info/Personal-info";
 
 function App() {
 
@@ -71,23 +68,33 @@ function App() {
 
 
   return (
+
     <div className="App">
       <Router>
+
         <AuthProvider value={{ isAuth, setAuth }}>
           <LoginProvider value={{ showLogin, setShowLogin }}>
             <SignupProvider value={{ showsignup, setShowsignup }}>
 
 
-              {/* <Navbar /> */}
+              <Navbar />
               <SignUp />
               <Login />
-              {/* <Home /> */}
+
               <Switch>
                 <Route path="/" exact component={Home} />
+                {isAuth &&
+                  <Route path="/account-settings" exact component={AccountSettings} />
+                }
+                {isAuth &&
+                  <Route
+                    path="/account-settings/personal-info"
+                    exact
+                    component={PersonalInfo}
+                  />
+                }
 
               </Switch>
-
-
             </SignupProvider>
           </LoginProvider>
         </AuthProvider>
@@ -96,6 +103,7 @@ function App() {
 
 
     </div >
+
   );
 }
 
