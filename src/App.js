@@ -1,51 +1,44 @@
-import './App.css';
-import Navbar from './components/header/Header';
+import Navbar from "./components/header/Header";
 // import SignUp from './sign-up/sign-up';
-import SignUp from './components/sign-up/signup';
-import Login from './components/login/login';
+import SignUp from "./components/sign-up/signup";
+import Login from "./components/login/login";
 // import { Navbar } from 'react-bootstrap';
-import { LoginProvider } from './contexts/loginModel';
-import { useEffect, useRef, useState } from 'react';
-import { SignupProvider } from './contexts/singupModel'
-import axiosInstance from './axios config/axiosInstance';
-import { useDispatch, useSelector } from 'react-redux';
-import { GetUser } from './store/actions/getUser';
-import { AuthProvider } from './contexts/auth';
-import Home from './pages/home/home';
+import { LoginProvider } from "./contexts/loginModel";
+import { useEffect, useRef, useState } from "react";
+import { SignupProvider } from "./contexts/singupModel";
+import axiosInstance from "./axios config/axiosInstance";
+import { useDispatch, useSelector } from "react-redux";
+import { GetUser } from "./store/actions/getUser";
+import { AuthProvider } from "./contexts/auth";
+import Home from "./pages/home/home";
 import AccountSettings from "./pages/account-settings/account-settings";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import PersonalInfo from "./pages/personal-info/Personal-info";
 
 function App() {
+  const [showLogin, setShowLogin] = useState(false);
+  const [showsignup, setShowsignup] = useState(false);
+  const [isAuth, setAuth] = useState(false);
 
-  const [showLogin, setShowLogin] = useState(false)
-  const [showsignup, setShowsignup] = useState(false)
-  const [isAuth, setAuth] = useState(false)
-
-  const dispatch = useDispatch()
-  const token = localStorage.getItem('token')
-  const user = useSelector(state => state.user)
-
-
+  const dispatch = useDispatch();
+  const token = localStorage.getItem("token");
+  const user = useSelector((state) => state.user);
 
   useEffect(() => {
     console.log(showLogin);
 
     if (token) {
-      dispatch(GetUser())
+      dispatch(GetUser());
     }
   }, [token]);
 
-
   useEffect(() => {
-
     if (user && token) {
-      setAuth(true)
+      setAuth(true);
     }
   });
 
   // const{ isAuth, setAuth } = useContext(authContext);
-
 
   // const token = useSelector(state => state.userSignup.token)
   // console.log(token);
@@ -64,46 +57,38 @@ function App() {
 
   // })
 
-
-
-
   return (
-
-    <div className="App">
+    <div>
       <Router>
-
         <AuthProvider value={{ isAuth, setAuth }}>
           <LoginProvider value={{ showLogin, setShowLogin }}>
             <SignupProvider value={{ showsignup, setShowsignup }}>
-
-
               <Navbar />
               <SignUp />
               <Login />
 
               <Switch>
                 <Route path="/" exact component={Home} />
-                {isAuth &&
-                  <Route path="/account-settings" exact component={AccountSettings} />
-                }
-                {isAuth &&
+                {isAuth && (
+                  <Route
+                    path="/account-settings"
+                    exact
+                    component={AccountSettings}
+                  />
+                )}
+                {isAuth && (
                   <Route
                     path="/account-settings/personal-info"
                     exact
                     component={PersonalInfo}
                   />
-                }
-
+                )}
               </Switch>
             </SignupProvider>
           </LoginProvider>
         </AuthProvider>
       </Router>
-
-
-
-    </div >
-
+    </div>
   );
 }
 

@@ -15,19 +15,17 @@ import AddTel from "../../components/personalInfoComponents/add-tel";
 import { useDispatch, useSelector } from "react-redux";
 import { setElement } from "../../store/actions/setElement";
 const PersonalInfo = () => {
+  const dispatch = useDispatch();
+  const elementDisable = useSelector((state) => state.element);
 
-  const dispatch = useDispatch()
-  const elementDisable = useSelector(state => state.element)
-
-  const user = useSelector(state => state.user)
+  const user = useSelector((state) => state.user);
 
   const { t, i18n } = useTranslation();
-
 
   // const [elementDisable, setElementDisable] = useState(0);
 
   const handleClick = (elementNum) => (event) => {
-    dispatch(setElement(elementDisable === 0 ? elementNum : 0))
+    dispatch(setElement(elementDisable === 0 ? elementNum : 0));
   };
   return (
     <>
@@ -56,20 +54,23 @@ const PersonalInfo = () => {
         <h2 className="fw-bold py-2">{t("personal info")}</h2>
         <div className="row my-3 gy-3">
           <div
-            className={`col-12 col-lg-8 ${i18n.language === "en" ? "pe-5" : "ps-5"
-              }`}
+            className={`col-12 col-lg-8 ${
+              i18n.language === "en" ? "pe-5" : "ps-5"
+            }`}
           >
             <div
-              className={`w-100 ${elementDisable === 0 || elementDisable === 1
-                ? ""
-                : "element-disabled-wrap"
-                }`}
+              className={`w-100 ${
+                elementDisable === 0 || elementDisable === 1
+                  ? ""
+                  : "element-disabled-wrap"
+              }`}
             >
               <div
-                className={`w-100 d-flex justify-content-between ${elementDisable === 0 || elementDisable === 1
-                  ? ""
-                  : "element-disabled"
-                  }`}
+                className={`w-100 d-flex justify-content-between ${
+                  elementDisable === 0 || elementDisable === 1
+                    ? ""
+                    : "element-disabled"
+                }`}
               >
                 <div>
                   <p className="mb-0 pb-0">{t("Legal name")} </p>
@@ -77,8 +78,8 @@ const PersonalInfo = () => {
                     {elementDisable !== 1
                       ? `${user.firstName} ${user.lastName}`
                       : t(
-                        "This is the name on your travel document, which could be a license or a passport."
-                      )}
+                          "This is the name on your travel document, which could be a license or a passport."
+                        )}
                   </p>
                 </div>
                 <a
@@ -94,21 +95,27 @@ const PersonalInfo = () => {
             </div>
             <Divider style={{ background: "#757575" }} />
             <div
-              className={`w-100 ${elementDisable === 0 || elementDisable === 2
-                ? ""
-                : "element-disabled-wrap"
-                }`}
+              className={`w-100 ${
+                elementDisable === 0 || elementDisable === 2
+                  ? ""
+                  : "element-disabled-wrap"
+              }`}
             >
               <div
-                className={`w-100 d-flex justify-content-between pt-4 ${elementDisable === 0 || elementDisable === 2
-                  ? ""
-                  : "element-disabled"
-                  }`}
+                className={`w-100 d-flex justify-content-between pt-4 ${
+                  elementDisable === 0 || elementDisable === 2
+                    ? ""
+                    : "element-disabled"
+                }`}
               >
                 <div>
                   <p className="mb-0 pb-0">{t("Gender")} </p>
                   <p className="text-secondary">
-                    {elementDisable === 2 ? "" : user.gender ? user.gender : t("Not specified")}
+                    {elementDisable === 2
+                      ? ""
+                      : user.gender
+                      ? user.gender
+                      : t("Not specified")}
                   </p>
                 </div>
                 <a
@@ -124,16 +131,18 @@ const PersonalInfo = () => {
             </div>
             <Divider style={{ background: "#757575" }} />
             <div
-              className={`w-100  ${elementDisable === 0 || elementDisable === 3
-                ? ""
-                : "element-disabled-wrap"
-                }`}
+              className={`w-100  ${
+                elementDisable === 0 || elementDisable === 3
+                  ? ""
+                  : "element-disabled-wrap"
+              }`}
             >
               <div
-                className={`w-100 d-flex justify-content-between pt-4 ${elementDisable === 0 || elementDisable === 3
-                  ? ""
-                  : "element-disabled"
-                  }`}
+                className={`w-100 d-flex justify-content-between pt-4 ${
+                  elementDisable === 0 || elementDisable === 3
+                    ? ""
+                    : "element-disabled"
+                }`}
               >
                 <div>
                   <p className="mb-0 pb-0">{t("Email address")} </p>
@@ -156,25 +165,29 @@ const PersonalInfo = () => {
             </div>
             <Divider style={{ background: "#757575" }} />
             <div
-              className={`w-100   ${elementDisable === 0 || elementDisable === 4
-                ? ""
-                : "element-disabled-wrap"
-                }`}
+              className={`w-100   ${
+                elementDisable === 0 || elementDisable === 4
+                  ? ""
+                  : "element-disabled-wrap"
+              }`}
             >
               <div
-                className={`d-flex justify-content-between pt-4 ${elementDisable === 0 || elementDisable === 4
-                  ? ""
-                  : "element-disabled"
-                  }`}
+                className={`d-flex justify-content-between pt-4 ${
+                  elementDisable === 0 || elementDisable === 4
+                    ? ""
+                    : "element-disabled"
+                }`}
               >
                 <div>
-                  <p className="mb-0 pb-0" >{t("Phone numbers")} </p>
+                  <p className="mb-0 pb-0">{t("Phone numbers")} </p>
                   <p className="text-secondary">
                     {elementDisable !== 4
-                      ? user.phone ? user.phone : t("Not specified")
-                      : t("Add a number so confirmed guests and Airbnb can get in touch. You can add other numbers and choose how they re used"
-                      )
-                    }
+                      ? user.phone
+                        ? user.phone
+                        : t("Not specified")
+                      : t(
+                          "Add a number so confirmed guests and Airbnb can get in touch. You can add other numbers and choose how they re used"
+                        )}
                   </p>
                 </div>
 
@@ -184,32 +197,40 @@ const PersonalInfo = () => {
                   type="button"
                   className="text-dark link-underLine-hover"
                 >
-                  {elementDisable !== 4 ? !user.phone ? t("Add") : t("Edit") : t("Cancel")}
+                  {elementDisable !== 4
+                    ? !user.phone
+                      ? t("Add")
+                      : t("Edit")
+                    : t("Cancel")}
                 </a>
               </div>
               {elementDisable === 4 ? <AddTel /> : <></>}
             </div>
             <Divider style={{ background: "#757575" }} />
             <div
-              className={`w-100  ${elementDisable === 0 || elementDisable === 5
-                ? ""
-                : "element-disabled-wrap"
-                }`}
+              className={`w-100  ${
+                elementDisable === 0 || elementDisable === 5
+                  ? ""
+                  : "element-disabled-wrap"
+              }`}
             >
               <div
-                className={`d-flex justify-content-between pt-4 ${elementDisable === 0 || elementDisable === 5
-                  ? ""
-                  : "element-disabled"
-                  }`}
+                className={`d-flex justify-content-between pt-4 ${
+                  elementDisable === 0 || elementDisable === 5
+                    ? ""
+                    : "element-disabled"
+                }`}
               >
                 <div>
                   <p className="mb-0 pb-0">{t("Address")} </p>
                   <p className="text-secondary">
                     {elementDisable !== 5
-                      ? user.address ? `${user.address.city}, ${user.address.country}` : t("Not specified")
+                      ? user.address
+                        ? `${user.address.city}, ${user.address.country}`
+                        : t("Not specified")
                       : t(
-                        "Use a permanent address where you can receive mail."
-                      )}
+                          "Use a permanent address where you can receive mail."
+                        )}
                   </p>
                 </div>
                 <a
