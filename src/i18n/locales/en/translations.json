@@ -49,5 +49,20 @@
     "Country is required": "Country is required",
     "City": "City",
     "City is required": "City is required",
-    "Phone number is required":"Phone number is required"
+    "Phone number is required":"Phone number is required",
+    "Share":"Share",
+    "Save":"Save",
+    "reviews":"reviews",
+    "hosted by":"hosted by",
+    "guests":"guests",
+    "bedrooms":"bedrooms",
+    "beds":"beds",
+    "baths":"baths",
+    "Every booking includes free protection from Host cancellations, listing inaccuracies, and other issues like trouble checking in.":"Every booking includes free protection from Host cancellations, listing inaccuracies, and other issues like trouble checking in.",
+    "Learn more":"Learn more",
+    "Show more":"Show more",
+    "What this place offers":"What this place offers",
+    "Show all amenities":"Show all amenities",
+    "Select checkout date":"Select checkout date",
+    "Add your travel dates for exact pricing":"Add your travel dates for exact pricing"
 }
