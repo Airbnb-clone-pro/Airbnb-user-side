@@ -195,7 +195,7 @@ const Navbar = (props) => {
                                     {t("Airbnb your home")}
                                 </MenuItem>
                             }
-                            <MenuItem className=''>
+                            <MenuItem className='' dir={`${i18n.language === 'en' ? 'ltr' : 'rtl'}`}>
                                 {t("Host your expierence")}
                             </MenuItem>
                             {isAuth &&
