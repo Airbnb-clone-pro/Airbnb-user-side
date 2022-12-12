@@ -83,44 +83,45 @@ const CatList = (props) => {
                     scrollButtons="auto"
                     aria-label="scrollable auto tabs example"
                     className='sm:mx-2 md:mx-5 lg:mx-10 col-10'
+                    disableRipple={true}
                 >
-                    <Tab icon={<LandslideIcon />} label={t("Amazing views")} name="Amazing views" onClick={(e) => { getCatUnits(e.target.name) }} />
-                    <Tab icon={<FeedIcon />} label={t('New')} name="New" onClick={(e) => { getCatUnits(e.target.name) }} />
-                    <Tab icon={<FilterHdrIcon />} label={t("Top of the world")} name="Top of the world" onClick={(e) => { getCatUnits(e.target.name) }} />
-                    <Tab icon={<WhatshotIcon />} label={t("Trending")} value="13" />
-                    <Tab icon={<AccessibleIcon />} label={t("Adapted")} value="10" />
-                    <Tab icon={<SportsHandballIcon />} label={t("Playing")} value="25" />
-                    <Tab icon={<TempleBuddhistIcon />} label={t("Hankoks")} value="38" />
-                    <Tab icon={<AirlineSeatIndividualSuiteIcon />} label={t("Private rooms")} value="19" />
-                    <Tab icon={<LandslideIcon />} label={t("Amazing views")} value="161" />
-                    <Tab icon={<LightIcon />} label={t("OMG!")} value="182" />
-                    <Tab icon={<PoolIcon />} label={t("Amazing pools")} value="17" />
-                    <Tab icon={<HouseIcon />} label={t("Tiny home")} value="87" />
-                    <Tab icon={<LandslideIcon />} label={t("Amazing views")} value="52" />
-                    <Tab icon={<LightIcon />} label={t("OMG!")} value="63" />
-                    <Tab icon={<PoolIcon />} label={t("Amazing pools")} value="71" />
-                    <Tab icon={<LightIcon />} label={t("OMG!")} value="141" />
-                    <Tab icon={<PoolIcon />} label={t("Amazing pools")} value="589" />
-                    <Tab icon={<HouseIcon />} label={t("Tiny home")} value="980" />
-                    <Tab icon={<LandslideIcon />} label={t("Amazing views")} value="1200" />
-                    <Tab icon={<LightIcon />} label={t("OMG!")} value="530" />
-                    <Tab icon={<PoolIcon />} label={t("Amazing pools")} value="892" />
-                    <Tab icon={<PoolIcon />} label={t("Amazing pools")} value="156" />
-                    <Tab icon={<LandslideIcon />} label={t("Amazing views")} value="879" />
-                    <Tab icon={<LightIcon />} label={t("OMG!")} value="564" />
-                    <Tab icon={<PoolIcon />} label={t("Amazing pools")} value="796" />
-                    <Tab icon={<HouseIcon />} label={t("Tiny home")} value="256" />
-                    <Tab icon={<LandslideIcon />} label={t("Amazing views")} value="436" />
-                    <Tab icon={<LightIcon />} label={t("OMG!")} value="452" />
-                    <Tab icon={<PoolIcon />} label={t("Amazing pools")} value="784" />
-                    <Tab icon={<PoolIcon />} label={t("Amazing pools")} value="256" />
-                    <Tab icon={<LandslideIcon />} label={t("Amazing views")} value="203" />
-                    <Tab icon={<LightIcon />} label={t("OMG!")} value="201" />
-                    <Tab icon={<PoolIcon />} label={t("Amazing pools")} value="208" />
-                    <Tab icon={<HouseIcon />} label={t("Tiny home")} value="210" />
-                    <Tab icon={<LandslideIcon />} label={t("Amazing views")} value="202" />
-                    <Tab icon={<LightIcon />} label={t("OMG!")} value="220" />
-                    <Tab icon={<PoolIcon />} label={t("Amazing pools")} value="221" />
+                    <Tab disableRipple={true} icon={<LandslideIcon />} label={t("Amazing views")} name="Amazing views" onClick={(e) => { getCatUnits(e.target.name) }} />
+                    <Tab disableRipple={true} icon={<FeedIcon />} label={t('New')} name="New" onClick={(e) => { getCatUnits(e.target.name) }} />
+                    <Tab disableRipple={true} icon={<FilterHdrIcon />} label={t("Top of the world")} name="Top of the world" onClick={(e) => { getCatUnits(e.target.name) }} />
+                    <Tab disableRipple={true} icon={<WhatshotIcon />} label={t("Trending")} value="13" />
+                    <Tab disableRipple={true} icon={<AccessibleIcon />} label={t("Adapted")} value="10" />
+                    <Tab disableRipple={true} icon={<SportsHandballIcon />} label={t("Playing")} value="25" />
+                    <Tab disableRipple={true} icon={<TempleBuddhistIcon />} label={t("Hankoks")} value="38" />
+                    <Tab disableRipple={true} icon={<AirlineSeatIndividualSuiteIcon />} label={t("Private rooms")} value="19" />
+                    <Tab disableRipple={true} icon={<LandslideIcon />} label={t("Amazing views")} value="161" />
+                    <Tab disableRipple={true} icon={<LightIcon />} label={t("OMG!")} value="182" />
+                    <Tab disableRipple={true} icon={<PoolIcon />} label={t("Amazing pools")} value="17" />
+                    <Tab disableRipple={true} icon={<HouseIcon />} label={t("Tiny home")} value="87" />
+                    <Tab disableRipple={true} icon={<LandslideIcon />} label={t("Amazing views")} value="52" />
+                    <Tab disableRipple={true} icon={<LightIcon />} label={t("OMG!")} value="63" />
+                    <Tab disableRipple={true} icon={<PoolIcon />} label={t("Amazing pools")} value="71" />
+                    <Tab disableRipple={true} icon={<LightIcon />} label={t("OMG!")} value="141" />
+                    <Tab disableRipple={true} icon={<PoolIcon />} label={t("Amazing pools")} value="589" />
+                    <Tab disableRipple={true} icon={<HouseIcon />} label={t("Tiny home")} value="980" />
+                    <Tab disableRipple={true} icon={<LandslideIcon />} label={t("Amazing views")} value="1200" />
+                    <Tab disableRipple={true} icon={<LightIcon />} label={t("OMG!")} value="530" />
+                    <Tab disableRipple={true} icon={<PoolIcon />} label={t("Amazing pools")} value="892" />
+                    <Tab disableRipple={true} icon={<PoolIcon />} label={t("Amazing pools")} value="156" />
+                    <Tab disableRipple={true} icon={<LandslideIcon />} label={t("Amazing views")} value="879" />
+                    <Tab disableRipple={true} icon={<LightIcon />} label={t("OMG!")} value="564" />
+                    <Tab disableRipple={true} icon={<PoolIcon />} label={t("Amazing pools")} value="796" />
+                    <Tab disableRipple={true} icon={<HouseIcon />} label={t("Tiny home")} value="256" />
+                    <Tab disableRipple={true} icon={<LandslideIcon />} label={t("Amazing views")} value="436" />
+                    <Tab disableRipple={true} icon={<LightIcon />} label={t("OMG!")} value="452" />
+                    <Tab disableRipple={true} icon={<PoolIcon />} label={t("Amazing pools")} value="784" />
+                    <Tab disableRipple={true} icon={<PoolIcon />} label={t("Amazing pools")} value="256" />
+                    <Tab disableRipple={true} icon={<LandslideIcon />} label={t("Amazing views")} value="203" />
+                    <Tab disableRipple={true} icon={<LightIcon />} label={t("OMG!")} value="201" />
+                    <Tab disableRipple={true} icon={<PoolIcon />} label={t("Amazing pools")} value="208" />
+                    <Tab disableRipple={true} icon={<HouseIcon />} label={t("Tiny home")} value="210" />
+                    <Tab disableRipple={true} icon={<LandslideIcon />} label={t("Amazing views")} value="202" />
+                    <Tab disableRipple={true} icon={<LightIcon />} label={t("OMG!")} value="220" />
+                    <Tab disableRipple={true} icon={<PoolIcon />} label={t("Amazing pools")} value="221" />
                 </Tabs>
                 <div className='col-1'>
                     <button className="btn btn-white lg:me-2 me-1 border">
