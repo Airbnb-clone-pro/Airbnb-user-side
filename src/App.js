@@ -14,6 +14,8 @@ import Home from "./pages/home/home";
 import AccountSettings from "./pages/account-settings/account-settings";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import PersonalInfo from "./pages/personal-info/Personal-info";
+import Unit from "./pages/unit/unit";
+import "./pages/unit/unit.scss";
 
 function App() {
   const [showLogin, setShowLogin] = useState(false);
@@ -83,6 +85,7 @@ function App() {
                     component={PersonalInfo}
                   />
                 )}
+                <Route path="/units/:unitId" exact component={Unit} />
               </Switch>
             </SignupProvider>
           </LoginProvider>
@@ -91,5 +94,6 @@ function App() {
     </div>
   );
 }
+
 
 export default App;
