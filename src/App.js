@@ -12,7 +12,7 @@ import { GetUser } from "./store/actions/getUser";
 import { AuthProvider } from "./contexts/auth";
 import Home from "./pages/home/home";
 import AccountSettings from "./pages/account-settings/account-settings";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, Link, Redirect } from "react-router-dom";
 import PersonalInfo from "./pages/personal-info/Personal-info";
 
 function App() {
@@ -69,20 +69,20 @@ function App() {
 
               <Switch>
                 <Route path="/" exact component={Home} />
-                {isAuth && (
+                {isAuth ? (
                   <Route
                     path="/account-settings"
                     exact
                     component={AccountSettings}
                   />
-                )}
-                {isAuth && (
+                ) : <Redirect to='/' />}
+                {isAuth ? (
                   <Route
                     path="/account-settings/personal-info"
                     exact
                     component={PersonalInfo}
                   />
-                )}
+                ) : <Redirect to='/' />}
               </Switch>
             </SignupProvider>
           </LoginProvider>

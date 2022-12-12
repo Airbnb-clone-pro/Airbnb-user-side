@@ -56,8 +56,8 @@ const CatList = (props) => {
 
     return (
         <div
-        className=""
-        dir={`${i18n.language === "en" ? "ltr" : "rtl"}`}
+            className=""
+            dir={`${i18n.language === "en" ? "ltr" : "rtl"}`}
         >
             <hr />
             <Tabs
@@ -106,7 +106,6 @@ const CatList = (props) => {
                 <Tab icon={<LightIcon />} label={t("OMG!")} />
                 <Tab icon={<PoolIcon />} label={t("Amazing pools")} />
             </Tabs>
-
         </div>
     );
 };
