@@ -8,11 +8,14 @@ import "swiper/css/navigation";
 import "swiper/css/scrollbar";
 import "swiper/css/pagination";
 import "./card.css";
+import { useSelector } from "react-redux";
+import { useTranslation } from "react-i18next";
 
 const SingleCard = ({ data }) => {
   const { images, title, subtitle, price, date } = data;
+  const {t, i18n} = useTranslation()
   return (
-    <div>
+    <div dir={`${i18n.language==='en' ? 'ltr': 'rtl'}`}>
       <Card className="rounded-0 p-0 border-0">
         <Swiper
           navigation={true}

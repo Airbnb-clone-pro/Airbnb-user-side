@@ -90,71 +90,70 @@ const Search = () => {
 
     return (
         <div className="sticky top-0 z-50 bg-white/[95%]  ">
-
             {/* Middle */}
             <div className="searchDiv hidden lg:flex justify-between items-center relative shadow-sm shadow-gray-400 border rounded-full">
-                <div id='input-div' className="flex justify-between absolute w-full pr-16 pl-6 font-semibold text-gray-600">
-                    <div>
-                        <Box sx={{ minWidth: 120 }}>
-                            <FormControl variant="standard" sx={{ minWidth: 120 }}>
-                                <InputLabel id="demo-simple-select-label">Place</InputLabel>
-                                <Select
-                                    labelId="demo-simple-select-label"
-                                    id="demo-simple-select"
-                                    value={place}
-                                    label="Place"
-                                    onChange={handlePlaceChange}
-                                >
-                                    <MenuItem value={1}>Europe</MenuItem>
-                                    <MenuItem value={2}>USA</MenuItem>
-                                    <MenuItem value={3}>Africa</MenuItem>
-                                    <MenuItem value={4}>Asturalia</MenuItem>
-                                </Select>
-                            </FormControl>
-                        </Box>
+                    <div id='input-div' className="flex justify-between absolute w-full pr-16 pl-6 font-semibold text-gray-600">
+                        <div>
+                            <Box sx={{ minWidth: 80 }}>
+                                <FormControl variant="standard" sx={{ minWidth: 80 }}>
+                                    <InputLabel id="demo-simple-select-label">Place</InputLabel>
+                                    <Select
+                                        labelId="demo-simple-select-label"
+                                        id="demo-simple-select"
+                                        value={place}
+                                        label="Place"
+                                        onChange={handlePlaceChange}
+                                    >
+                                        <MenuItem value={1}>Europe</MenuItem>
+                                        <MenuItem value={2}>USA</MenuItem>
+                                        <MenuItem value={3}>Africa</MenuItem>
+                                        <MenuItem value={4}>Asturalia</MenuItem>
+                                    </Select>
+                                </FormControl>
+                            </Box>
+                        </div>
+                        <div>
+                            <Box sx={{ minWidth: 80 }}>
+                                <FormControl variant="standard" sx={{ minWidth: 80 }}>
+                                    <InputLabel id="demo-simple-select-label">Date</InputLabel>
+                                    <Select
+                                        labelId="demo-simple-select-label"
+                                        id="demo-simple-select"
+                                        value={date}
+                                        label="Date"
+                                        onChange={handleDateChange}
+                                    >
+                                        <MenuItem value={1}>One day</MenuItem>
+                                        <MenuItem value={2}>Four days</MenuItem>
+                                        <MenuItem value={3}>One week</MenuItem>
+                                    </Select>
+                                </FormControl>
+                            </Box>
+                        </div>
+                        <div>
+                            <Box sx={{ minWidth: 80 }}>
+                                <FormControl variant="standard" sx={{ minWidth: 80 }} >
+                                    <InputLabel id="demo-simple-select-label">Group</InputLabel>
+                                    <Select
+                                        labelId="demo-simple-select-label"
+                                        id="demo-simple-select"
+                                        value={group}
+                                        label="Group"
+                                        onChange={handleGroupChange}
+                                    >
+                                        <MenuItem value={1}>Single</MenuItem>
+                                        <MenuItem value={2}>Couple</MenuItem>
+                                        <MenuItem value={'3-10'}>Family</MenuItem>
+                                    </Select>
+                                </FormControl>
+                            </Box>
+                        </div>
+                        <button type='submit' className="ico bg-[#ff5a60] me-0 rounded-full"
+                            onClick={search}>
+                            <FiSearch className="text-white" />
+                        </button>
                     </div>
-                    <div>
-                        <Box sx={{ minWidth: 120 }}>
-                            <FormControl variant="standard" sx={{ minWidth: 120 }}>
-                                <InputLabel id="demo-simple-select-label">Date</InputLabel>
-                                <Select
-                                    labelId="demo-simple-select-label"
-                                    id="demo-simple-select"
-                                    value={date}
-                                    label="Date"
-                                    onChange={handleDateChange}
-                                >
-                                    <MenuItem value={1}>One day</MenuItem>
-                                    <MenuItem value={2}>Four days</MenuItem>
-                                    <MenuItem value={3}>One week</MenuItem>
-                                </Select>
-                            </FormControl>
-                        </Box>
-                    </div>
-                    <div>
-                        <Box sx={{ minWidth: 120 }}>
-                            <FormControl variant="standard" sx={{ minWidth: 120 }} >
-                                <InputLabel id="demo-simple-select-label">Group</InputLabel>
-                                <Select
-                                    labelId="demo-simple-select-label"
-                                    id="demo-simple-select"
-                                    value={group}
-                                    label="Group"
-                                    onChange={handleGroupChange}
-                                >
-                                    <MenuItem value={1}>Single</MenuItem>
-                                    <MenuItem value={2}>Couple</MenuItem>
-                                    <MenuItem value={'3-10'}>Family</MenuItem>
-                                </Select>
-                            </FormControl>
-                        </Box>
-                    </div>
-                    <button type='submit' className="ico bg-[#ff5a60] me-0 rounded-full"
-                        onClick={search}>
-                        <FiSearch className="text-white" />
-                    </button>
                 </div>
-            </div>
             {/* Right */}
 
             <div>

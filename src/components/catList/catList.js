@@ -47,9 +47,6 @@ const CatList = (props) => {
     const { isAuth, setAuth } = useContext(authContext);
 
 
-
-
-
     const [value, setValue] = React.useState(0);
 
     const handleChange = (event, newValue) => {
@@ -58,8 +55,10 @@ const CatList = (props) => {
 
 
     return (
-        <div className="  ">
-
+        <div
+        className=""
+        dir={`${i18n.language === "en" ? "ltr" : "rtl"}`}
+        >
             <hr />
             <Tabs
                 value={value}
@@ -69,43 +68,43 @@ const CatList = (props) => {
                 aria-label="scrollable auto tabs example"
                 className='flex items-center justify-around sm:mx-6 md:mx-10 lg:mx-20'
             >
-                <Tab icon={<FeedIcon />} label="New" className='' />
-                <Tab icon={<FilterHdrIcon />} label="Top of the world" />
-                <Tab icon={<WhatshotIcon />} label="Trending" />
-                <Tab icon={<AccessibleIcon />} label="Adapted" />
-                <Tab icon={<SportsHandballIcon />} label="Playing" />
-                <Tab icon={<TempleBuddhistIcon />} label="Hankoks" />
-                <Tab icon={<AirlineSeatIndividualSuiteIcon />} label="Private rooms" />
-                <Tab icon={<LandslideIcon />} label="Amazing views" />
-                <Tab icon={<LightIcon />} label="OMG!" />
-                <Tab icon={<PoolIcon />} label="Amazing pools" />
-                <Tab icon={<HouseIcon />} label="Tiny home" />
-                <Tab icon={<LandslideIcon />} label="Amazing views" />
-                <Tab icon={<LightIcon />} label="OMG!" />
-                <Tab icon={<PoolIcon />} label="Amazing pools" />
-                <Tab icon={<LandslideIcon />} label="Amazing views" />
-                <Tab icon={<LightIcon />} label="OMG!" />
-                <Tab icon={<PoolIcon />} label="Amazing pools" />
-                <Tab icon={<HouseIcon />} label="Tiny home" />
-                <Tab icon={<LandslideIcon />} label="Amazing views" />
-                <Tab icon={<LightIcon />} label="OMG!" />
-                <Tab icon={<PoolIcon />} label="Amazing pools" />
-                <Tab icon={<PoolIcon />} label="Amazing pools" />
-                <Tab icon={<LandslideIcon />} label="Amazing views" />
-                <Tab icon={<LightIcon />} label="OMG!" />
-                <Tab icon={<PoolIcon />} label="Amazing pools" />
-                <Tab icon={<HouseIcon />} label="Tiny home" />
-                <Tab icon={<LandslideIcon />} label="Amazing views" />
-                <Tab icon={<LightIcon />} label="OMG!" />
-                <Tab icon={<PoolIcon />} label="Amazing pools" />
-                <Tab icon={<PoolIcon />} label="Amazing pools" />
-                <Tab icon={<LandslideIcon />} label="Amazing views" />
-                <Tab icon={<LightIcon />} label="OMG!" />
-                <Tab icon={<PoolIcon />} label="Amazing pools" />
-                <Tab icon={<HouseIcon />} label="Tiny home" />
-                <Tab icon={<LandslideIcon />} label="Amazing views" />
-                <Tab icon={<LightIcon />} label="OMG!" />
-                <Tab icon={<PoolIcon />} label="Amazing pools" />
+                <Tab icon={<FeedIcon />} label={t('New')} className='' />
+                <Tab icon={<FilterHdrIcon />} label={t("Top of the world")} />
+                <Tab icon={<WhatshotIcon />} label={t("Trending")} />
+                <Tab icon={<AccessibleIcon />} label={t("Adapted")} />
+                <Tab icon={<SportsHandballIcon />} label={t("Playing")} />
+                <Tab icon={<TempleBuddhistIcon />} label={t("Hankoks")} />
+                <Tab icon={<AirlineSeatIndividualSuiteIcon />} label={t("Private rooms")} />
+                <Tab icon={<LandslideIcon />} label={t("Amazing views")} />
+                <Tab icon={<LightIcon />} label={t("OMG!")} />
+                <Tab icon={<PoolIcon />} label={t("Amazing pools")} />
+                <Tab icon={<HouseIcon />} label={t("Tiny home")} />
+                <Tab icon={<LandslideIcon />} label={t("Amazing views")} />
+                <Tab icon={<LightIcon />} label={t("OMG!")} />
+                <Tab icon={<PoolIcon />} label={t("Amazing pools")} />
+                <Tab icon={<LandslideIcon />} label={t("Amazing views")} />
+                <Tab icon={<LightIcon />} label={t("OMG!")} />
+                <Tab icon={<PoolIcon />} label={t("Amazing pools")} />
+                <Tab icon={<HouseIcon />} label={t("Tiny home")} />
+                <Tab icon={<LandslideIcon />} label={t("Amazing views")} />
+                <Tab icon={<LightIcon />} label={t("OMG!")} />
+                <Tab icon={<PoolIcon />} label={t("Amazing pools")} />
+                <Tab icon={<PoolIcon />} label={t("Amazing pools")} />
+                <Tab icon={<LandslideIcon />} label={t("Amazing views")} />
+                <Tab icon={<LightIcon />} label={t("OMG!")} />
+                <Tab icon={<PoolIcon />} label={t("Amazing pools")} />
+                <Tab icon={<HouseIcon />} label={t("Tiny home")} />
+                <Tab icon={<LandslideIcon />} label={t("Amazing views")} />
+                <Tab icon={<LightIcon />} label={t("OMG!")} />
+                <Tab icon={<PoolIcon />} label={t("Amazing pools")} />
+                <Tab icon={<PoolIcon />} label={t("Amazing pools")} />
+                <Tab icon={<LandslideIcon />} label={t("Amazing views")} />
+                <Tab icon={<LightIcon />} label={t("OMG!")} />
+                <Tab icon={<PoolIcon />} label={t("Amazing pools")} />
+                <Tab icon={<HouseIcon />} label={t("Tiny home")} />
+                <Tab icon={<LandslideIcon />} label={t("Amazing views")} />
+                <Tab icon={<LightIcon />} label={t("OMG!")} />
+                <Tab icon={<PoolIcon />} label={t("Amazing pools")} />
             </Tabs>
 
         </div>

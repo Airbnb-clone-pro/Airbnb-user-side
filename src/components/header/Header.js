@@ -44,10 +44,8 @@ const Navbar = (props) => {
     const { t, i18n } = useTranslation();
     const handleLang = () => {
         i18n.changeLanguage(i18n.language === "en" ? "ar" : "en");
-        console.log(i18n.language);
     };
 
-    const dispatch = useDispatch()
     const { isAuth, setAuth } = useContext(authContext);
 
 
@@ -78,11 +76,15 @@ const Navbar = (props) => {
 
 
     return (
-        <div className="sticky top-0 z-50 bg-white/[95%]  ">
-            <div className="flex justify-between items-center sm:mx-6 md:mx-10 lg:mx-12">
+        <>
+        <div className='h-12 bg-light flex items-center justify-center'>
+            <h5 >{t("Introducing our 2022 Winter Release")}</h5>
+        </div>
+        <div className="sticky top-0 z-50 bg-white/[95%]" dir={`${i18n.language==='en'? 'ltr' : 'rtl'}`}>
+            <div className="head flex justify-between items-center sm:mx-6 md:mx-10 lg:mx-12">
                 {/* Left */}
                 <div className="block w-auto flex">
-                    <img alt="" src={logo} className="object-cover my-10 h-0 md:h-8 lg:h-12" />
+                    <img alt="" src={logo} className="object-cover my-10 h-0 md:h-5 lg:h-8" />
                 </div>
                 {/* Middle */}
                 {location.pathname === '/' && <Search />}
@@ -91,12 +93,12 @@ const Navbar = (props) => {
                 <div className="hidden md:flex items-center pr-3 font-semibold text-gray-600">
 
                     {!isAuth ?
-                        <p className="text-[17px] pt-3">Airbnb your home</p> :
+                        <p className="text-[17px] pt-3">{t("Airbnb your home")}</p> :
                         <p className="text-[17px] pt-3">Switch to hosting</p>
                     }
                     <button className="flex items-center mx-8 gap-1" onClick={handleLang}>
                         <BiWorld className="" />
-                        <div className="">EN</div>
+                        <div className="">{`${i18n.language === 'en' ? 'AR' : 'EN'}`}</div>
                     </button>
                     <IconButton
                         onClick={handleClick}
@@ -137,7 +139,7 @@ const Navbar = (props) => {
                                     width: 10,
                                     height: 10,
                                     bgcolor: 'background.paper',
-                                    transform: 'translateY(-50%) rotate(45deg)',
+                                    transform: `${i18n.language==="en"? 'translateY(-50%)': 'translateY(50%)'} rotate(45deg)`,
                                     zIndex: 0,
                                 },
                             },
@@ -148,14 +150,14 @@ const Navbar = (props) => {
                     >
                         {!isAuth &&
                             <MenuItem onClick={handleShowLogin} >
-                                Log in
+                                {t("Log in")}
                             </MenuItem>
 
                         }
                         {!isAuth &&
                             <MenuItem onClick={handleShowSignup} className='py-0'>
 
-                                Sign Up
+                                {t("Sign Up")}
                             </MenuItem>
                         }
                         {!isAuth &&
@@ -163,7 +165,7 @@ const Navbar = (props) => {
                         }
                         {isAuth &&
                             <MenuItem>
-                                Messages
+                                {t("Messages")}
                             </MenuItem>
                         }
                         {isAuth &&
@@ -173,12 +175,12 @@ const Navbar = (props) => {
                         }
                         {isAuth &&
                             <MenuItem>
-                                Trips
+                                {t("Trips")}
                             </MenuItem>
                         }
                         {isAuth &&
                             <MenuItem>
-                                Whitelists
+                                {t("Whitelists")}
                             </MenuItem>
                         }
                         {/* <Divider /> */}
@@ -190,11 +192,11 @@ const Navbar = (props) => {
                         }
                         {!isAuth &&
                             <MenuItem className=''>
-                                Airbnb your home
+                                {t("Airbnb your home")}
                             </MenuItem>
                         }
                         <MenuItem className=''>
-                            Host your expierence
+                            {t("Host your expierence")}
                         </MenuItem>
                         {isAuth &&
                             <Link
@@ -202,18 +204,17 @@ const Navbar = (props) => {
                                 className="text-decoration-none text-dark"
                             >
                                 <MenuItem className="">
-
-                                    Account
+                                    {t("Account")}
                                 </MenuItem>
                             </Link>
                         }
 
                         <MenuItem className='pb-0'>
-                            Help
+                            {t("Help")}
                         </MenuItem>
                         {isAuth &&
                             <MenuItem onClick={() => { logout() }} className='py-0'>
-                                Logout
+                                {t("Logout")}
                             </MenuItem>
                         }
                     </Menu>
@@ -221,6 +222,7 @@ const Navbar = (props) => {
             </div>
 
         </div>
+        </>
     );
 };
 
