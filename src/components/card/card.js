@@ -8,12 +8,30 @@ import "swiper/css/navigation";
 import "swiper/css/scrollbar";
 import "swiper/css/pagination";
 import "./card.css";
+import { useSelector } from "react-redux";
+import { useTranslation } from "react-i18next";
+import logo from '../../assets/02.webp';
+import { useHistory } from "react-router-dom";
 
 const SingleCard = ({ data }) => {
-  const { images, title, subtitle, price, date } = data;
+  const { title, location, pricePerNight
+    , date, images, id } = data;
+  const { t, i18n } = useTranslation()
+  const history = useHistory();
+  // const images = [
+  //   logo,
+  //   logo,
+  //   logo,
+  //   logo,
+  //   logo,
+  // ]
+  const goToUnitPage = () => {
+    console.log(data);
+    history.push(`/unit-details/${id}`)
+  }
   return (
-    <div>
-      <Card className="rounded-0 p-0 border-0">
+    <div dir={`${i18n.language === 'en' ? 'ltr' : 'rtl'}`}>
+      <Card className="rounded-0 p-0 border-0" onClick={() => { goToUnitPage() }}>
         <Swiper
           navigation={true}
           className="w-100"
@@ -38,13 +56,13 @@ const SingleCard = ({ data }) => {
         </Swiper>
 
         <Card.Body>
-          <Card.Title>{title}</Card.Title>
-          <Card.Subtitle className="mb-2 text-muted">{subtitle}</Card.Subtitle>
+          <Card.Title>{location?.city}, {location?.country}</Card.Title>
+          <Card.Subtitle className="mb-2 text-muted">{title}</Card.Subtitle>
 
-          <Card.Text className="mb-1">{date}</Card.Text>
+          <Card.Text className="mb-1">{date?.start}</Card.Text>
 
           <Card.Text>
-            <b className="text-black-50 me-1">${price}</b>night
+            <b className="text-black-50 me-1">${pricePerNight}</b>night
           </Card.Text>
         </Card.Body>
       </Card>

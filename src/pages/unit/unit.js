@@ -23,10 +23,22 @@ const Unit = () => {
   // console.log(params)
   const [startDate, setStartDate] = useState(new Date());
   const color = grey["A700"];
+  // useEffect(() => {
+  //   // console.log("sssssssssssssssssssss")
+  //   axiosInstance
+  //     .get(`/units/${params.unitId}?lang=${i18n.language}`)
+  //     .then((res) => {
+  //       // console.log(res.data);
+  //       setUnit(res.data);
+  //       setLoading(false)
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // }, []);
   useEffect(() => {
-    // console.log("sssssssssssssssssssss")
     axiosInstance
-      .get(`/units/${params.unitId}`)
+      .get(`/units/${params.unitId}?lang=${i18n.language}`)
       .then((res) => {
         // console.log(res.data);
         setUnit(res.data);
@@ -35,7 +47,8 @@ const Unit = () => {
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+  },[i18n.language])
+  
   useEffect(() => {
     setWidth(ref.current.offsetWidth);
     console.log(width);
@@ -44,7 +57,7 @@ const Unit = () => {
     console.log(this.scrollY)
     if (this.scrollY < 460) {
       setReservetionPosition(1);
-    }else if(this.scrollY >= 460){
+    } else if (this.scrollY >= 460) {
       setReservetionPosition(2);
     }
     else {
@@ -138,7 +151,7 @@ const Unit = () => {
                 <div className="">
                   <h4 className="fw-bold">
                     {" "}
-                    {`${unit.unitType} ${t("hosted by")} ${unit.host?.firstName || ""} ${unit.host?.lastName || ""}`}
+                    {`${unit.unitType} ${t("hosted by")} ${"unit.host?.firstName?" } ${"unit.host?.lastName?" }`}
                   </h4>
                   <p>
                     {" "}
@@ -147,7 +160,7 @@ const Unit = () => {
                 </div>
                 <div>
                   <Avatar alt="" src="" sx={{ width: 56, height: 56 }}>
-                    {unit.host?.firstName[0].toUpperCase()}
+                    {""}
                   </Avatar>
                 </div>
               </div>
@@ -164,38 +177,7 @@ const Unit = () => {
                 </div>
               </div>)}
 
-              {/* -------------------------- */}
-              <div className="d-flex justify-content-start mb-4 pt-3" >
-                <i
-                  className={`bi bi-star fs-2`}
-                ></i>
-                <div className="pt-1 mx-3">
-                  <p className="fw-bold p-0 m-0">dsjkd</p>
-                  <p className="text-secondary p-0 m-0">
-                    dksjkd                  </p>
-                </div>
-              </div>
-              <div className="d-flex justify-content-start mb-4 pt-3" >
-                <i
-                  className={`bi bi-star fs-2`}
-                ></i>
-                <div className="pt-1 mx-3">
-                  <p className="fw-bold p-0 m-0">dsjkd</p>
-                  <p className="text-secondary p-0 m-0">
-                    dksjkd                  </p>
-                </div>
-              </div>
-              <div className="d-flex justify-content-start mb-4 pt-3" >
-                <i
-                  className={`bi bi-star fs-2`}
-                ></i>
-                <div className="pt-1 mx-3">
-                  <p className="fw-bold p-0 m-0">dsjkd</p>
-                  <p className="text-secondary p-0 m-0">
-                    dksjkd                  </p>
-                </div>
-              </div>
-              {/* -------------------------- */}
+              
 
 
               <Divider style={{ background: "#757575" }} className="my-3" />
@@ -220,7 +202,7 @@ const Unit = () => {
               {/* ------------ unit description ------------ */}
               <div className="py-3">
                 <p className="unit-description">
-                  {unit.discription}
+                  {unit.description}
                 </p>
                 <p className="fw-bold text-decoration-underline">
                   {" "}
@@ -250,8 +232,8 @@ const Unit = () => {
             </div>
             {/* ------------------------------------------------- */}
             {/* -------------Unit reservation ------------------- */}
-            <div className={`d-none col-lg-4 d-lg-flex flex-column ${reservetionPosition===1?"justify-content-start":""}  my-4 py-3`} ref={ref}>
-              <div className={` p-3 border  shadow-lg rounded-3 ${reservetionPosition===2 ? "reservation-box" : ""}`} style={{ width: width }}>
+            <div className={`d-none col-lg-4 d-lg-flex flex-column ${reservetionPosition === 1 ? "justify-content-start" : ""}  my-4 py-3`} ref={ref}>
+              <div className={` p-3 border  shadow-lg rounded-3 ${reservetionPosition === 2 ? "reservation-box" : ""}`} style={{ width: width }}>
                 <div className="d-flex flex-row justify-content-between">
                   <div className="d-flex flex-row">
                     <h5 className="fw-bold">{`$ ${unit.pricePerNight}  `}</h5>

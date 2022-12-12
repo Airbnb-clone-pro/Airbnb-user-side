@@ -12,7 +12,7 @@ import { GetUser } from "./store/actions/getUser";
 import { AuthProvider } from "./contexts/auth";
 import Home from "./pages/home/home";
 import AccountSettings from "./pages/account-settings/account-settings";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, Link, Redirect } from "react-router-dom";
 import PersonalInfo from "./pages/personal-info/Personal-info";
 import Unit from "./pages/unit/unit";
 import "./pages/unit/unit.scss";
@@ -71,21 +71,22 @@ function App() {
 
               <Switch>
                 <Route path="/" exact component={Home} />
-                {isAuth && (
+                <Route path="/unit-details/:unitId" exact component={Unit} />
+                {isAuth ? (
                   <Route
                     path="/account-settings"
                     exact
                     component={AccountSettings}
                   />
-                )}
-                {isAuth && (
+                ) : <Redirect to='/' />}
+                {isAuth ? (
                   <Route
                     path="/account-settings/personal-info"
                     exact
                     component={PersonalInfo}
                   />
-                )}
-                <Route path="/units/:unitId" exact component={Unit} />
+                ) : <Redirect to='/' />}
+
               </Switch>
             </SignupProvider>
           </LoginProvider>
