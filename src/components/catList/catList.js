@@ -65,6 +65,8 @@ const CatList = (props) => {
     }
 
 
+    // i18n.language==="en"?document.querySelector(".bi-sliders2-vertical").classList.add("me-1"):document.querySelector(".bi-sliders2-vertical").classList.add("ms-1")
+
 
     return (
         <div className='container-fluid'>
@@ -123,7 +125,7 @@ const CatList = (props) => {
                 <div className='col-1'>
                     <button className="btn btn-white lg:me-2 me-1 border">
                         <div className='flex justify-around'>
-                            <i className="bi bi-sliders2-vertical"></i>
+                            <i className={`${i18n.language === 'en' ? "bi bi-sliders2-vertical me-2" : "bi bi-sliders2-vertical ms-1"}`}></i>
                             <h6>{t("Filter")}</h6>
                         </div>
                     </button>
