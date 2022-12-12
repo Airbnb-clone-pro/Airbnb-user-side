@@ -34,7 +34,7 @@ import { authContext } from '../../contexts/auth';
 import { GetUser } from '../../store/actions/getUser';
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-
+import './catList.css'
 
 
 const CatList = (props) => {
@@ -51,62 +51,75 @@ const CatList = (props) => {
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
+        console.log(value)
     };
+
+    // i18n.language==="en"?document.querySelector(".bi-sliders2-vertical").classList.add("me-1"):document.querySelector(".bi-sliders2-vertical").classList.add("ms-1")
 
 
     return (
-        <div
-        className=""
-        dir={`${i18n.language === "en" ? "ltr" : "rtl"}`}
-        >
-            <hr />
-            <Tabs
-                value={value}
-                onChange={handleChange}
-                variant="scrollable"
-                scrollButtons="auto"
-                aria-label="scrollable auto tabs example"
-                className='flex items-center justify-around sm:mx-6 md:mx-10 lg:mx-20'
+        <div className='container-fluid'>
+            <div
+                className="row flex items-center"
+                dir={`${i18n.language === "en" ? "ltr" : "rtl"}`}
             >
-                <Tab icon={<FeedIcon />} label={t('New')} className='' />
-                <Tab icon={<FilterHdrIcon />} label={t("Top of the world")} />
-                <Tab icon={<WhatshotIcon />} label={t("Trending")} />
-                <Tab icon={<AccessibleIcon />} label={t("Adapted")} />
-                <Tab icon={<SportsHandballIcon />} label={t("Playing")} />
-                <Tab icon={<TempleBuddhistIcon />} label={t("Hankoks")} />
-                <Tab icon={<AirlineSeatIndividualSuiteIcon />} label={t("Private rooms")} />
-                <Tab icon={<LandslideIcon />} label={t("Amazing views")} />
-                <Tab icon={<LightIcon />} label={t("OMG!")} />
-                <Tab icon={<PoolIcon />} label={t("Amazing pools")} />
-                <Tab icon={<HouseIcon />} label={t("Tiny home")} />
-                <Tab icon={<LandslideIcon />} label={t("Amazing views")} />
-                <Tab icon={<LightIcon />} label={t("OMG!")} />
-                <Tab icon={<PoolIcon />} label={t("Amazing pools")} />
-                <Tab icon={<LandslideIcon />} label={t("Amazing views")} />
-                <Tab icon={<LightIcon />} label={t("OMG!")} />
-                <Tab icon={<PoolIcon />} label={t("Amazing pools")} />
-                <Tab icon={<HouseIcon />} label={t("Tiny home")} />
-                <Tab icon={<LandslideIcon />} label={t("Amazing views")} />
-                <Tab icon={<LightIcon />} label={t("OMG!")} />
-                <Tab icon={<PoolIcon />} label={t("Amazing pools")} />
-                <Tab icon={<PoolIcon />} label={t("Amazing pools")} />
-                <Tab icon={<LandslideIcon />} label={t("Amazing views")} />
-                <Tab icon={<LightIcon />} label={t("OMG!")} />
-                <Tab icon={<PoolIcon />} label={t("Amazing pools")} />
-                <Tab icon={<HouseIcon />} label={t("Tiny home")} />
-                <Tab icon={<LandslideIcon />} label={t("Amazing views")} />
-                <Tab icon={<LightIcon />} label={t("OMG!")} />
-                <Tab icon={<PoolIcon />} label={t("Amazing pools")} />
-                <Tab icon={<PoolIcon />} label={t("Amazing pools")} />
-                <Tab icon={<LandslideIcon />} label={t("Amazing views")} />
-                <Tab icon={<LightIcon />} label={t("OMG!")} />
-                <Tab icon={<PoolIcon />} label={t("Amazing pools")} />
-                <Tab icon={<HouseIcon />} label={t("Tiny home")} />
-                <Tab icon={<LandslideIcon />} label={t("Amazing views")} />
-                <Tab icon={<LightIcon />} label={t("OMG!")} />
-                <Tab icon={<PoolIcon />} label={t("Amazing pools")} />
-            </Tabs>
-
+                <hr />
+                <Tabs
+                    value={value}
+                    onChange={handleChange}
+                    indicatorColor="secondary"
+                    variant="scrollable"
+                    scrollButtons="auto"
+                    aria-label="scrollable auto tabs example"
+                    className='sm:mx-2 md:mx-5 lg:mx-10 col-10'
+                >
+                    <Tab icon={<FeedIcon />} label={t('New')} value="12" />
+                    <Tab icon={<FilterHdrIcon />} label={t("Top of the world")} value="15" />
+                    <Tab icon={<WhatshotIcon />} label={t("Trending")} value="13" />
+                    <Tab icon={<AccessibleIcon />} label={t("Adapted")} value="10" />
+                    <Tab icon={<SportsHandballIcon />} label={t("Playing")} value="25" />
+                    <Tab icon={<TempleBuddhistIcon />} label={t("Hankoks")} value="38" />
+                    <Tab icon={<AirlineSeatIndividualSuiteIcon />} label={t("Private rooms")} value="19" />
+                    <Tab icon={<LandslideIcon />} label={t("Amazing views")} value="161" />
+                    <Tab icon={<LightIcon />} label={t("OMG!")} value="182" />
+                    <Tab icon={<PoolIcon />} label={t("Amazing pools")} value="17" />
+                    <Tab icon={<HouseIcon />} label={t("Tiny home")} value="87" />
+                    <Tab icon={<LandslideIcon />} label={t("Amazing views")} value="52" />
+                    <Tab icon={<LightIcon />} label={t("OMG!")} value="63" />
+                    <Tab icon={<PoolIcon />} label={t("Amazing pools")} value="71" />
+                    <Tab icon={<LandslideIcon />} label={t("Amazing views")} value="281" />
+                    <Tab icon={<LightIcon />} label={t("OMG!")} value="141" />
+                    <Tab icon={<PoolIcon />} label={t("Amazing pools")} value="589" />
+                    <Tab icon={<HouseIcon />} label={t("Tiny home")} value="980" />
+                    <Tab icon={<LandslideIcon />} label={t("Amazing views")} value="1200" />
+                    <Tab icon={<LightIcon />} label={t("OMG!")} value="530" />
+                    <Tab icon={<PoolIcon />} label={t("Amazing pools")} value="892" />
+                    <Tab icon={<PoolIcon />} label={t("Amazing pools")} value="156" />
+                    <Tab icon={<LandslideIcon />} label={t("Amazing views")} value="879" />
+                    <Tab icon={<LightIcon />} label={t("OMG!")} value="564" />
+                    <Tab icon={<PoolIcon />} label={t("Amazing pools")} value="796" />
+                    <Tab icon={<HouseIcon />} label={t("Tiny home")} value="256" />
+                    <Tab icon={<LandslideIcon />} label={t("Amazing views")} value="436" />
+                    <Tab icon={<LightIcon />} label={t("OMG!")} value="452" />
+                    <Tab icon={<PoolIcon />} label={t("Amazing pools")} value="784" />
+                    <Tab icon={<PoolIcon />} label={t("Amazing pools")} value="256" />
+                    <Tab icon={<LandslideIcon />} label={t("Amazing views")} value="203" />
+                    <Tab icon={<LightIcon />} label={t("OMG!")} value="201" />
+                    <Tab icon={<PoolIcon />} label={t("Amazing pools")} value="208" />
+                    <Tab icon={<HouseIcon />} label={t("Tiny home")} value="210" />
+                    <Tab icon={<LandslideIcon />} label={t("Amazing views")} value="202" />
+                    <Tab icon={<LightIcon />} label={t("OMG!")} value="220" />
+                    <Tab icon={<PoolIcon />} label={t("Amazing pools")} value="221" />
+                </Tabs>
+                <div className='col-1'>
+                <button className="btn btn-white lg:me-2 me-1 border">
+                    <div className='flex justify-around'>
+                        <i class="bi bi-sliders2-vertical"></i>
+                        <h6>{t("Filter")}</h6>
+                    </div>
+                </button>
+                </div>
+            </div>
         </div>
     );
 };
