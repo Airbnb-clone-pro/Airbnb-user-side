@@ -4,12 +4,12 @@ import { useContext, useEffect } from 'react';
 import { authContext } from '../../contexts/auth';
 
 
-export function getCat(catName) {
+export function GetCat(catName) {
     // const dispatch = useDispatch()
     // useEffect(() => {
     //     dispatch(setUser())
     // }, []);
-
+    const lang=localStorage.getItem('lang');
 
     let config = {
         headers: {
@@ -17,7 +17,7 @@ export function getCat(catName) {
     }
     return (dispatch) => {
         console.log(catName);
-        axiosInstance.get(`/units/category/${catName}?lang=en`, config).then((res) => {
+        axiosInstance.get(`/units/category/${catName}?lang=${lang}`, config).then((res) => {
             console.log(res.data);
             console.log(45555555);
 

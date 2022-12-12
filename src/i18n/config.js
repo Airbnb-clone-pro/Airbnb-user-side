@@ -1,9 +1,11 @@
 import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
 
+const lang = localStorage.getItem("lang") || "en";
+
 i18n.use(initReactI18next).init({
   fallbackLng: "en",
-  lng: "en",
+  lng: lang,
   resources: {
     en: {
       translations: require("./locales/en/translations.json"),

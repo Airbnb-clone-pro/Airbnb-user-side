@@ -43,7 +43,10 @@ const Navbar = (props) => {
     console.log(location);
     const { t, i18n } = useTranslation();
     const handleLang = () => {
-        i18n.changeLanguage(i18n.language === "en" ? "ar" : "en");
+        const lang = localStorage.getItem('lang')
+
+        i18n.changeLanguage(lang === "en" ? "ar" : "en");
+        localStorage.setItem('lang',lang==="en"?"ar":"en" );
     };
 
     const { isAuth, setAuth } = useContext(authContext);

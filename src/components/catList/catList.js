@@ -35,7 +35,7 @@ import { GetUser } from '../../store/actions/getUser';
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import './catList.css'
-import { getCat } from '../../store/actions/getCat';
+import { GetCat } from '../../store/actions/getCat';
 import { useEffect } from 'react';
 
 
@@ -60,7 +60,7 @@ const CatList = (props) => {
 
     function getCatUnits(name) {
         console.log(catUnits);
-        dispatch(getCat(name))
+        dispatch(GetCat(name))
 
     }
 

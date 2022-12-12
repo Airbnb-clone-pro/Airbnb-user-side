@@ -11,23 +11,27 @@ import "./card.css";
 import { useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
 import logo from '../../assets/02.webp';
+import { useHistory } from "react-router-dom";
 
 const SingleCard = ({ data }) => {
   const { title, location, pricePerNight
-    , date } = data;
+    , date, images, id } = data;
   const { t, i18n } = useTranslation()
-
-  const images = [
-    logo,
-    logo,
-    logo,
-    logo,
-    logo,
-  ]
-
+  const history = useHistory();
+  // const images = [
+  //   logo,
+  //   logo,
+  //   logo,
+  //   logo,
+  //   logo,
+  // ]
+  const goToUnitPage = () => {
+    console.log(data);
+    history.push(`/unit-details/${id}`)
+  }
   return (
     <div dir={`${i18n.language === 'en' ? 'ltr' : 'rtl'}`}>
-      <Card className="rounded-0 p-0 border-0">
+      <Card className="rounded-0 p-0 border-0" onClick={() => { goToUnitPage() }}>
         <Swiper
           navigation={true}
           className="w-100"

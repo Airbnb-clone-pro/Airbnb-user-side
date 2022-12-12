@@ -14,6 +14,8 @@ import Home from "./pages/home/home";
 import AccountSettings from "./pages/account-settings/account-settings";
 import { BrowserRouter as Router, Switch, Route, Link, Redirect } from "react-router-dom";
 import PersonalInfo from "./pages/personal-info/Personal-info";
+import Unit from "./pages/unit/unit";
+import "./pages/unit/unit.scss";
 
 function App() {
   const [showLogin, setShowLogin] = useState(false);
@@ -69,6 +71,7 @@ function App() {
 
               <Switch>
                 <Route path="/" exact component={Home} />
+                <Route path="/unit-details/:unitId" exact component={Unit} />
                 {isAuth ? (
                   <Route
                     path="/account-settings"
@@ -83,6 +86,7 @@ function App() {
                     component={PersonalInfo}
                   />
                 ) : <Redirect to='/' />}
+
               </Switch>
             </SignupProvider>
           </LoginProvider>
@@ -91,5 +95,6 @@ function App() {
     </div>
   );
 }
+
 
 export default App;
