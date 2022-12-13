@@ -1,22 +1,22 @@
 import React, { useContext } from 'react';
-import Navbar from '../../components/header/Header';
 import { Container } from "react-bootstrap";
 import SingleCard from './../../components/card/card'
 import CatList from '../../components/catList/catList';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
-import { getCat } from '../../store/actions/getCat';
-import { Modal } from 'react-bootstrap';
+import { GetCat } from '../../store/actions/getCat';
+import { useTranslation } from 'react-i18next';
 
 
 const Home = () => {
+    const { t, i18n } = useTranslation();
 
     const dispatch = useDispatch()
     const catUnits = useSelector(state => state.cat)
     console.log(catUnits);
     useEffect(() => {
-        dispatch(getCat('Amazing views'))
-    }, []);
+        dispatch(GetCat('Amazing views'))
+    }, [i18n.language]);
 
     return (
         <div>

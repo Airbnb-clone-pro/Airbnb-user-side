@@ -1,11 +1,9 @@
 import React, { useState, useContext } from 'react';
 import './sign-up.css'
 import { Modal } from 'react-bootstrap';
-import Button from 'react-bootstrap/Button';
 import axiosInstance from '../../axios config/axiosInstance';
 import { useDispatch, useSelector } from 'react-redux';
 import { signupContext } from '../../contexts/singupModel';
-import { setUser as setUserState } from '../../store/actions/setElement';
 import { useHistory } from 'react-router-dom';
 
 

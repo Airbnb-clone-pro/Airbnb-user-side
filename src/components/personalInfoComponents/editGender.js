@@ -3,7 +3,6 @@ import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import axiosInstance from '../../axios config/axiosInstance';
 import { useHistory } from 'react-router-dom';
-import { useEffect } from "react";
 import { GetUser } from "../../store/actions/getUser";
 import { setElement } from "../../store/actions/setElement";
 

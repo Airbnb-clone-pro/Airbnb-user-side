@@ -1,14 +1,6 @@
 import * as React from 'react';
 import { useState, useContext } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import Avatar from '@mui/material/Avatar';
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
-import Divider from '@mui/material/Divider';
-import IconButton from '@mui/material/IconButton';
-import logo from '../../assets/logo2.png';
-import { BiWorld } from "react-icons/bi";
-import { FiSearch } from "react-icons/fi";
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import FeedIcon from '@mui/icons-material/Feed';
@@ -22,21 +14,14 @@ import LandslideIcon from '@mui/icons-material/Landslide';
 import LightIcon from '@mui/icons-material/Light';
 import PoolIcon from '@mui/icons-material/Pool';
 import HouseIcon from '@mui/icons-material/House';
-import Box from '@mui/material/Box';
-import InputLabel from '@mui/material/InputLabel';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
-import Signup from '../sign-up/signup';
 import '../header/header.css'
-import { loginContext } from '../../contexts/loginModel';
-import { signupContext } from '../../contexts/singupModel';
 import { authContext } from '../../contexts/auth';
-import { GetUser } from '../../store/actions/getUser';
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import './catList.css'
-import { getCat } from '../../store/actions/getCat';
+import { GetCat } from '../../store/actions/getCat';
 import { useEffect } from 'react';
+import { filterContext } from '../../contexts/filtersModel';
 
 
 const CatList = (props) => {
@@ -44,6 +29,11 @@ const CatList = (props) => {
 
     const { t, i18n } = useTranslation();
     const { isAuth, setAuth } = useContext(authContext);
+
+    const { showFilters, setShowFilters } = useContext(filterContext)
+
+
+    const handleShowFilters = () => setShowFilters(true)
 
 
     const [value, setValue] = React.useState(0);
@@ -54,19 +44,12 @@ const CatList = (props) => {
     };
     const dispatch = useDispatch()
     const catUnits = useSelector(state => state.cat)
-    // useEffect(() => {
-    //     dispatch(getCat('amazing views'))
-    // }, []);
 
     function getCatUnits(name) {
         console.log(catUnits);
-        dispatch(getCat(name))
+        dispatch(GetCat(name))
 
     }
-
-
-    // i18n.language==="en"?document.querySelector(".bi-sliders2-vertical").classList.add("me-1"):document.querySelector(".bi-sliders2-vertical").classList.add("ms-1")
-
 
     return (
         <div className='container-fluid'>
@@ -78,7 +61,7 @@ const CatList = (props) => {
                 <Tabs
                     value={value}
                     onChange={handleChange}
-                    indicatorColor="secondary"
+                    indicatorColor="secondary."
                     variant="scrollable"
                     scrollButtons="auto"
                     aria-label="scrollable auto tabs example"
@@ -123,7 +106,7 @@ const CatList = (props) => {
                     <Tab icon={<PoolIcon />} label={t("Amazing pools")} value="221" />
                 </Tabs>
                 <div className='col-1'>
-                    <button className="btn btn-white lg:me-2 me-1 border"  >
+                    <button className="btn btn-white lg:me-2 me-1 border" onClick={handleShowFilters}>
                         <div className='flex justify-around'>
                             <i className={`${i18n.language === 'en' ? "bi bi-sliders2-vertical me-2" : "bi bi-sliders2-vertical ms-1"}`}></i>
                             <h6>{t("Filter")}</h6>
