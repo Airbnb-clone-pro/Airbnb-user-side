@@ -152,13 +152,13 @@ const Navbar = (props) => {
                             className="gy-0"
                         >
                             {!isAuth &&
-                                <MenuItem onClick={handleShowLogin} >
+                                <MenuItem onClick={handleShowLogin} dir={`${i18n.language === 'en' ? 'ltr' : 'rtl'}`}>
                                     {t("Log in")}
                                 </MenuItem>
 
                             }
                             {!isAuth &&
-                                <MenuItem onClick={handleShowSignup} className='py-0'>
+                                <MenuItem onClick={handleShowSignup} className='py-0' dir={`${i18n.language === 'en' ? 'ltr' : 'rtl'}`}>
 
                                     {t("Sign Up")}
                                 </MenuItem>
@@ -167,7 +167,7 @@ const Navbar = (props) => {
                                 <hr />
                             }
                             {isAuth &&
-                                <MenuItem>
+                                <MenuItem dir={`${i18n.language === 'en' ? 'ltr' : 'rtl'}`}>
                                     {t("Messages")}
                                 </MenuItem>
                             }
@@ -177,12 +177,12 @@ const Navbar = (props) => {
                                 </MenuItem>
                             }
                             {isAuth &&
-                                <MenuItem>
+                                <MenuItem dir={`${i18n.language === 'en' ? 'ltr' : 'rtl'}`}>
                                     {t("Trips")}
                                 </MenuItem>
                             }
                             {isAuth &&
-                                <MenuItem>
+                                <MenuItem dir={`${i18n.language === 'en' ? 'ltr' : 'rtl'}`}>
                                     {t("Whitelists")}
                                 </MenuItem>
                             }
@@ -194,7 +194,7 @@ const Navbar = (props) => {
                                 </MenuItem>
                             }
                             {!isAuth &&
-                                <MenuItem className='' >
+                                <MenuItem className='' dir={`${i18n.language === 'en' ? 'ltr' : 'rtl'}`}>
                                     {t("Airbnb your home")}
                                 </MenuItem>
                             }
@@ -206,17 +206,17 @@ const Navbar = (props) => {
                                     to="/account-settings"
                                     className="text-decoration-none text-dark"
                                 >
-                                    <MenuItem className="">
+                                    <MenuItem className="" dir={`${i18n.language === 'en' ? 'ltr' : 'rtl'}`}>
                                         {t("Account")}
                                     </MenuItem>
                                 </Link>
                             }
 
-                            <MenuItem className='pb-0'>
+                            <MenuItem className='pb-0' dir={`${i18n.language === 'en' ? 'ltr' : 'rtl'}`}>
                                 {t("Help")}
                             </MenuItem>
                             {isAuth &&
-                                <MenuItem onClick={() => { logout() }} className='py-0'>
+                                <MenuItem onClick={() => { logout() }} className='py-0' dir={`${i18n.language === 'en' ? 'ltr' : 'rtl'}`}>
                                     {t("Logout")}
                                 </MenuItem>
                             }

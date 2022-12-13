@@ -16,11 +16,14 @@ import { BrowserRouter as Router, Switch, Route, Link, Redirect } from "react-ro
 import PersonalInfo from "./pages/personal-info/Personal-info";
 import Unit from "./pages/unit/unit";
 import "./pages/unit/unit.scss";
+import { FilterProvider } from "./contexts/filtersModel";
+import Filters from "./components/filters/filters";
 
 function App() {
   const [showLogin, setShowLogin] = useState(false);
   const [showsignup, setShowsignup] = useState(false);
   const [isAuth, setAuth] = useState(false);
+  const [showFilters, setShowFilters]= useState(false)
 
   const dispatch = useDispatch();
   const token = localStorage.getItem("token");
@@ -65,9 +68,11 @@ function App() {
         <AuthProvider value={{ isAuth, setAuth }}>
           <LoginProvider value={{ showLogin, setShowLogin }}>
             <SignupProvider value={{ showsignup, setShowsignup }}>
+              <FilterProvider value={{ showFilters, setShowFilters}}>
               <Navbar />
               <SignUp />
               <Login />
+              <Filters/>
 
               <Switch>
                 <Route path="/" exact component={Home} />
@@ -88,6 +93,7 @@ function App() {
                 ) : <Redirect to='/' />}
 
               </Switch>
+              </FilterProvider>
             </SignupProvider>
           </LoginProvider>
         </AuthProvider>
