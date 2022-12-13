@@ -32,13 +32,14 @@ import { loginContext } from '../../contexts/loginModel';
 import { signupContext } from '../../contexts/singupModel';
 import { authContext } from '../../contexts/auth';
 import { GetUser } from '../../store/actions/getUser';
-import { Link, useLocation } from "react-router-dom";
+import { Link, useHistory, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
 import Search from '../search/search';
 
 const Navbar = (props) => {
 
+    const history = useHistory()
     const location = useLocation();
     console.log(location);
     const { t, i18n } = useTranslation();
@@ -83,7 +84,7 @@ const Navbar = (props) => {
             <div className="sticky top-0 z-50 bg-white/[95%] mx-10 my-2" dir={`${i18n.language === 'en' ? 'ltr' : 'rtl'}`}>
                 <div className="head flex justify-between items-center sm:mx-6 md:mx-10 lg:mx-12">
                     {/* Left */}
-                    <div className="block w-auto flex">
+                    <div className="block w-auto flex" onClick={() => { history.push('/') }}>
                         <img alt="" src={logo} className="object-cover my-10 h-0 md:h-5 lg:h-8" />
                     </div>
                     {/* Middle */}
