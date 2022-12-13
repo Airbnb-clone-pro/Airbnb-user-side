@@ -123,7 +123,7 @@ const CatList = (props) => {
                     <Tab icon={<PoolIcon />} label={t("Amazing pools")} value="221" />
                 </Tabs>
                 <div className='col-1'>
-                    <button className="btn btn-white lg:me-2 me-1 border">
+                    <button className="btn btn-white lg:me-2 me-1 border"  >
                         <div className='flex justify-around'>
                             <i className={`${i18n.language === 'en' ? "bi bi-sliders2-vertical me-2" : "bi bi-sliders2-vertical ms-1"}`}></i>
                             <h6>{t("Filter")}</h6>
