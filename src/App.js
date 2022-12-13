@@ -23,11 +23,14 @@ function App() {
   const [showLogin, setShowLogin] = useState(false);
   const [showsignup, setShowsignup] = useState(false);
   const [isAuth, setAuth] = useState(false);
-  const [showFilters, setShowFilters]= useState(false)
+  const [showFilters, setShowFilters] = useState(false)
 
   const dispatch = useDispatch();
   const token = localStorage.getItem("token");
   const user = useSelector((state) => state.user);
+
+  const lang = localStorage.getItem('lang')
+  !lang ? localStorage.setItem('lang', 'en') : console.log(33)
 
   useEffect(() => {
     console.log(showLogin);
@@ -43,24 +46,6 @@ function App() {
     }
   });
 
-  // const{ isAuth, setAuth } = useContext(authContext);
-
-  // const token = useSelector(state => state.userSignup.token)
-  // console.log(token);
-  // localStorage.setItem('token', token)
-  // let tokenn = localStorage.getItem('token')
-  // console.log(tokenn);
-
-  // const config = {
-  //   headers: { Authorization: token }
-  // }
-  // axiosInstance.get('/users/', headers: { Authorization: `Bearer ${token}` }).then((res) => {
-  //   console.log(res);
-  //   // ev.target.submit()
-  //   // alert("Form Sent Successfully")
-  // }).catch((err) => {
-
-  // })
 
   return (
     <div>
@@ -68,31 +53,31 @@ function App() {
         <AuthProvider value={{ isAuth, setAuth }}>
           <LoginProvider value={{ showLogin, setShowLogin }}>
             <SignupProvider value={{ showsignup, setShowsignup }}>
-              <FilterProvider value={{ showFilters, setShowFilters}}>
-              <Navbar />
-              <SignUp />
-              <Login />
-              <Filters/>
+              <FilterProvider value={{ showFilters, setShowFilters }}>
+                <Navbar />
+                <SignUp />
+                <Login />
+                <Filters />
 
-              <Switch>
-                <Route path="/" exact component={Home} />
-                <Route path="/unit-details/:unitId" exact component={Unit} />
-                {isAuth ? (
-                  <Route
-                    path="/account-settings"
-                    exact
-                    component={AccountSettings}
-                  />
-                ) : <Redirect to='/' />}
-                {isAuth ? (
-                  <Route
-                    path="/account-settings/personal-info"
-                    exact
-                    component={PersonalInfo}
-                  />
-                ) : <Redirect to='/' />}
+                <Switch>
+                  <Route path="/" exact component={Home} />
+                  <Route path="/unit-details/:unitId" exact component={Unit} />
+                  {isAuth ? (
+                    <Route
+                      path="/account-settings"
+                      exact
+                      component={AccountSettings}
+                    />
+                  ) : <Redirect to='/' />}
+                  {isAuth ? (
+                    <Route
+                      path="/account-settings/personal-info"
+                      exact
+                      component={PersonalInfo}
+                    />
+                  ) : <Redirect to='/' />}
 
-              </Switch>
+                </Switch>
               </FilterProvider>
             </SignupProvider>
           </LoginProvider>
