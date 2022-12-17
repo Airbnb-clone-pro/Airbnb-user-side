@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useState, useContext } from 'react';
+import { useContext } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
@@ -16,11 +16,9 @@ import PoolIcon from '@mui/icons-material/Pool';
 import HouseIcon from '@mui/icons-material/House';
 import '../header/header.css'
 import { authContext } from '../../contexts/auth';
-import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import './catList.css'
 import { GetCat } from '../../store/actions/getCat';
-import { useEffect } from 'react';
 import { filterContext } from '../../contexts/filtersModel';
 
 
@@ -40,15 +38,14 @@ const CatList = (props) => {
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
-        console.log(value)
+        dispatch(GetCat(newValue))
+        console.log(catUnits);
     };
     const dispatch = useDispatch()
     const catUnits = useSelector(state => state.cat)
 
     function getCatUnits(name) {
-        console.log(catUnits);
-        dispatch(GetCat(name))
-
+        // dispatch(GetCat(name))
     }
 
     return (
@@ -61,26 +58,24 @@ const CatList = (props) => {
                 <Tabs
                     value={value}
                     onChange={handleChange}
-                    indicatorColor="secondary."
                     variant="scrollable"
-                    scrollButtons="auto"
-                    aria-label="scrollable auto tabs example"
+                    scrollButtons
                     className='sm:mx-2 md:mx-5 lg:mx-10 col-10'
                 >
-                    <Tab icon={<LandslideIcon />} label={t("Amazing views")} name="Amazing views" onClick={(e) => { getCatUnits(e.target.name) }} />
-                    <Tab icon={<FeedIcon />} label={t('New')} name="New" onClick={(e) => { getCatUnits(e.target.name) }} />
+                    <Tab icon={<LandslideIcon />} label={t("Amazing views")} value="Amazing views" onClick={(e) => { getCatUnits(e.target.value) }} />
+                    <Tab icon={<FeedIcon />} label={t('New')} value="New" onClick={(e) => { getCatUnits(e.target.name) }} />
                     <Tab icon={<FilterHdrIcon />} label={t("Top of the world")} name="Top of the world" onClick={(e) => { getCatUnits(e.target.name) }} />
-                    <Tab icon={<WhatshotIcon />} label={t("Trending")} value="13" />
-                    <Tab icon={<AccessibleIcon />} label={t("Adapted")} value="10" />
-                    <Tab icon={<SportsHandballIcon />} label={t("Playing")} value="25" />
-                    <Tab icon={<TempleBuddhistIcon />} label={t("Hankoks")} value="38" />
-                    <Tab icon={<AirlineSeatIndividualSuiteIcon />} label={t("Private rooms")} value="19" />
-                    <Tab icon={<LandslideIcon />} label={t("Amazing views")} value="161" />
-                    <Tab icon={<LightIcon />} label={t("OMG!")} value="182" />
-                    <Tab icon={<PoolIcon />} label={t("Amazing pools")} value="17" />
-                    <Tab icon={<HouseIcon />} label={t("Tiny home")} value="87" />
-                    <Tab icon={<LandslideIcon />} label={t("Amazing views")} value="52" />
-                    <Tab icon={<LightIcon />} label={t("OMG!")} value="63" />
+                    <Tab icon={<WhatshotIcon />} label={t("Trending")} value="Trending" />
+                    <Tab icon={<AccessibleIcon />} label={t("Adapted")} value="Adapted" />
+                    <Tab icon={<SportsHandballIcon />} label={t("Playing")} value="Playing" />
+                    <Tab icon={<TempleBuddhistIcon />} label={t("Hankoks")} value="Hankoks" />
+                    <Tab icon={<AirlineSeatIndividualSuiteIcon />} label={t("Private rooms")} value="Private rooms" />
+                    <Tab icon={<LandslideIcon />} label={t("Amazing views")} value="" />
+                    <Tab icon={<LightIcon />} label={t("OMG!")} value="" />
+                    <Tab icon={<PoolIcon />} label={t("Amazing pools")} value="" />
+                    <Tab icon={<HouseIcon />} label={t("Tiny home")} value="" />
+                    <Tab icon={<LandslideIcon />} label={t("Amazing views")} value="" />
+                    <Tab icon={<LightIcon />} label={t("OMG!")} value="" />
                     <Tab icon={<PoolIcon />} label={t("Amazing pools")} value="71" />
                     <Tab icon={<LightIcon />} label={t("OMG!")} value="141" />
                     <Tab icon={<PoolIcon />} label={t("Amazing pools")} value="589" />
