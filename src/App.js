@@ -18,6 +18,7 @@ import Unit from "./pages/unit/unit";
 import "./pages/unit/unit.scss";
 import { FilterProvider } from "./contexts/filtersModel";
 import Filters from "./components/filters/filters";
+import Host from "./pages/host/host";
 
 function App() {
   const [showLogin, setShowLogin] = useState(false);
@@ -74,6 +75,14 @@ function App() {
                       path="/account-settings/personal-info"
                       exact
                       component={PersonalInfo}
+                    />
+                  ) : <Redirect to='/' />}
+
+                  {isAuth ? (
+                    <Route
+                      path="/host"
+                      exact
+                      component={Host}
                     />
                   ) : <Redirect to='/' />}
 

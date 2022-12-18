@@ -80,9 +80,9 @@ const Navbar = (props) => {
 
     return (
         <>
-            <div className='h-12 bg-light flex items-center justify-center'>
+            {/* <div className='h-12 bg-light flex items-center justify-center'>
                 <h5 >{t("Introducing our 2022 Winter Release")}</h5>
-            </div>
+            </div> */}
             <div className="sticky top-0 z-50 bg-white/[95%] mx-10 my-2" dir={`${i18n.language === 'en' ? 'ltr' : 'rtl'}`}>
                 <div className="head flex justify-between items-center sm:mx-6 md:mx-10 lg:mx-12">
                     {/* Left */}
@@ -97,7 +97,7 @@ const Navbar = (props) => {
 
                         {!isAuth ?
                             <p className="text-[17px] pt-3">{t("Airbnb your home")}</p> :
-                            <p className="text-[17px] pt-3">Switch to hosting</p>
+                            <p className="text-[17px] pt-3" onClick={() => { history.push('/host') }}>Switch to hosting</p>
                         }
                         <button className="flex items-center mx-8 gap-1" onClick={handleLang}>
                             <BiWorld className="" />

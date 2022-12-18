@@ -218,7 +218,7 @@ const Unit = () => {
                       <p className="mx-3 pt-2">{"Wifi"}</p>
                     </div>)}
                 </div>
-                <button type="button" class="btn btn-outline-dark px-4 py-3">{t("Show all amenities")}</button>
+                <button type="button" className="btn btn-outline-dark px-4 py-3">{t("Show all amenities")}</button>
               </div>
               <Divider style={{ background: "#757575" }} className="my-3" />
               {/* ---------- travel date ------------------ */}

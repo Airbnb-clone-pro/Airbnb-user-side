@@ -23,13 +23,13 @@ const Home = () => {
             {/* <Navbar /> */}
             <CatList />
 
-            <Container>
-                <div className="row row-cols-md-3 row-cols-1 row-cols-sm-2 row-cols-lg-4 mt-5">
-                    {catUnits.map((card) => (
-                        <SingleCard data={card} key={card.id} />
-                    ))}
-                </div>
-            </Container>
+            {/* <Container> */}
+            <div className="row row-cols-md-3 row-cols-1 row-cols-sm-2 row-cols-lg-4 mt-5">
+                {catUnits.map((card) => (
+                    <SingleCard data={card} key={card.id} />
+                ))}
+            </div>
+            {/* </Container> */}
 
 
 

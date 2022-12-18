@@ -1,0 +1,21 @@
+.main {
+    width: 190px;
+    padding: 0;
+    border-radius: 10px;
+    color: red
+}
+
+.mainPlace {
+    width: 500px;
+    padding: 0;
+    border-radius: 10px;
+
+}
+
+.clicked {
+    margin: -1.5px;
+    border: 1.5px solid black;
+    width: 190px;
+    padding: 0;
+    border-radius: 10px
+}

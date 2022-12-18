@@ -37,9 +37,10 @@
     "react-scripts": "5.0.1",
     "redux-devtools-extension": "^2.13.9",
     "redux-thunk": "^2.4.2",
-    "scss": "^0.2.4",
-    "swiper": "^8.4.5",
     "sass": "^1.56.2",
+    "scss": "^0.2.4",
+    "style-it": "^2.1.4",
+    "swiper": "^8.4.5",
     "web-vitals": "^2.1.4",
     "yup": "^0.32.11"
   },
