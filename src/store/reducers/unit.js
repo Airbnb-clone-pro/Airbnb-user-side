@@ -1,8 +1,18 @@
 var state = {
     title: "",
     description: "",
-    cat: null,
-    price: null
+    catName: null,
+    location: { country: "", state: "", city: "" },
+    unitType: "",
+    placeType: "",
+    advantages: [],
+    date: { start: null, end: null },
+    pricePerNight: null,
+    guestsNumber: 0,
+    images: [],
+    host: null,
+    hostLang: ""
+
 
 }
 

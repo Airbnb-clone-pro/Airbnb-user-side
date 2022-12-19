@@ -19,6 +19,7 @@ import "./pages/unit/unit.scss";
 import { FilterProvider } from "./contexts/filtersModel";
 import Filters from "./components/filters/filters";
 import Host from "./pages/host/host";
+import { GetCat } from "./store/actions/getUnits";
 
 function App() {
   const [showLogin, setShowLogin] = useState(false);
@@ -46,6 +47,7 @@ function App() {
       setAuth(true);
     }
   });
+
 
 
   return (

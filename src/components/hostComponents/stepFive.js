@@ -47,7 +47,7 @@ const StepFive = () => {
                 <div className='row' >
                     <h5 className="text-secondary" style={{ fontSize: '16px' }}>Category :</h5>
 
-                    <select required className='form-control' value={cat} onChange={(e) => { setCat(e.target.value) }}>
+                    <select required className='form-control' defaultValue={cat} onChange={(e) => { setCat(e.target.value) }}>
                         <option disabled selected >Choose the category</option>
                         <option >New</option>
                         <option >Amazing views</option>

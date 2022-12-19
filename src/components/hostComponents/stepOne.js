@@ -4,25 +4,30 @@ import Style from 'style-it';
 import { minWidth } from '@mui/system';
 import PlaceTypeCard from './cards/placeType';
 import CottageIcon from '@mui/icons-material/Cottage';
+import { useDispatch, useSelector } from 'react-redux';
+import { unit } from '../../store/actions/unit';
 
 const StepOne = () => {
-    const [selectedType, setSelectedType] = useState({})
-    console.log(selectedType);
 
-    // useEffect(() => {
 
-    //     document.getElementById('id').onclick = () => {
-    //         console.log(3333333);
+    const [selectedType, setSelectedType] = useState("")
 
-    //     }
+    const dispatch = useDispatch()
+    let unite = useSelector(state => state.unit)
 
-    // }, []);
 
     function handleInputChange(title, icon) {
         // console.log(e);
-        setSelectedType({ title: title, icon: icon })
+        setSelectedType(title)
         console.log(selectedType);
     }
+    useEffect(() => {
+
+
+        dispatch(unit({ unitType: selectedType }))
+        console.log(unite);
+
+    }, [selectedType]);
     return (
         <div className=' my-4  p3  d-flex justify-content-center '>
             <div className=' ' style={{ maxWidth: '700px' }}>
@@ -31,11 +36,17 @@ const StepOne = () => {
                 <div className='mb-5 p-3 '  >
                     <h2 className='mb-5 ' style={{ maxWidth: '550px' }}>Which of these best describes your place?</h2>
                     <div className=' row' id='' >
-                        <span className='p-0' style={{ width: "fit-content" }} onClick={() => { handleInputChange('House', 'bi bi-house-door') }}>
-                            <UnitTypeCard id="id" title="House" name="hose" icon="bi bi-house-door " clickHandler={(e) => { setSelectedType(33); console.log(selectedType); }} />
+                        <span className='p-0' style={{ width: "fit-content" }} onClick={() => { handleInputChange('House') }}>
+                            <UnitTypeCard id="id" title="House" icon="bi bi-house-door " />
                         </span>
-                        <UnitTypeCard title="Apartment" icon="bi bi-building" className="fff" clickHandler={(title, icon) => { handleInputChange(title, icon) }} />
-                        <UnitTypeCard title="Barn" icon="bi bi-buildings" className="fff" clickHandler={(e) => { handleInputChange(e) }} />
+
+                        <span className='p-0' style={{ width: "fit-content" }} onClick={() => { handleInputChange('Apartment') }}>
+                            <UnitTypeCard title="Apartment" icon="bi bi-building" />
+                        </span>
+
+                        <span className='p-0' style={{ width: "fit-content" }} onClick={() => { handleInputChange('Barn') }}>
+                            <UnitTypeCard title="Barn" icon="bi bi-buildings" />
+                        </span>
                     </div >
                 </div>
 

@@ -4,18 +4,28 @@ import SingleCard from './../../components/card/card'
 import CatList from '../../components/catList/catList';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
-import { GetCat } from '../../store/actions/getCat';
+import { GetCat, GetUnits } from '../../store/actions/getUnits';
 import { useTranslation } from 'react-i18next';
+import axiosInstance from '../../axios config/axiosInstance';
 
 
 const Home = () => {
     const { t, i18n } = useTranslation();
 
     const dispatch = useDispatch()
-    const catUnits = useSelector(state => state.cat)
-    console.log(catUnits);
+    const Units = useSelector(state => state.getUnits)
+    console.log(Units);
+    const lang = localStorage.getItem('lang');
+
     useEffect(() => {
-        dispatch(GetCat('Amazing views'))
+        axiosInstance.get(`/units?lang=${lang}`).then((res) => {
+            console.log(res.data);
+            console.log();
+            dispatch(GetUnits(res.data))
+
+        }).catch((err) => {
+
+        })
     }, [i18n.language]);
 
     return (
@@ -23,13 +33,11 @@ const Home = () => {
             {/* <Navbar /> */}
             <CatList />
 
-            {/* <Container> */}
-            <div className="row row-cols-md-3 row-cols-1 row-cols-sm-2 row-cols-lg-4 mt-5">
-                {catUnits.map((card) => (
+            <div className="mx-5 row row-cols-md-3 row-cols-1 row-cols-sm-2 row-cols-lg-4 mt-5">
+                {Units.map((card) => (
                     <SingleCard data={card} key={card.id} />
                 ))}
             </div>
-            {/* </Container> */}
 
 
 

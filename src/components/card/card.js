@@ -18,20 +18,14 @@ const SingleCard = ({ data }) => {
     , date, images, id } = data;
   const { t, i18n } = useTranslation()
   const history = useHistory();
-  // const images = [
-  //   logo,
-  //   logo,
-  //   logo,
-  //   logo,
-  //   logo,
-  // ]
+
   const goToUnitPage = () => {
     console.log(data);
     history.push(`/unit-details/${id}`)
   }
   return (
     <div dir={`${i18n.language === 'en' ? 'ltr' : 'rtl'}`}>
-      <Card className="rounded-0 p-0 border-0" >
+      <Card className="rounded-3 p-0 border-0" >
         <Swiper
           navigation={true}
           className="w-100"
