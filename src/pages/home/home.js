@@ -42,23 +42,6 @@ const Home = () => {
 
 
 
-            {/* 
-            <Modal show={showLogin} onHide={handleCloseLogin} className=""
-            // size="lg"
-            // aria-labelledby="contained-modal-title-vcenter"
-            // centered
-            >
-                <Modal.Body style={{ borderRadius: '2rem' }} className="">
-                    <div className="signup-container ">
-                        <div className="finish-signup p-0">
-                            <h5 className="text-center">Log in </h5>
-                        </div>
-                        <form onSubmit={(e) => { handleForm(e) }} className=" " method='GET' >
-
-                        </form >
-                    </div>
-                </Modal.Body >
-            </Modal > */}
 
 
 

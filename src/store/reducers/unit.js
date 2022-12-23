@@ -8,10 +8,13 @@ var state = {
     advantages: [],
     date: { start: null, end: null },
     pricePerNight: null,
-    guestsNumber: 0,
-    images: [],
+    guestsNumber: "",
     host: null,
-    hostLang: ""
+    hostLang: null,
+    bedrooms: "",
+    bathrooms: "",
+    beds: "",
+    images: [],
 
 
 }

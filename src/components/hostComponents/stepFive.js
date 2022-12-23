@@ -16,14 +16,12 @@ const StepFive = () => {
 
     const [title, setTitle] = useState(unite.title)
     const [desc, setDesc] = useState(unite.description)
-    const [cat, setCat] = useState(unite.cat)
-    console.log(cat);
-    console.log(desc);
-    console.log(title);
+    const [cat, setCat] = useState(unite.catName)
+
     useEffect(() => {
 
 
-        dispatch(unit({ title: title, description: desc, cat: cat }))
+        dispatch(unit({ title: title, description: desc, catName: cat }))
         console.log(unite);
 
     }, [title, desc, cat]);

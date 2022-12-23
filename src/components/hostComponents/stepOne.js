@@ -44,8 +44,8 @@ const StepOne = () => {
                             <UnitTypeCard title="Apartment" icon="bi bi-building" />
                         </span>
 
-                        <span className='p-0' style={{ width: "fit-content" }} onClick={() => { handleInputChange('Barn') }}>
-                            <UnitTypeCard title="Barn" icon="bi bi-buildings" />
+                        <span className='p-0' style={{ width: "fit-content" }} onClick={() => { handleInputChange('Hotel') }}>
+                            <UnitTypeCard title="Hotel" icon="bi bi-buildings" />
                         </span>
                     </div >
                 </div>

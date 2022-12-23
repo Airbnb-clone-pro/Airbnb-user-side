@@ -25,6 +25,8 @@ import './host.css'
 import countriesAPI from '../../axios config/Api';
 import { useEffect } from 'react';
 import StepSeven from '../../components/hostComponents/stepSeven';
+import StepEight from '../../components/hostComponents/stepEight';
+import StepNine from '../../components/hostComponents/stepNine';
 
 
 const Host = () => {
@@ -52,7 +54,9 @@ const Host = () => {
         <DragDrop />,
         <StepFive />,
         <StepSix />,
-        <StepSeven />
+        <StepSeven />,
+        <StepEight />,
+        <StepNine />
     ];
 
     return (
@@ -74,14 +78,14 @@ const Host = () => {
             <div className='fixedElement d-flex justify-content-center '>
                 <MobileStepper className=' d-flex justify-content-evenly '
                     variant="progress"
-                    steps={7}
+                    steps={9}
                     position="static"
                     activeStep={activeStep}
                     sx={{ maxWidth: '90%', flexGrow: 1 }}
                     color="primary"
                     nextButton={
                         <Button size="large" color="primary" variant="outlined"
-                            onClick={handleNext} disabled={activeStep === 6}>
+                            onClick={handleNext} disabled={activeStep === 8}>
                             Next
                             {theme.direction === 'rtl' ? (
                                 <KeyboardArrowLeft />
