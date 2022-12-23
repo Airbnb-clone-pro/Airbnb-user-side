@@ -50,7 +50,7 @@ const CatList = (props) => {
     }
 
     return (
-        <div className='container-fluid'>
+        <div className='container-fluid sticky z-50 top-20 bg-white'>
             <div
                 className="row flex items-center"
                 dir={`${i18n.language === "en" ? "ltr" : "rtl"}`}

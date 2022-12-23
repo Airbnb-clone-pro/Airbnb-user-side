@@ -61,17 +61,17 @@ const Navbar = (props) => {
             {/* <div className='h-12 bg-light flex items-center justify-center'>
                 <h5 >{t("Introducing our 2022 Winter Release")}</h5>
             </div> */}
-            <div className="sticky top-0 z-50 bg-white/[95%] mx-10 my-2" dir={`${i18n.language === 'en' ? 'ltr' : 'rtl'}`}>
+            <div className="sticky top-0 z-50 bg-white h-20 px-5" dir={`${i18n.language === 'en' ? 'ltr' : 'rtl'}`}>
                 <div className="head flex justify-between items-center sm:mx-6 md:mx-10 lg:mx-12">
                     {/* Left */}
                     <div className="block w-auto flex" onClick={() => { history.push('/') }}>
-                        <img alt="" src={logo} className="object-cover my-10 h-0 md:h-5 lg:h-8" />
+                        <img alt="" src={logo} className="object-cover my-10 h-5 lg:h-8" />
                     </div>
                     {/* Middle */}
                     {location.pathname === '/' && <Search />}
 
                     {/* Right */}
-                    <div className="hidden md:flex items-center pr-3 font-semibold text-gray-600">
+                    <div className="flex items-center pr-3 font-semibold text-gray-600">
 
                         {!isAuth ?
                             <p className="text-[17px] pt-3">{t("Airbnb your home")}</p> :
