@@ -164,7 +164,7 @@ const Unit = () => {
               </div>
               <Divider style={{ background: "#757575" }} className="my-3" />
               {/* --------------Accessibility features---------- */}
-              {unit.about.map((elem, index) => <div className="d-flex justify-content-start mb-4 pt-3" key={index}>
+              {/* {unit.about.map((elem, index) => <div className="d-flex justify-content-start mb-4 pt-3" key={index}>
                 <i
                   className={`bi ${elem.icon} fs-2`}
                 ></i>
@@ -173,7 +173,7 @@ const Unit = () => {
                   <p className="text-secondary p-0 m-0">
                     {elem.subHead}                  </p>
                 </div>
-              </div>)}
+              </div>)} */}
 
 
 

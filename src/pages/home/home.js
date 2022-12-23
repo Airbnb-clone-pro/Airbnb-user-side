@@ -1,10 +1,9 @@
-import React, { useContext } from 'react';
-import { Container } from "react-bootstrap";
+import React from 'react';
 import SingleCard from './../../components/card/card'
 import CatList from '../../components/catList/catList';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
-import { GetCat, GetUnits } from '../../store/actions/getUnits';
+import { GetUnits } from '../../store/actions/getUnits';
 import { useTranslation } from 'react-i18next';
 import axiosInstance from '../../axios config/axiosInstance';
 
@@ -38,12 +37,6 @@ const Home = () => {
                     <SingleCard data={card} key={card.id} />
                 ))}
             </div>
-
-
-
-
-
-
 
         </div>
     );
