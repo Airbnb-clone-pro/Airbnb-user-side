@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react';
 import './sign-up.css'
 import { Modal } from 'react-bootstrap';
 import axiosInstance from '../../axios config/axiosInstance';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { signupContext } from '../../contexts/singupModel';
 import { useHistory } from 'react-router-dom';
 
@@ -12,7 +12,6 @@ const Signup = (props) => {
     const { showsignup, setShowsignup } = useContext(signupContext)
     const handleCloseSignup = () => setShowsignup(false)
 
-    const dispatch = useDispatch()
 
     const [user, setUser] = useState({
         firstName: "",
@@ -28,6 +27,7 @@ const Signup = (props) => {
         birthDateError: "",
         emailError: "",
         passwordError: "",
+        signupError: ""
     })
 
 
@@ -102,27 +102,34 @@ const Signup = (props) => {
 
         ev.preventDefault();
         if (!errors.fNameError && !errors.lNameError && !errors.emailError && !errors.passwordError && !errors.birthDateError) {
-            // dispatch(setUserState(user))
-            // console.log(user);
             axiosInstance.post('/users', user).then((res) => {
-                console.log(res);
-                console.log(res.data.token);
-                if (res.data.token) {
-                    localStorage.setItem('token', res.data.token);
-                    setShowsignup(false)
-                    history.push('/')
+                if (res.status === 201) {
+                    if (res.data.token) {
+                        localStorage.setItem('token', res.data.token);
+                        setShowsignup(false)
+                        history.push('/')
+                        setUser({})
+                        setErrors({})
+                    }
+                } else {
+                    setErrors({
+                        ...errors, loginError: " Cannot Signup. Please try again later."
+                    })
 
-                    // ev.target.submit()
-
-                    // alert("Form Sent Successfully")
+                    setUser({ ...user, password: "" })
                 }
             }).catch((err) => {
-
+                setErrors({
+                    ...errors, signupError: " Cannot Signup. Please try again later."
+                })
+                setUser({ ...user, password: "" })
+            })
+        } else {
+            setErrors({
+                ...errors, signupError: " Cannot Signup. Please try again later."
             })
 
-
-        } else {
-            alert("Please Enter Valid Date")
+            setUser({ ...user, password: "" })
         }
     }
 
@@ -130,13 +137,8 @@ const Signup = (props) => {
 
 
         <div className=''>
-            {/* <Button variant="primary" onClick={handleShow}>
-                Launch demo modal
-            </Button> */}
+
             <Modal show={showsignup} onHide={handleCloseSignup} className="" {...props}
-            // size="lg"
-            // aria-labelledby="contained-modal-title-vcenter"
-            // centered
             >
 
 
@@ -226,12 +228,14 @@ const Signup = (props) => {
                                 <a href="#">Nondiscrimination Policy</a>.
                             </span>
                             <br />
+
+                            <p className={`error ${!errors.signupError ? "d-none" : ""} `}><i className=" fa-solid fa-circle-exclamation "> </i>{errors.signupError}</p>
+
                             <input
                                 type="submit"
                                 className="agree-btn"
                                 value="Agree and continue"
                                 name="submit-btn"
-                            // onClick={(e) => { handleForm(e) }}
                             />
                             <p className=' small pt-5'>
                                 Airbnb will send you members-only deals, inspiration, marketing emails,
