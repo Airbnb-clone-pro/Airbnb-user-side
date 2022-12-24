@@ -8,7 +8,7 @@ import { grey } from '@mui/material/colors';
 // import "react-datepicker/dist/react-datepicker.css";
 // import "react-datepicker/src/stylesheets/datepicker.scss"
 import { useEffect, useState, useLayoutEffect, useRef } from "react";
-import { useParams } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import axiosInstance from "../../axios config/axiosInstance";
 const Unit = () => {
   const { t, i18n } = useTranslation();
@@ -21,6 +21,8 @@ const Unit = () => {
   // console.log(params)
   const [startDate, setStartDate] = useState(new Date());
   const color = grey["A700"];
+  const history = useHistory();
+
   // useEffect(() => {
   //   // console.log("sssssssssssssssssssss")
   //   axiosInstance
@@ -65,6 +67,10 @@ const Unit = () => {
   // useLayoutEffect(() => {
   //   setWidth(ref.current.offsetWidth);
   // }, []);
+  const handleReserve = () => {
+    history.push(`/reservation/${unit.id}`)
+
+  }
   const placeOffer = [
     { icon: "bi bi-wifi", title: "wifi" },
     { icon: "bi bi-wifi", title: "wifi" },
@@ -149,7 +155,7 @@ const Unit = () => {
                 <div className="">
                   <h4 className="fw-bold">
                     {" "}
-                    {`${unit.unitType} ${t("hosted by")} ${"unit.host?.firstName?"} ${"unit.host?.lastName?"}`}
+                    {`${unit.unitType} ${t("hosted by")} ${unit.host.firstName ? unit.host.firstName : ""} ${unit.host.lastName ? unit.host.lastName : ""}`}
                   </h4>
                   <p>
                     {" "}
@@ -158,7 +164,7 @@ const Unit = () => {
                 </div>
                 <div>
                   <Avatar alt="" src="" sx={{ width: 56, height: 56 }}>
-                    {""}
+                    {unit.host.firstName[0] ? unit.host.firstName[0] : null}
                   </Avatar>
                 </div>
               </div>
@@ -270,7 +276,7 @@ const Unit = () => {
                     <p className="fw-bold p-0 m-0" style={{ fontSize: "14px" }}>{t("guests")}</p>
                     <p className="p-0 m-0" style={{ fontSize: "15px" }}>{unit.guestsNumber}</p></button>
                 </div>
-                <button className="reserve-btn-grad">{t("Reserve")}</button>
+                <button className="reserve-btn-grad" onClick={handleReserve}>{t("Reserve")}</button>
 
               </div>
             </div>
