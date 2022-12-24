@@ -4,7 +4,7 @@ import image from "../../assets/05.webp";
 
 const ReservationCart = (props) => {
     const { t, i18n } = useTranslation();
-    let { unit, numberOfDays } = props;
+    let { unit, numberOfDays, startDate, endDate } = props;
     console.log(numberOfDays, "sssssssssss")
     return (
         <div>
@@ -19,7 +19,7 @@ const ReservationCart = (props) => {
                             {unit.placeType}
                         </p>
                         <p className="m-0 p-0" style={{ fontSize: "14px" }}>
-                            {`${unit.title} - ${unit.location.city},${unit.location.country}`}
+                            {`${unit.title} - ${unit.location.state},${unit.location.country}`}
                         </p>
                     </div>
                     <div className="d-flex flex-row m-0 p-0">
@@ -29,11 +29,12 @@ const ReservationCart = (props) => {
                         ></i>
                         <p className="mx-2 fw-bold" style={{ fontSize: "14px" }}>
                             {" "}
-                            {unit.rate} .{" "}
+                            {unit.rate || t("New")} .{" "}
                         </p>
                         <p className="text-secondary" style={{ fontSize: "14px" }}>
-                            {`( ${unit.numberOfRates} ${t("reviews")} )`}
-                        </p>
+                            {unit.numberOfRates
+                                ? `${unit.numberOfRates} ${t("reviews . ")}`
+                                : ""}                        </p>
                     </div>
                 </div>
             </div>

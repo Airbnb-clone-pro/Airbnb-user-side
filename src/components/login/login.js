@@ -115,14 +115,14 @@ const Login = () => {
                             <h4 className='pb-2'>Welcome to Airbnb</h4>
                             <div className='pb-2'>
                                 <div className={`input-container ${(errors.emailError ? "border-danger shadow-none" : "")}`}>
-                                    <input type="text" className={` ${(errors.emailError ? "border-danger shadow-none" : "")}`}
+                                    <input type="text" className={`shadow-none ${(errors.emailError ? "border-danger shadow-none" : "")}`}
                                         value={userLogin.email}
                                         name="email"
                                         onChange={(e) => { handleInputChange(e) }}
                                         placeholder="Email"
                                     />
                                 </div>
-                                <p className={`error ${!errors.emailError ? "d-none" : ""} `}><i className=" fa-solid fa-circle-exclamation "></i>{errors.emailError}</p>
+                                <p className={`error shadow-none ${!errors.emailError ? "d-none" : ""} `}><i className=" fa-solid fa-circle-exclamation "></i>{errors.emailError}</p>
                             </div>
 
 
@@ -130,6 +130,7 @@ const Login = () => {
                                 <div className={` input-container ${(errors.passwordError ? "border-danger shadow-none" : "")}`}>
 
                                     <input type="text"
+                                        className='shadow-none'
                                         value={userLogin.password}
                                         name="password"
                                         onChange={(e) => { handleInputChange(e) }}

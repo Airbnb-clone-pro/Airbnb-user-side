@@ -5,37 +5,29 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import ReservationCart from "../../components/reservation/reservation-cart";
 import PayPalCheckoutButtons from "../../components/reservation/paypal-checkout-buttons";
-import { useParams } from "react-router-dom";
+import { useHistory, useLocation, useParams } from "react-router-dom";
 import axiosInstance from "../../axios config/axiosInstance";
 
 const Reservation = () => {
     const { t, i18n } = useTranslation();
     const params = useParams();
+    const location = useLocation();
     const [unit, setUnit] = useState({});
     const [isLoading, setLoading] = useState(true);
-    const [numberOfDays, setNumberOfDays] = useState(0);
-    const [startDate, setStartDate] = useState(new Date());
-    const [endDate, setEndDate] = useState(new Date());
-
-    function calcNumberOfDays(sDate, eDate) {
-        const [sDay, sMonth, sYear] = sDate.split("/");
-        const stDate = new Date(+sYear, +sMonth - 1, +sDay);
-        const [eDay, eMonth, eYear] = eDate.split("/");
-        const enDate = new Date(+eYear, +eMonth - 1, +eDay)
-        const Difference_In_Time = enDate.getTime() - stDate.getTime();
-        setNumberOfDays(Difference_In_Time / (1000 * 3600 * 24));
-        setStartDate(stDate);
-        setEndDate(enDate);
+    const startDate = new URLSearchParams(location.search).get("startDate");
+    const endDate = new URLSearchParams(location.search).get("endDate");
+    const guests = new URLSearchParams(location.search).get("guests");
+    const Difference_In_Time = new Date(endDate).getTime() - new Date(startDate).getTime();
+    const numberOfDays = Difference_In_Time / (1000 * 3600 * 24)
+    console.log("location", new URLSearchParams(location.search).get("startDate"));
+    const history = useHistory();
 
 
-        console.log("numberOfDays :", numberOfDays);
-    }
     useEffect(() => {
         axiosInstance
             .get(`/units/${params.unitId}?lang=${i18n.language}`)
             .then((res) => {
                 console.log(res.data);
-                calcNumberOfDays(res.data.date.start, res.data.date.end);
                 setUnit(res.data);
                 setLoading(false);
             })
@@ -43,7 +35,13 @@ const Reservation = () => {
                 console.log(err);
             });
     }, [i18n.language]);
-
+    const backToUnitPage = () => {
+        
+            history.push(
+                `/unit-details/${unit.id}`
+            );
+        
+    };
     return (
         <>
             {isLoading ? (
@@ -61,11 +59,12 @@ const Reservation = () => {
                             type="button"
                             className="btn btn-light rounded-circle"
                             style={{ backgroundColor: "white" }}
+                            onClick={backToUnitPage}
                         >
                             <i
                                 className={`bi ${i18n.language === "en"
-                                        ? "bi-caret-left-fill"
-                                        : "bi-caret-right-fill"
+                                    ? "bi-caret-left-fill"
+                                    : "bi-caret-right-fill"
                                     }  mx-2 fs-3`}
                             ></i>
                         </button>
@@ -78,9 +77,9 @@ const Reservation = () => {
                         >
                             <h4 className="fw-bold my-4">{t("Your trip")}</h4>
                             <h5 className="fw-bold m-0 p-0">{t("Dates")}</h5>
-                            <p>{`${unit.date.start} - ${unit.date.end}`}</p>
+                            <p>{`${startDate}  -  ${endDate}`}</p>
                             <h5 className="fw-bold m-0 mt-2 p-0">{t("Guests")}</h5>
-                            <p>{`${unit.guestsNumber} ${t("Guests")}`}</p>
+                            <p>{`${guests} ${t("Guests")}`}</p>
                             <Divider style={{ background: "#757575" }} className="my-3" />
                             <div className="d-flex flex-row justify-content-between">
                                 <h4 className="fw-bold my-4">{t("Pay with")}</h4>
@@ -137,10 +136,10 @@ const Reservation = () => {
                         {/* --------------- reservation Cart -------------- */}
                         <div className="col-12 col-md-6 order-md-last order-first py-3">
                             <div className="d-none d-md-flex col-12 p-3 border rounded-3">
-                                <ReservationCart unit={unit} numberOfDays={numberOfDays} />
+                                <ReservationCart unit={unit} numberOfDays={numberOfDays} startDate={startDate} endDate={endDate} />
                             </div>
                             <div className="d-flex d-md-none col-12 py-3">
-                                <ReservationCart unit={unit} numberOfDays={numberOfDays} />
+                                <ReservationCart unit={unit} numberOfDays={numberOfDays} startDate={startDate} endDate={endDate} />
                             </div>
                         </div>
                     </div>

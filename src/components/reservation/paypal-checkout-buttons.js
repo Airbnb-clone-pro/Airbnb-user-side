@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { PayPalButtons } from "@paypal/react-paypal-js";
 import axiosInstance from "../../axios config/axiosInstance";
 import { useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 
 const PayPalCheckoutButtons = (props) => {
     const { details } = props;
@@ -13,6 +14,7 @@ const PayPalCheckoutButtons = (props) => {
 
     const user = useSelector((state) => state.user);
     const token = localStorage.getItem("token");
+    const history = useHistory();
 
     console.log("user : ", user);
     console.log("token : ", token);
@@ -40,7 +42,11 @@ const PayPalCheckoutButtons = (props) => {
                     config
                 )
                 .then((res) => {
-                    console.log(res);
+                    // console.log(res);
+                    // reservation-successful
+                    history.push(
+                        `/reservation-successful`
+                    );
                 })
                 .catch((err) => {
                     console.log(err);

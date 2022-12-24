@@ -149,7 +149,7 @@ const Signup = (props) => {
 
                             <div className={` full-name ${(errors.fNameError || errors.lNameError ? "border-danger shadow-none" : "")}  `}>
                                 <div className={`name-input ${(errors.fNameError ? "border-danger shadow-none" : "")} `}>
-                                    <input type="text" className=''
+                                    <input type="text" className='  shadow-none'
                                         value={user.firstName}
                                         name="firstName"
                                         onChange={(e) => { handleInputChange(e) }}
@@ -160,7 +160,7 @@ const Signup = (props) => {
 
                                 <div className="name-input last-name">
                                     <input type="text"
-                                        className={``}
+                                        className={`shadow-none`}
                                         value={user.lastName}
                                         name="lastName"
                                         onChange={(e) => { handleInputChange(e) }}
@@ -174,7 +174,7 @@ const Signup = (props) => {
                             <div>
                                 <div className="input-container">
 
-                                    <input type="date" className={``}
+                                    <input type="date" className={`shadow-none`}
                                         value={user.birthDate}
                                         name="birthDate"
                                         onChange={(e) => { handleInputChange(e) }}
@@ -190,8 +190,8 @@ const Signup = (props) => {
                             </span>
                             <br />
                             <div>
-                                <div className={`input-container ${(errors.emailError ? "border-danger shadow-none" : "")}`}>
-                                    <input type="text" className={` ${(errors.emailError ? "border-danger shadow-none" : "")}`}
+                                <div className={`input-container shadow-none ${(errors.emailError ? "border-danger shadow-none" : "")}`}>
+                                    <input type="text" className={` shadow-none ${(errors.emailError ? "border-danger shadow-none" : "")}`}
                                         value={user.email}
                                         name="email"
                                         onChange={(e) => { handleInputChange(e) }}
@@ -208,6 +208,7 @@ const Signup = (props) => {
                                 <div className={` input-container ${(errors.passwordError ? "border-danger shadow-none" : "")}`}>
 
                                     <input type="text"
+                                        className='shadow-none'
                                         value={user.password}
                                         name="password"
                                         onChange={(e) => { handleInputChange(e) }}

@@ -16,11 +16,15 @@ import { BrowserRouter as Router, Switch, Route, Link, Redirect } from "react-ro
 import PersonalInfo from "./pages/personal-info/Personal-info";
 import Unit from "./pages/unit/unit";
 import "./pages/unit/unit.scss";
+import "./pages/reservation-sucee/res-suc-style.scss";
 import { FilterProvider } from "./contexts/filtersModel";
 import Filters from "./components/filters/filters";
 import Reservation from "./pages/reservation/reservation";
 import { PayPalScriptProvider } from "@paypal/react-paypal-js";
 import UserTrips from "./pages/user-trips/user-trips";
+import Host from "./pages/host/host";
+import { GetCat } from "./store/actions/getUnits";
+import ReservationSuccessful from "./pages/reservation-sucee/reservation-success";
 
 function App() {
   const [showLogin, setShowLogin] = useState(false);
@@ -50,6 +54,7 @@ function App() {
   });
 
 
+
   return (
     <div>
       <Router>
@@ -68,6 +73,7 @@ function App() {
                   <Switch>
                     <Route path="/" exact component={Home} />
                     <Route path="/unit-details/:unitId" exact component={Unit} />
+                    <Route path="/reservation-successful" exact component={ReservationSuccessful} />
 
                     {isAuth ? (
                       <Route
@@ -92,6 +98,15 @@ function App() {
                     ) : <Redirect to='/' />}
                     {isAuth ? (
                       <Route path="/reservation/:unitId" exact component={Reservation} />
+                    ) : <Redirect to='/' />}
+
+
+                    {isAuth ? (
+                      <Route
+                        path="/host"
+                        exact
+                        component={Host}
+                      />
                     ) : <Redirect to='/' />}
 
                   </Switch>

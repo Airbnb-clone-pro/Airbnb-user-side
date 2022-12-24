@@ -1,32 +1,10 @@
 import * as React from 'react';
-import { useState, useContext } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import Avatar from '@mui/material/Avatar';
+import { useContext } from 'react';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import logo from '../../assets/logo2.png';
 import { BiWorld } from "react-icons/bi";
-import { FiSearch } from "react-icons/fi";
-import Tabs from '@mui/material/Tabs';
-import Tab from '@mui/material/Tab';
-import FeedIcon from '@mui/icons-material/Feed';
-import FilterHdrIcon from '@mui/icons-material/FilterHdr';
-import WhatshotIcon from '@mui/icons-material/Whatshot';
-import AccessibleIcon from '@mui/icons-material/Accessible';
-import SportsHandballIcon from '@mui/icons-material/SportsHandball';
-import TempleBuddhistIcon from '@mui/icons-material/TempleBuddhist';
-import AirlineSeatIndividualSuiteIcon from '@mui/icons-material/AirlineSeatIndividualSuite';
-import LandslideIcon from '@mui/icons-material/Landslide';
-import LightIcon from '@mui/icons-material/Light';
-import PoolIcon from '@mui/icons-material/Pool';
-import HouseIcon from '@mui/icons-material/House';
-import Box from '@mui/material/Box';
-import InputLabel from '@mui/material/InputLabel';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
-import Signup from '../sign-up/signup';
 import './header.css'
 import { loginContext } from '../../contexts/loginModel';
 import { signupContext } from '../../contexts/singupModel';
@@ -80,24 +58,24 @@ const Navbar = (props) => {
 
     return (
         <>
-            <div className='h-12 bg-light flex items-center justify-center'>
+            {/* <div className='h-12 bg-light flex items-center justify-center'>
                 <h5 >{t("Introducing our 2022 Winter Release")}</h5>
-            </div>
-            <div className="sticky top-0 z-50 bg-white/[95%] mx-10 my-2" dir={`${i18n.language === 'en' ? 'ltr' : 'rtl'}`}>
+            </div> */}
+            <div className="sticky top-0 z-50 bg-white h-20 px-5" dir={`${i18n.language === 'en' ? 'ltr' : 'rtl'}`}>
                 <div className="head flex justify-between items-center sm:mx-6 md:mx-10 lg:mx-12">
                     {/* Left */}
                     <div className="block w-auto flex" onClick={() => { history.push('/') }}>
-                        <img alt="" src={logo} className="object-cover my-10 h-0 md:h-5 lg:h-8" />
+                        <img alt="" src={logo} className="object-cover my-10 h-5 lg:h-8" />
                     </div>
                     {/* Middle */}
                     {location.pathname === '/' && <Search />}
 
                     {/* Right */}
-                    <div className="hidden md:flex items-center pr-3 font-semibold text-gray-600">
+                    <div className="flex items-center pr-3 font-semibold text-gray-600">
 
                         {!isAuth ?
                             <p className="text-[17px] pt-3">{t("Airbnb your home")}</p> :
-                            <p className="text-[17px] pt-3">Switch to hosting</p>
+                            <p className="text-[17px] pt-3" onClick={() => { history.push('/host') }}>Switch to hosting</p>
                         }
                         <button className="flex items-center mx-8 gap-1" onClick={handleLang}>
                             <BiWorld className="" />
