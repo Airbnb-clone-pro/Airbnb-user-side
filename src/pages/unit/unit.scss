@@ -53,6 +53,7 @@
   }
 }
 
+
 .unit-description {
   overflow: hidden;
   text-overflow: ellipsis;
@@ -62,10 +63,7 @@
   -webkit-box-orient: vertical;
 }
 
-.reservation-box{
-  position: fixed;
-  top :150px;
-}
+
 
 .reservation-button-group{
   color:black !important; 
@@ -101,4 +99,10 @@
   background-position: right center; /* change the direction of the change here */
   color: #fff;
   text-decoration: none;
+}
+@media (min-width: 768px) {
+  .reservation-box{
+    position: fixed;
+    top :150px;
+  }
 }
