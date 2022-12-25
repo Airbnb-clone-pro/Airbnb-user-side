@@ -20,23 +20,15 @@ const UserTrips = () => {
     console.log("token", token);
     let config = {
         headers: {
-            "authorization": token,
+            "Authorization": token,
         },
     };
     useEffect(() => {
-        axiosInstance
-            .get(
-                `/reservations?lang=${i18n.language}`,
-                {
-                    user: user._id,
-                },
-                config
-            )
-            .then((res) => {
-                console.log(res.data);
-                // reservation-successful
+        axiosInstance.get(`/reservations?lang=${i18n.language}`, config).then((res) => {
+            console.log(res.data);
+            // reservation-successful
 
-            })
+        })
             .catch((err) => {
                 console.log(err);
                 console.log("user", user._id);
@@ -46,6 +38,7 @@ const UserTrips = () => {
         console.log("token", token);
 
     }, [user]);
+
 
     const handleSearch = () => {
         history.push(`/`)
