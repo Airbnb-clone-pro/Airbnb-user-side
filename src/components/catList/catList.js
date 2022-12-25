@@ -56,74 +56,74 @@ const CatList = (props) => {
 
     }
 
-    const {showSearch, setShowSearch} = useContext(searchContext);
+    const { showSearch, setShowSearch } = useContext(searchContext);
 
     return (
         <>
-        {!showSearch &&
-        <div className='container-fluid sticky z-50 top-20 bg-white'>
-            <div
-                className="row flex items-center"
-                dir={`${i18n.language === "en" ? "ltr" : "rtl"}`}
-            >
-                <hr />
-                <Tabs
-                    value={value}
-                    onChange={handleChange}
-                    indicatorColor="secondary."
-                    variant="scrollable"
-                    scrollButtons
-                    className='sm:mx-2 md:mx-5 lg:mx-10 col-10'
-                >
-                    <Tab icon={<LandslideIcon />} label={t("Amazing views")} name="Amazing views" onClick={(e) => { getCatUnits(e.target.name) }} value='71' />
-                    <Tab icon={<FeedIcon />} label={t('New')} name="New" onClick={(e) => { getCatUnits(e.target.name) }} />
-                    <Tab icon={<FilterHdrIcon />} label={t("Top of the world")} name="Top of the world" onClick={(e) => { getCatUnits(e.target.name) }} />
-                    <Tab icon={<WhatshotIcon />} label={t("Trending")} />
-                    <Tab icon={<AccessibleIcon />} label={t("Adapted")} />
-                    <Tab icon={<SportsHandballIcon />} label={t("Playing")} />
-                    <Tab icon={<TempleBuddhistIcon />} label={t("Hankoks")} />
-                    <Tab icon={<AirlineSeatIndividualSuiteIcon />} label={t("Private rooms")} />
-                    <Tab icon={<LandslideIcon />} label={t("Amazing views")} />
-                    <Tab icon={<LightIcon />} label={t("OMG!")} />
-                    <Tab icon={<PoolIcon />} label={t("Amazing pools")} />
-                    <Tab icon={<HouseIcon />} label={t("Tiny home")} />
-                    <Tab icon={<LandslideIcon />} label={t("Amazing views")} />
-                    <Tab icon={<LightIcon />} label={t("OMG!")} />
-                    <Tab icon={<PoolIcon />} label={t("Amazing pools")} />
-                    <Tab icon={<LightIcon />} label={t("OMG!")} />
-                    <Tab icon={<PoolIcon />} label={t("Amazing pools")} />
-                    <Tab icon={<HouseIcon />} label={t("Tiny home")} />
-                    <Tab icon={<LandslideIcon />} label={t("Amazing views")} />
-                    <Tab icon={<LightIcon />} label={t("OMG!")} />
-                    <Tab icon={<PoolIcon />} label={t("Amazing pools")} value="892" />
-                    <Tab icon={<PoolIcon />} label={t("Amazing pools")} value="156" />
-                    <Tab icon={<LandslideIcon />} label={t("Amazing views")} />
-                    <Tab icon={<LightIcon />} label={t("OMG!")} />
-                    <Tab icon={<PoolIcon />} label={t("Amazing pools")} />
-                    <Tab icon={<HouseIcon />} label={t("Tiny home")} />
-                    <Tab icon={<LandslideIcon />} label={t("Amazing views")} />
-                    <Tab icon={<LightIcon />} label={t("OMG!")} />
-                    <Tab icon={<PoolIcon />} label={t("Amazing pools")} />
-                    <Tab icon={<PoolIcon />} label={t("Amazing pools")} />
-                    <Tab icon={<LandslideIcon />} label={t("Amazing views")} />
-                    <Tab icon={<LightIcon />} label={t("OMG!")} />
-                    <Tab icon={<PoolIcon />} label={t("Amazing pools")} />
-                    <Tab icon={<HouseIcon />} label={t("Tiny home")} />
-                    <Tab icon={<LandslideIcon />} label={t("Amazing views")} />
-                    <Tab icon={<LightIcon />} label={t("OMG!")} />
-                    <Tab icon={<PoolIcon />} label={t("Amazing pools")} />
-                </Tabs>
-                <div className='col-1'>
-                    <button className="btn btn-white lg:me-2 me-1 border" onClick={handleShowFilters}>
-                        <div className='flex justify-around'>
-                            <i className={`${i18n.language === 'en' ? "bi bi-sliders2-vertical me-2" : "bi bi-sliders2-vertical ms-1"}`}></i>
-                            <h6>{t("Filter")}</h6>
+            {!showSearch &&
+                <div className='container-fluid sticky z-50 top-20 bg-white my-1'>
+                    <div
+                        className="row flex items-center "
+                        dir={`${i18n.language === "en" ? "ltr" : "rtl"}`}
+                    >
+                        <hr className='my-1' />
+                        <Tabs
+                            value={value}
+                            onChange={handleChange}
+                            indicatorColor="secondary."
+                            variant="scrollable"
+                            scrollButtons
+                            className=' col-11'
+                        >
+                            <Tab icon={<LandslideIcon />} label={t("Amazing views")} name="Amazing views" onClick={(e) => { getCatUnits(e.target.name) }} value='71' />
+                            <Tab icon={<FeedIcon />} label={t('New')} name="New" onClick={(e) => { getCatUnits(e.target.name) }} />
+                            <Tab icon={<FilterHdrIcon />} label={t("Top of the world")} name="Top of the world" onClick={(e) => { getCatUnits(e.target.name) }} />
+                            <Tab icon={<WhatshotIcon />} label={t("Trending")} />
+                            <Tab icon={<AccessibleIcon />} label={t("Adapted")} />
+                            <Tab icon={<SportsHandballIcon />} label={t("Playing")} />
+                            <Tab icon={<TempleBuddhistIcon />} label={t("Hankoks")} />
+                            <Tab icon={<AirlineSeatIndividualSuiteIcon />} label={t("Private rooms")} />
+                            <Tab icon={<LandslideIcon />} label={t("Amazing views")} />
+                            <Tab icon={<LightIcon />} label={t("OMG!")} />
+                            <Tab icon={<PoolIcon />} label={t("Amazing pools")} />
+                            <Tab icon={<HouseIcon />} label={t("Tiny home")} />
+                            <Tab icon={<LandslideIcon />} label={t("Amazing views")} />
+                            <Tab icon={<LightIcon />} label={t("OMG!")} />
+                            <Tab icon={<PoolIcon />} label={t("Amazing pools")} />
+                            <Tab icon={<LightIcon />} label={t("OMG!")} />
+                            <Tab icon={<PoolIcon />} label={t("Amazing pools")} />
+                            <Tab icon={<HouseIcon />} label={t("Tiny home")} />
+                            <Tab icon={<LandslideIcon />} label={t("Amazing views")} />
+                            <Tab icon={<LightIcon />} label={t("OMG!")} />
+                            <Tab icon={<PoolIcon />} label={t("Amazing pools")} value="892" />
+                            <Tab icon={<PoolIcon />} label={t("Amazing pools")} value="156" />
+                            <Tab icon={<LandslideIcon />} label={t("Amazing views")} />
+                            <Tab icon={<LightIcon />} label={t("OMG!")} />
+                            <Tab icon={<PoolIcon />} label={t("Amazing pools")} />
+                            <Tab icon={<HouseIcon />} label={t("Tiny home")} />
+                            <Tab icon={<LandslideIcon />} label={t("Amazing views")} />
+                            <Tab icon={<LightIcon />} label={t("OMG!")} />
+                            <Tab icon={<PoolIcon />} label={t("Amazing pools")} />
+                            <Tab icon={<PoolIcon />} label={t("Amazing pools")} />
+                            <Tab icon={<LandslideIcon />} label={t("Amazing views")} />
+                            <Tab icon={<LightIcon />} label={t("OMG!")} />
+                            <Tab icon={<PoolIcon />} label={t("Amazing pools")} />
+                            <Tab icon={<HouseIcon />} label={t("Tiny home")} />
+                            <Tab icon={<LandslideIcon />} label={t("Amazing views")} />
+                            <Tab icon={<LightIcon />} label={t("OMG!")} />
+                            <Tab icon={<PoolIcon />} label={t("Amazing pools")} />
+                        </Tabs>
+                        <div className='col-1 px-0 '>
+                            <button className="btn btn-white lg:me-2 me-1 border" onClick={handleShowFilters}>
+                                <div className='flex justify-around px-0'>
+                                    <i className={`${i18n.language === 'en' ? "bi bi-sliders2-vertical me-2" : "bi bi-sliders2-vertical ms-1"}`}></i>
+                                    <h6>{t("Filter")}</h6>
+                                </div>
+                            </button>
                         </div>
-                    </button>
-                </div>
-            </div >
-        </div >
-        }
+                    </div >
+                </div >
+            }
         </>
     );
 };

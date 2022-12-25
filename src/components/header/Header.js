@@ -89,7 +89,7 @@ const Navbar = (props) => {
             `date.start=${format(startDate, "MM/dd/yyyy")}&date.end=${format(endDate, "MM/dd/yyyy")}&guestsNumber=${numberOfGuests}`
         )
     }, [setQueryStr, startDate, endDate, numberOfGuests])
-    
+
     const handleSearchSubmit = () => {
         axiosInstance.get(`/units/search/query?${queryStr}&lang=en`).then((res) => {
             console.log(res.data);
@@ -118,8 +118,8 @@ const Navbar = (props) => {
             {/* <div className='h-12 bg-light flex items-center justify-center'>
                 <h5 >{t("Introducing our 2022 Winter Release")}</h5>
             </div> */}
-            <div className="sticky top-0 z-50 bg-white h-20 lg:px-5" dir={`${i18n.language === 'en' ? 'ltr' : 'rtl'}`}>
-                <div className="head block md:flex md:justify-between justify-center items-center sm:mx-6 md:mx-10 lg:mx-12">
+            <div className="sticky top-0 z-50 bg-white h-20 lg:px-5 py-0" dir={`${i18n.language === 'en' ? 'ltr' : 'rtl'}`}>
+                <div className="head block md:flex md:justify-between justify-center items-center sm:mx-6 md:mx-10 lg:mx-12 d-flex">
                     {/* Left */}
                     <div className="hidden md:block w-auto flex" onClick={() => { history.push('/') }}>
                         <img alt="" src={logo} className="object-cover my-10 h-5 lg:h-8" />
@@ -131,12 +131,12 @@ const Navbar = (props) => {
                     <div className="hidden md:flex items-center pr-3 font-semibold text-gray-600">
 
                         {!isAuth ?
-                            <p className="text-[17px] pt-3">{t("Airbnb your home")}</p> :
-                            <p className="text-[17px] pt-3" onClick={() => { history.push('/host') }}>Switch to hosting</p>
+                            <p className="text-[17px] pt-3" style={{ fontSize: "15px" }}>{t("Airbnb your home")}</p> :
+                            <p className="text-[17px] pt-3 " style={{ fontSize: "15px" }} onClick={() => { history.push('/host') }}>Switch to hosting</p>
                         }
                         <button className="flex items-center mx-8 gap-1" onClick={handleLang}>
                             <BiWorld className="" />
-                            <div className="">{`${i18n.language === 'en' ? 'AR' : 'EN'}`}</div>
+                            <div className="" style={{ fontSize: "15px" }}>{`${i18n.language === 'en' ? 'AR' : 'EN'}`}</div>
                         </button>
                         <IconButton
                             onClick={handleClick}

@@ -35,7 +35,7 @@ const SingleCard = ({ data }) => {
     history.push(`/unit-details/${id}`)
   }
   return (
-    <div dir={`${i18n.language === 'en' ? 'ltr' : 'rtl'}`} className="mb-3">
+    <div dir={`${i18n.language === 'en' ? 'ltr' : 'rtl'}`} className="mb-4">
       <Card className="rounded-4 p-0 border-0 " style={{}} ref={ref}
       >
         <Swiper
@@ -64,17 +64,22 @@ const SingleCard = ({ data }) => {
         </Swiper>
 
         <Card.Body onClick={() => { goToUnitPage() }} className="px-0">
-          <Card.Title>{location?.state}, {location?.country}</Card.Title>
-          <Card.Subtitle className="mb-2 text-muted">{title}</Card.Subtitle>
+          <Card.Title className="d-flex justify-content-between mb-0" style={{ fontSize: "18px" }}>{location?.state}, {location?.country}   <p className="mt-1 mx-2 fw-bold" style={{ fontSize: "14px" }}><i className="bi bi-star-fill"></i>
 
-          <Card.Text className="mb-1">{date?.start}</Card.Text>
+            {" "}
+            {t("New")}{" "}
+          </p>
+          </Card.Title>
+          <Card.Subtitle className="mb-1 text-muted">{title}  </Card.Subtitle>
+
+          <Card.Text className="mb-1 text-muted">{date?.start}</Card.Text>
 
           <Card.Text>
-            <b className="text-black-50 me-1">${pricePerNight}</b>night
+            <b className=" me-1">${pricePerNight}</b>night
           </Card.Text>
         </Card.Body>
       </Card>
-    </div>
+    </div >
   );
 };
 

@@ -28,11 +28,11 @@ const Home = () => {
     }, [i18n.language]);
 
     return (
-        <div>
+        <div className='px-5'>
             {/* <Navbar /> */}
             <CatList />
 
-            <div className="mx-5 row row-cols-md-2 row-cols-1 row-cols-lg-4 mt-5">
+            <div className="row row-cols-md-2 row-cols-1 row-cols-lg-4 mt-4">
                 {Units.map((card) => (
                     <SingleCard data={card} key={card.id} />
                 ))}
