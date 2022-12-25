@@ -234,12 +234,12 @@ const Unit = () => {
                 <h4 className="fw-bold">{t("What this place offers")}</h4>
                 <div className="row row-cols-1 row-cols-md-2 my-3">
                   {unit.advantages
-                    ? unit.advantages.map((offer, index) => (
-                      <div className="col d-flex flex-row align-content-center">
+                    ? unit.advantages.map((offer, index) => {
+                      return (<div className="col d-flex flex-row align-content-center">
                         <i className={`${offer.icon} fs-3 m-0 p-0`}></i>
                         <p className="mx-3 pt-2">{offer.title}</p>
-                      </div>
-                    ))
+                      </div>);
+                    })
                     : null}
                 </div>
                 <button
@@ -314,7 +314,7 @@ const Unit = () => {
                   <ButtonGroup size="large" aria-label="large button group" fullWidth className="reservation-button-group">
                     <Button key="one">One</Button>
                     <Button key="two">Two</Button>
-                  </ButtonGroup>
+                  </ButtonGroup>totalPrice
                 </div> */}
                 <div
                   className="btn-group-vertical w-100 mt-2 mb-3"
