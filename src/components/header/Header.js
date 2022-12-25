@@ -21,7 +21,7 @@ import { FiUsers } from 'react-icons/fi';
 import axiosInstance from '../../axios config/axiosInstance';
 import { useDispatch } from 'react-redux';
 import { GetUnits } from '../../store/actions/getUnits';
-import {FaAirbnb} from 'react-icons/fa'
+import { FaAirbnb } from 'react-icons/fa'
 
 
 const Navbar = (props) => {
@@ -122,9 +122,9 @@ const Navbar = (props) => {
             <div className="sticky top-0 z-50 bg-white h-16 lg:px-5 py-0" dir={`${i18n.language === 'en' ? 'ltr' : 'rtl'}`}>
                 <div className="head block md:flex md:justify-between justify-center items-center sm:mx-6 md:mx-10 lg:mx-12 d-flex">
                     {/* Left */}
-                    <div className=" w-auto flex" onClick={() => { history.push('/') }}>
-                        <FaAirbnb className='text-pink-500 text-3xl'/>
-                        {!isScreenSmall && <h4 className='text-pink-500 ml-2'>airbnb</h4>}
+                    <div className=" w-auto flex " style={{ fontWeight: "900" }} onClick={() => { history.push('/') }}>
+                        <FaAirbnb className='text-rose-500 text-3xl' />
+                        {!isScreenSmall && <h4 className='text-rose-500 ml-2'>airbnb</h4>}
                     </div>
                     {/* Middle */}
                     {location.pathname === '/' && !showSearch && <div onClick={() => { showSearchAndLogValues() }}><Search isScreenSmall={window.screen.width < 500 ? true : false} /></div>}

@@ -61,9 +61,9 @@ const CatList = (props) => {
     return (
         <>
             {!showSearch &&
-                <div className='container-fluid sticky z-50 top-16 bg-white my-1'>
+                <div className='container-fluid sticky z-50 top-16 bg-white my-1 px-0'>
                     <div
-                        className="row flex items-center "
+                        className="flex flex-row items-center px-0 "
                         dir={`${i18n.language === "en" ? "ltr" : "rtl"}`}
                     >
                         <hr className='my-1' />
@@ -73,7 +73,7 @@ const CatList = (props) => {
                             indicatorColor="secondary."
                             variant="scrollable"
                             scrollButtons
-                            className=' col-11'
+                            className='grow-1'
                         >
                             <Tab icon={<LandslideIcon />} label={t("Amazing views")} name="Amazing views" onClick={(e) => { getCatUnits(e.target.name) }} value='71' />
                             <Tab icon={<FeedIcon />} label={t('New')} name="New" onClick={(e) => { getCatUnits(e.target.name) }} />
@@ -113,14 +113,12 @@ const CatList = (props) => {
                             <Tab icon={<LightIcon />} label={t("OMG!")} />
                             <Tab icon={<PoolIcon />} label={t("Amazing pools")} />
                         </Tabs>
-                        <div className='col-1 px-0 '>
-                            <button className="btn btn-white lg:me-2 me-1 border" onClick={handleShowFilters}>
-                                <div className='flex justify-around px-0'>
-                                    <i className={`${i18n.language === 'en' ? "bi bi-sliders2-vertical me-2" : "bi bi-sliders2-vertical ms-1"}`}></i>
-                                    <h6>{t("Filter")}</h6>
-                                </div>
-                            </button>
-                        </div>
+                        <button className="btn btn-white lg:me-2 grow-0 border" onClick={handleShowFilters}>
+                            <div className='flex justify-around px-0'>
+                                <i className={`${i18n.language === 'en' ? "bi bi-sliders2-vertical me-2" : "bi bi-sliders2-vertical ms-1"}`}></i>
+                                <h6>{t("Filter")}</h6>
+                            </div>
+                        </button>
                     </div >
                 </div >
             }

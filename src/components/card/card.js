@@ -15,7 +15,7 @@ import { useHistory } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
 
 const SingleCard = ({ data }) => {
-  const { title, location, pricePerNight
+  const { host, location, pricePerNight
     , date, images, id } = data;
   const { t, i18n } = useTranslation()
   const history = useHistory();
@@ -23,14 +23,16 @@ const SingleCard = ({ data }) => {
   const [width1, setWidth] = useState(0);
 
   useEffect(() => {
-    setWidth(ref.current.offsetWidth);
+    setWidth(ref?.current?.offsetWidth);
     function handleResize() {
-      setWidth(ref.current.offsetWidth);
+      setWidth(ref?.current?.offsetWidth);
     }
     window.addEventListener('resize', handleResize)
 
   }, []);
+  console.log(host);
   const goToUnitPage = () => {
+
     console.log(data);
     history.push(`/unit-details/${id}`)
   }
@@ -64,16 +66,15 @@ const SingleCard = ({ data }) => {
         </Swiper>
 
         <Card.Body onClick={() => { goToUnitPage() }} className="px-0">
-          <Card.Title className="d-flex justify-content-between mb-0" style={{ fontSize: "18px" }}>{location?.state}, {location?.country}   <p className="mt-1 mx-2 fw-bold" style={{ fontSize: "14px" }}><i className="bi bi-star-fill"></i>
+          <Card.Title className="d-flex justify-content-between mb-0 " style={{ fontSize: "16px", height: "30px" }}>{location?.state}, {location?.country}   <p className="mt-1 mx-2 fw-bold" style={{ fontSize: "13px" }}><i className="bi bi-star-fill"></i>
 
             {" "}
             {t("New")}{" "}
           </p>
           </Card.Title>
-          <Card.Subtitle className="mb-1 text-muted">{title}  </Card.Subtitle>
+          <Card.Subtitle className="mb-1 text-muted">Hosted by {host?.firstName}  </Card.Subtitle>
 
           <Card.Text className="mb-1 text-muted">{date?.start}</Card.Text>
-
           <Card.Text>
             <b className=" me-1">${pricePerNight}</b>night
           </Card.Text>
