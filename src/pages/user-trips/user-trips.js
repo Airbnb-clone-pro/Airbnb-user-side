@@ -24,7 +24,6 @@ const UserTrips = () => {
         },
     };
     useEffect(() => {
-
         axiosInstance
             .get(
                 `/reservations?lang=${i18n.language}`,

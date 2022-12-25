@@ -12,20 +12,28 @@ import { useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
 import logo from '../../assets/02.webp';
 import { useHistory } from "react-router-dom";
+import { useEffect, useRef, useState } from "react";
 
 const SingleCard = ({ data }) => {
   const { title, location, pricePerNight
     , date, images, id } = data;
   const { t, i18n } = useTranslation()
   const history = useHistory();
+  const ref = useRef("");
+  const [width1, setWidth] = useState(0);
 
+  useEffect(() => {
+    setWidth(ref.current.offsetWidth);
+
+  }, []);
   const goToUnitPage = () => {
     console.log(data);
     history.push(`/unit-details/${id}`)
   }
   return (
     <div dir={`${i18n.language === 'en' ? 'ltr' : 'rtl'}`}>
-      <Card className="rounded-3 p-0 border-0" style={{}} >
+      <Card className="rounded-3 p-0 border-0" style={{}} ref={ref}
+      >
         <Swiper
           navigation={true}
           className="w-100"
@@ -42,7 +50,7 @@ const SingleCard = ({ data }) => {
                   alt={`img-${index}`}
                   src={imgSrc}
                   className="rounded-0"
-                  height="400px"
+                  height="100%"
                   onClick={() => { goToUnitPage() }}
                 />
               </SwiperSlide>
