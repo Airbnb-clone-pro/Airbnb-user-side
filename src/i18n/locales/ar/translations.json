@@ -128,5 +128,6 @@
     "bathrooms": "حمام",
     "You cannot reserve , please login": "لا يمكنك الحجز ، الرجاء تسجيل الدخول",
     "Reservation Successful": "تم الحجز بنجاح",
-    "show place": "اظهر المكان"
+    "show place": "اظهر المكان",
+    "UnAvailable": "غير متاح"
 }
