@@ -9,25 +9,31 @@
 .swiper-button-next,
 .swiper-button-prev {
   top: 45%;
-  background-color: #ffffffa8;
-  width: 50px;
-  height: 50px;
+  background-color: white;
+  width: 32px;
+  height: 32px;
   border-radius: 50%;
   visibility: hidden;
 }
+
 .swiper-button-next:after,
 .swiper-button-prev::after {
-  color: #444;
-  font-size: 1rem;
+  color: black;
+  font-size: 0.7rem;
+  font-weight: bold;
+  /* background-color: white; */
 }
+
 .swiper:hover .swiper-button-prev {
   visibility: visible;
 }
+
 .swiper:hover .swiper-button-next {
   visibility: visible;
 }
+
 .swiper-pagination .swiper-pagination-bullet {
-  background-color: #fff;
+  background-color: white;
   width: 13px;
   height: 13px;
   left: 0 !important;

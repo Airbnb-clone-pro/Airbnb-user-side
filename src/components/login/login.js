@@ -1,7 +1,6 @@
 import React, { useContext, useState } from 'react';
 import '../sign-up/sign-up.css'
 import { Modal } from 'react-bootstrap';
-import Button from 'react-bootstrap/Button';
 import axiosInstance from '../../axios config/axiosInstance';
 import { useHistory } from 'react-router-dom';
 
@@ -31,6 +30,7 @@ const Login = () => {
     const [errors, setErrors] = useState({
         emailError: "",
         passwordError: "",
+        loginError: ""
     })
 
 
@@ -71,19 +71,34 @@ const Login = () => {
         if (!errors.emailError && !errors.passwordError) {
 
             axiosInstance.post('/users/login', userLogin).then((res) => {
-                console.log(res);
-                if (res.data.token) {
-                    localStorage.setItem('token', res.data.token);
 
-                    setShowLogin(false)
-                    // ev.target.submit()
-                    history.push('/')
-                    // alert("Form Sent Successfully")
+                if (res.status === 200) {
+                    if (res.data.token) {
+                        localStorage.setItem('token', res.data.token);
+                        setShowLogin(false)
+                        history.push('/')
+                        setUserLogin({ ...userLogin, password: "" })
+                        setErrors({})
+                    }
+                } else {
+                    setErrors({
+                        ...errors, loginError: " Cannot login. Invalid email or password."
+                    })
+
+                    setUserLogin({ ...userLogin, password: "" })
                 }
             }).catch((err) => {
+                setErrors({
+                    ...errors, loginError: " Cannot login. Invalid email or password."
+                })
+                setUserLogin({ ...userLogin, password: "" })
             })
         } else {
-            alert("Please Enter Valid Date")
+            setErrors({
+                ...errors, loginError: " Cannot login. Invalid email or password."
+            })
+
+            setUserLogin({ ...userLogin, password: "" })
         }
     }
 
@@ -93,18 +108,11 @@ const Login = () => {
 
 
 
-
-
     return (
-
-
 
         <div className=''>
 
             <Modal show={showLogin} onHide={handleCloseLogin} className=""
-            // size="lg"
-            // aria-labelledby="contained-modal-title-vcenter"
-            // centered
             >
                 <Modal.Body style={{ borderRadius: '2rem' }} className="">
                     <div className="signup-container ">
@@ -140,6 +148,7 @@ const Login = () => {
                                 <p className={`error ${!errors.passwordError ? "d-none" : ""} `}><i className=" fa-solid fa-circle-exclamation "></i>{errors.passwordError}</p>
                             </div>
                             <br />
+                            <p className={`error ${!errors.loginError ? "d-none" : ""} `}><i className=" fa-solid fa-circle-exclamation "> </i>{errors.loginError}</p>
 
                             <input
                                 type="submit"

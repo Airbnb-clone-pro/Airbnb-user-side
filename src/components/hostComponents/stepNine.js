@@ -39,6 +39,7 @@ const StepNine = () => {
             }
 
         }).catch((err) => {
+            alert('Error ocurred. Make sure you entered all required date and t ry again')
         })
     }
 

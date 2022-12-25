@@ -210,9 +210,14 @@ const Navbar = (props) => {
                                 </MenuItem>
                             }
                             {isAuth &&
-                                <MenuItem dir={`${i18n.language === 'en' ? 'ltr' : 'rtl'}`}>
-                                    {t("Trips")}
-                                </MenuItem>
+                                <Link
+                                    to="/trips"
+                                    className="text-decoration-none text-dark"
+                                >
+                                    <MenuItem dir={`${i18n.language === 'en' ? 'ltr' : 'rtl'}`}>
+                                        {t("Trips")}
+                                    </MenuItem>
+                                </Link>
                             }
                             {isAuth &&
                                 <MenuItem dir={`${i18n.language === 'en' ? 'ltr' : 'rtl'}`}>
