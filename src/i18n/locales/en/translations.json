@@ -127,5 +127,6 @@
     "in":"in",
     "bathrooms":"bathrooms",
     "You cannot reserve , please login":"You cannot reserve , please login",
-    "Reservation Successful":"Reservation Successful"
+    "Reservation Successful":"Reservation Successful",
+    "show place":"show place"
 }
