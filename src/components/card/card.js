@@ -25,7 +25,7 @@ const SingleCard = ({ data }) => {
   }
   return (
     <div dir={`${i18n.language === 'en' ? 'ltr' : 'rtl'}`}>
-      <Card className="rounded-3 p-0 border-0" >
+      <Card className="rounded-3 p-0 border-0" style={{}} >
         <Swiper
           navigation={true}
           className="w-100"
@@ -42,7 +42,7 @@ const SingleCard = ({ data }) => {
                   alt={`img-${index}`}
                   src={imgSrc}
                   className="rounded-0"
-                  width="100%"
+                  height="400px"
                   onClick={() => { goToUnitPage() }}
                 />
               </SwiperSlide>
