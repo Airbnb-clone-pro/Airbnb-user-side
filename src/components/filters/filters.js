@@ -43,11 +43,12 @@ const Filters = () => {
     const [queryStr, setQueryStr] = useState('')
 
     const defaultHostlangs = ['English', 'Arabic', 'Spanish', 'French']
-    const defaultPlaceTypes = ['Private room', 'Entire unit', 'Shared room']
+    const defaultPlaceTypes = ['Private room', 'Entire place', 'Shared room']
+    const defaultEssentials = ['Kitchen', 'TV']
     useEffect(() => {
         setQueryStr(
-            `EnglishUnit.placeType[in]=${placeType.length>=1?placeType.join('&EnglishUnit.placeType[in]=').toString():defaultPlaceTypes.join('&EnglishUnit.placeType[in]').toString()}&EnglishUnit.advantages.title[all]=${essentials.join('&EnglishUnit.advantages.title[all]=').toString() || 'wifi'}&hostLang[in]=${hostLangs.length>=1?hostLangs.join('&hostLang[in]=').toString():defaultHostlangs.join('&hostLang[in]=').toString()}&pricePerNight[gte]=${value[0] * 8}&pricePerNight[lte]=${value[1] * 8}&rooms[gte]=${rooms}&bathrooms[gte]=${bathrooms}&beds[gte]=${beds}`)
-    }, [placeType, essentials, hostLangs, value, rooms, bathrooms, beds]);
+            `EnglishUnit.placeType[in]=${placeType.length>=1?placeType.join('&EnglishUnit.placeType[in]=').toString():defaultPlaceTypes.join('&EnglishUnit.placeType[in]=').toString()}${essentials.length>1?`&EnglishUnit.advantages.title[all]=${essentials.join('&EnglishUnit.advantages.title[all]=').toString()}`:`&EnglishUnit.advantages.title[all]=${defaultEssentials.join('&EnglishUnit.advantages.title[all]=').toString()}`}&hostLang[in]=${hostLangs.length>=1?hostLangs.join('&hostLang[in]=').toString():defaultHostlangs.join('&hostLang[in]=').toString()}&pricePerNight[gte]=${value[0] * 8}&pricePerNight[lte]=${value[1] * 8}&rooms[gte]=${rooms}&bathrooms[gte]=${bathrooms}&beds[gte]=${beds}`)
+    }, [placeType, essentials, hostLangs, value, rooms, bathrooms, beds, defaultPlaceTypes, defaultEssentials, defaultHostlangs]);
 
     const handlePlaceTypeChange = (event) => {event.target.checked ?  setPlaceType([...placeType, event.target.value]) : setPlaceType(placeType.filter((place)=>place !== event.target.value))}
     const handleEssentialsChange = (event) => {event.target.checked ?  setEssentials([...essentials, event.target.value]): setEssentials(essentials.filter((place)=>place !== event.target.value))}
@@ -98,7 +99,7 @@ const Filters = () => {
             centered
             scrollable
         >
-            <Modal.Header closeButton elementType="div" style={(i18n.language === 'en' ? { 'direction': 'ltr' } : { 'direction': 'rtl' })}>
+            <Modal.Header closeButton elementtype="div" style={(i18n.language === 'en' ? { 'direction': 'ltr' } : { 'direction': 'rtl' })}>
                 <h5>{t("Filter")}</h5>
             </Modal.Header>
             <Modal.Body style={(i18n.language === 'en' ? { 'direction': 'ltr' } : { 'direction': 'rtl' })}>
@@ -146,172 +147,172 @@ const Filters = () => {
                 <Box>
                     <h4>Rooms and beds</h4>
                     <h6 className='m-4 opacity-70'>Rooms</h6>
-                    <ul class="flex justify-between w-5/6">
+                    <ul className="flex justify-between w-5/6">
                         <li>
-                            <input onClick={handleRooms} defaultChecked type="radio" id="rooms-any" name="rooms" value="rooms-any" class="hidden peer" />
-                            <label htmlFor="rooms-any" class="w-full text-gray-500 rounded-lg border border-gray-200 px-4 py-2 cursor-pointer peer-checked:bg-gray-900 peer-checked:text-white hover:text-gray-600 hover:bg-grey-600">
+                            <input onClick={handleRooms} defaultChecked type="radio" id="rooms-any" name="rooms" value="rooms-any" className="hidden peer" />
+                            <label htmlFor="rooms-any" className="w-full text-gray-500 rounded-lg border border-gray-200 px-4 py-2 cursor-pointer peer-checked:bg-gray-900 peer-checked:text-white hover:text-gray-600 hover:bg-grey-600">
                                 any
                             </label>
                         </li>
                         <li>
-                            <input onClick={handleRooms} type="radio" id="rooms-1" name="rooms" value="rooms-1" class="hidden peer" />
-                            <label htmlFor="rooms-1" class="text-gray-500 rounded-lg border border-gray-200 px-4 py-2 cursor-pointer peer-checked:bg-gray-900 peer-checked:text-white hover:text-gray-600 hover:bg-grey-600">
+                            <input onClick={handleRooms} type="radio" id="rooms-1" name="rooms" value="rooms-1" className="hidden peer" />
+                            <label htmlFor="rooms-1" className="text-gray-500 rounded-lg border border-gray-200 px-4 py-2 cursor-pointer peer-checked:bg-gray-900 peer-checked:text-white hover:text-gray-600 hover:bg-grey-600">
                                 1
                             </label>
                         </li>
                         <li>
-                            <input onClick={handleRooms} type="radio" id="rooms-2" name="rooms" value="rooms-2" class="hidden peer" />
-                            <label htmlFor="rooms-2" class="text-gray-500 rounded-lg border border-gray-200 px-4 py-2 cursor-pointer peer-checked:bg-gray-900 peer-checked:text-white hover:text-gray-600 hover:bg-grey-600">
+                            <input onClick={handleRooms} type="radio" id="rooms-2" name="rooms" value="rooms-2" className="hidden peer" />
+                            <label htmlFor="rooms-2" className="text-gray-500 rounded-lg border border-gray-200 px-4 py-2 cursor-pointer peer-checked:bg-gray-900 peer-checked:text-white hover:text-gray-600 hover:bg-grey-600">
                                 2
                             </label>
                         </li>
                         <li>
-                            <input onClick={handleRooms} type="radio" id="rooms-3" name="rooms" value="rooms-3" class="hidden peer" />
-                            <label htmlFor="rooms-3" class="text-gray-500 rounded-lg border border-gray-200 px-4 py-2 cursor-pointer peer-checked:bg-gray-900 peer-checked:text-white hover:text-gray-600 hover:bg-grey-600">
+                            <input onClick={handleRooms} type="radio" id="rooms-3" name="rooms" value="rooms-3" className="hidden peer" />
+                            <label htmlFor="rooms-3" className="text-gray-500 rounded-lg border border-gray-200 px-4 py-2 cursor-pointer peer-checked:bg-gray-900 peer-checked:text-white hover:text-gray-600 hover:bg-grey-600">
                                 3
                             </label>
                         </li>
                         <li>
-                            <input onClick={handleRooms} type="radio" id="rooms-4" name="rooms" value="rooms-4" class="hidden peer" />
-                            <label htmlFor="rooms-4" class="text-gray-500 rounded-lg border border-gray-200 px-4 py-2 cursor-pointer peer-checked:bg-gray-900 peer-checked:text-white hover:text-gray-600 hover:bg-grey-600">
+                            <input onClick={handleRooms} type="radio" id="rooms-4" name="rooms" value="rooms-4" className="hidden peer" />
+                            <label htmlFor="rooms-4" className="text-gray-500 rounded-lg border border-gray-200 px-4 py-2 cursor-pointer peer-checked:bg-gray-900 peer-checked:text-white hover:text-gray-600 hover:bg-grey-600">
                                 4
                             </label>
                         </li>
                         <li>
-                            <input onClick={handleRooms} type="radio" id="rooms-5" name="rooms" value="rooms-5" class="hidden peer" />
-                            <label htmlFor="rooms-5" class="text-gray-500 rounded-lg border border-gray-200 px-4 py-2 cursor-pointer peer-checked:bg-gray-900 peer-checked:text-white hover:text-gray-600 hover:bg-grey-600">
+                            <input onClick={handleRooms} type="radio" id="rooms-5" name="rooms" value="rooms-5" className="hidden peer" />
+                            <label htmlFor="rooms-5" className="text-gray-500 rounded-lg border border-gray-200 px-4 py-2 cursor-pointer peer-checked:bg-gray-900 peer-checked:text-white hover:text-gray-600 hover:bg-grey-600">
                                 5
                             </label>
                         </li>
                         <li>
-                            <input onClick={handleRooms} type="radio" id="rooms-6" name="rooms" value="rooms-6" class="hidden peer" />
-                            <label htmlFor="rooms-6" class="text-gray-500 rounded-lg border border-gray-200 px-4 py-2 cursor-pointer peer-checked:bg-gray-900 peer-checked:text-white hover:text-gray-600 hover:bg-grey-600">
+                            <input onClick={handleRooms} type="radio" id="rooms-6" name="rooms" value="rooms-6" className="hidden peer" />
+                            <label htmlFor="rooms-6" className="text-gray-500 rounded-lg border border-gray-200 px-4 py-2 cursor-pointer peer-checked:bg-gray-900 peer-checked:text-white hover:text-gray-600 hover:bg-grey-600">
                                 6
                             </label>
                         </li>
                         <li>
-                            <input onClick={handleRooms} type="radio" id="rooms-7" name="rooms" value="rooms-7" class="hidden peer" />
-                            <label htmlFor="rooms-7" class="text-gray-500 rounded-lg border border-gray-200 px-4 py-2 cursor-pointer peer-checked:bg-gray-900 peer-checked:text-white hover:text-gray-600 hover:bg-grey-600">
+                            <input onClick={handleRooms} type="radio" id="rooms-7" name="rooms" value="rooms-7" className="hidden peer" />
+                            <label htmlFor="rooms-7" className="text-gray-500 rounded-lg border border-gray-200 px-4 py-2 cursor-pointer peer-checked:bg-gray-900 peer-checked:text-white hover:text-gray-600 hover:bg-grey-600">
                                 7
                             </label>
                         </li>
                         <li>
-                            <input onClick={handleRooms} type="radio" id="rooms-8" name="rooms" value="rooms-8" class="hidden peer" />
-                            <label htmlFor="rooms-8" class="text-gray-500 rounded-lg border border-gray-200 px-4 py-2 cursor-pointer peer-checked:bg-gray-900 peer-checked:text-white hover:text-gray-600 hover:bg-grey-600">
+                            <input onClick={handleRooms} type="radio" id="rooms-8" name="rooms" value="rooms-8" className="hidden peer" />
+                            <label htmlFor="rooms-8" className="text-gray-500 rounded-lg border border-gray-200 px-4 py-2 cursor-pointer peer-checked:bg-gray-900 peer-checked:text-white hover:text-gray-600 hover:bg-grey-600">
                                 +8
                             </label>
                         </li>
                     </ul>
                     <h6 className='m-4 opacity-70'>Beds</h6>
-                    <ul class="flex justify-between w-5/6">
+                    <ul className="flex justify-between w-5/6">
                         <li>
-                            <input onClick={handleRooms} defaultChecked type="radio" id="beds-any" name="beds" value="beds-any" class="hidden peer" />
-                            <label htmlFor="beds-any" class="w-full text-gray-500 rounded-lg border border-gray-200 px-4 py-2 cursor-pointer peer-checked:bg-gray-900 peer-checked:text-white hover:text-gray-600 hover:bg-grey-600">
+                            <input onClick={handleRooms} defaultChecked type="radio" id="beds-any" name="beds" value="beds-any" className="hidden peer" />
+                            <label htmlFor="beds-any" className="w-full text-gray-500 rounded-lg border border-gray-200 px-4 py-2 cursor-pointer peer-checked:bg-gray-900 peer-checked:text-white hover:text-gray-600 hover:bg-grey-600">
                                 any
                             </label>
                         </li>
                         <li>
-                            <input onClick={handleRooms} type="radio" id="beds-1" name="beds" value="beds-1" class="hidden peer" />
-                            <label htmlFor="beds-1" class="text-gray-500 rounded-lg border border-gray-200 px-4 py-2 cursor-pointer peer-checked:bg-gray-900 peer-checked:text-white hover:text-gray-600 hover:bg-grey-600">
+                            <input onClick={handleRooms} type="radio" id="beds-1" name="beds" value="beds-1" className="hidden peer" />
+                            <label htmlFor="beds-1" className="text-gray-500 rounded-lg border border-gray-200 px-4 py-2 cursor-pointer peer-checked:bg-gray-900 peer-checked:text-white hover:text-gray-600 hover:bg-grey-600">
                                 1
                             </label>
                         </li>
                         <li>
-                            <input onClick={handleRooms} type="radio" id="beds-2" name="beds" value="beds-2" class="hidden peer" />
-                            <label htmlFor="beds-2" class="text-gray-500 rounded-lg border border-gray-200 px-4 py-2 cursor-pointer peer-checked:bg-gray-900 peer-checked:text-white hover:text-gray-600 hover:bg-grey-600">
+                            <input onClick={handleRooms} type="radio" id="beds-2" name="beds" value="beds-2" className="hidden peer" />
+                            <label htmlFor="beds-2" className="text-gray-500 rounded-lg border border-gray-200 px-4 py-2 cursor-pointer peer-checked:bg-gray-900 peer-checked:text-white hover:text-gray-600 hover:bg-grey-600">
                                 2
                             </label>
                         </li>
                         <li>
-                            <input onClick={handleRooms} type="radio" id="beds-3" name="beds" value="beds-3" class="hidden peer" />
-                            <label htmlFor="beds-3" class="text-gray-500 rounded-lg border border-gray-200 px-4 py-2 cursor-pointer peer-checked:bg-gray-900 peer-checked:text-white hover:text-gray-600 hover:bg-grey-600">
+                            <input onClick={handleRooms} type="radio" id="beds-3" name="beds" value="beds-3" className="hidden peer" />
+                            <label htmlFor="beds-3" className="text-gray-500 rounded-lg border border-gray-200 px-4 py-2 cursor-pointer peer-checked:bg-gray-900 peer-checked:text-white hover:text-gray-600 hover:bg-grey-600">
                                 3
                             </label>
                         </li>
                         <li>
-                            <input onClick={handleRooms} type="radio" id="beds-4" name="beds" value="beds-4" class="hidden peer" />
-                            <label htmlFor="beds-4" class="text-gray-500 rounded-lg border border-gray-200 px-4 py-2 cursor-pointer peer-checked:bg-gray-900 peer-checked:text-white hover:text-gray-600 hover:bg-grey-600">
+                            <input onClick={handleRooms} type="radio" id="beds-4" name="beds" value="beds-4" className="hidden peer" />
+                            <label htmlFor="beds-4" className="text-gray-500 rounded-lg border border-gray-200 px-4 py-2 cursor-pointer peer-checked:bg-gray-900 peer-checked:text-white hover:text-gray-600 hover:bg-grey-600">
                                 4
                             </label>
                         </li>
                         <li>
-                            <input onClick={handleRooms} type="radio" id="beds-5" name="beds" value="beds-5" class="hidden peer" />
-                            <label htmlFor="beds-5" class="text-gray-500 rounded-lg border border-gray-200 px-4 py-2 cursor-pointer peer-checked:bg-gray-900 peer-checked:text-white hover:text-gray-600 hover:bg-grey-600">
+                            <input onClick={handleRooms} type="radio" id="beds-5" name="beds" value="beds-5" className="hidden peer" />
+                            <label htmlFor="beds-5" className="text-gray-500 rounded-lg border border-gray-200 px-4 py-2 cursor-pointer peer-checked:bg-gray-900 peer-checked:text-white hover:text-gray-600 hover:bg-grey-600">
                                 5
                             </label>
                         </li>
                         <li>
-                            <input onClick={handleRooms} type="radio" id="beds-6" name="beds" value="beds-6" class="hidden peer" />
-                            <label htmlFor="beds-6" class="text-gray-500 rounded-lg border border-gray-200 px-4 py-2 cursor-pointer peer-checked:bg-gray-900 peer-checked:text-white hover:text-gray-600 hover:bg-grey-600">
+                            <input onClick={handleRooms} type="radio" id="beds-6" name="beds" value="beds-6" className="hidden peer" />
+                            <label htmlFor="beds-6" className="text-gray-500 rounded-lg border border-gray-200 px-4 py-2 cursor-pointer peer-checked:bg-gray-900 peer-checked:text-white hover:text-gray-600 hover:bg-grey-600">
                                 6
                             </label>
                         </li>
                         <li>
-                            <input onClick={handleRooms} type="radio" id="beds-7" name="beds" value="beds-7" class="hidden peer" />
-                            <label htmlFor="beds-7" class="text-gray-500 rounded-lg border border-gray-200 px-4 py-2 cursor-pointer peer-checked:bg-gray-900 peer-checked:text-white hover:text-gray-600 hover:bg-grey-600">
+                            <input onClick={handleRooms} type="radio" id="beds-7" name="beds" value="beds-7" className="hidden peer" />
+                            <label htmlFor="beds-7" className="text-gray-500 rounded-lg border border-gray-200 px-4 py-2 cursor-pointer peer-checked:bg-gray-900 peer-checked:text-white hover:text-gray-600 hover:bg-grey-600">
                                 7
                             </label>
                         </li>
                         <li>
-                            <input onClick={handleRooms} type="radio" id="beds-8" name="beds" value="beds-8" class="hidden peer" />
-                            <label htmlFor="beds-8" class="text-gray-500 rounded-lg border border-gray-200 px-4 py-2 cursor-pointer peer-checked:bg-gray-900 peer-checked:text-white hover:text-gray-600 hover:bg-grey-600">
+                            <input onClick={handleRooms} type="radio" id="beds-8" name="beds" value="beds-8" className="hidden peer" />
+                            <label htmlFor="beds-8" className="text-gray-500 rounded-lg border border-gray-200 px-4 py-2 cursor-pointer peer-checked:bg-gray-900 peer-checked:text-white hover:text-gray-600 hover:bg-grey-600">
                                 +8
                             </label>
                         </li>
                     </ul>
                     <h6 className='m-4 opacity-70'>Bathrooms</h6>
-                    <ul class="flex justify-between w-5/6">
+                    <ul className="flex justify-between w-5/6">
                         <li>
-                            <input onClick={handleRooms} defaultChecked type="radio" id="baths-any" name="baths" value="baths-any" class="hidden peer" />
-                            <label htmlFor="baths-any" class="w-full text-gray-500 rounded-lg border border-gray-200 px-4 py-2 cursor-pointer peer-checked:bg-gray-900 peer-checked:text-white hover:text-gray-600 hover:bg-grey-600">
+                            <input onClick={handleRooms} defaultChecked type="radio" id="baths-any" name="baths" value="baths-any" className="hidden peer" />
+                            <label htmlFor="baths-any" className="w-full text-gray-500 rounded-lg border border-gray-200 px-4 py-2 cursor-pointer peer-checked:bg-gray-900 peer-checked:text-white hover:text-gray-600 hover:bg-grey-600">
                                 any
                             </label>
                         </li>
                         <li>
-                            <input onClick={handleRooms} type="radio" id="baths-1" name="baths" value="baths-1" class="hidden peer" />
-                            <label htmlFor="baths-1" class="text-gray-500 rounded-lg border border-gray-200 px-4 py-2 cursor-pointer peer-checked:bg-gray-900 peer-checked:text-white hover:text-gray-600 hover:bg-grey-600">
+                            <input onClick={handleRooms} type="radio" id="baths-1" name="baths" value="baths-1" className="hidden peer" />
+                            <label htmlFor="baths-1" className="text-gray-500 rounded-lg border border-gray-200 px-4 py-2 cursor-pointer peer-checked:bg-gray-900 peer-checked:text-white hover:text-gray-600 hover:bg-grey-600">
                                 1
                             </label>
                         </li>
                         <li>
-                            <input onClick={handleRooms} type="radio" id="baths-2" name="baths" value="baths-2" class="hidden peer" />
-                            <label htmlFor="baths-2" class="text-gray-500 rounded-lg border border-gray-200 px-4 py-2 cursor-pointer peer-checked:bg-gray-900 peer-checked:text-white hover:text-gray-600 hover:bg-grey-600">
+                            <input onClick={handleRooms} type="radio" id="baths-2" name="baths" value="baths-2" className="hidden peer" />
+                            <label htmlFor="baths-2" className="text-gray-500 rounded-lg border border-gray-200 px-4 py-2 cursor-pointer peer-checked:bg-gray-900 peer-checked:text-white hover:text-gray-600 hover:bg-grey-600">
                                 2
                             </label>
                         </li>
                         <li>
-                            <input onClick={handleRooms} type="radio" id="baths-3" name="baths" value="baths-3" class="hidden peer" />
-                            <label htmlFor="baths-3" class="text-gray-500 rounded-lg border border-gray-200 px-4 py-2 cursor-pointer peer-checked:bg-gray-900 peer-checked:text-white hover:text-gray-600 hover:bg-grey-600">
+                            <input onClick={handleRooms} type="radio" id="baths-3" name="baths" value="baths-3" className="hidden peer" />
+                            <label htmlFor="baths-3" className="text-gray-500 rounded-lg border border-gray-200 px-4 py-2 cursor-pointer peer-checked:bg-gray-900 peer-checked:text-white hover:text-gray-600 hover:bg-grey-600">
                                 3
                             </label>
                         </li>
                         <li>
-                            <input onClick={handleRooms} type="radio" id="baths-4" name="baths" value="baths-4" class="hidden peer" />
-                            <label htmlFor="baths-4" class="text-gray-500 rounded-lg border border-gray-200 px-4 py-2 cursor-pointer peer-checked:bg-gray-900 peer-checked:text-white hover:text-gray-600 hover:bg-grey-600">
+                            <input onClick={handleRooms} type="radio" id="baths-4" name="baths" value="baths-4" className="hidden peer" />
+                            <label htmlFor="baths-4" className="text-gray-500 rounded-lg border border-gray-200 px-4 py-2 cursor-pointer peer-checked:bg-gray-900 peer-checked:text-white hover:text-gray-600 hover:bg-grey-600">
                                 4
                             </label>
                         </li>
                         <li>
-                            <input onClick={handleRooms} type="radio" id="baths-5" name="baths" value="baths-5" class="hidden peer" />
-                            <label htmlFor="baths-5" class="text-gray-500 rounded-lg border border-gray-200 px-4 py-2 cursor-pointer peer-checked:bg-gray-900 peer-checked:text-white hover:text-gray-600 hover:bg-grey-600">
+                            <input onClick={handleRooms} type="radio" id="baths-5" name="baths" value="baths-5" className="hidden peer" />
+                            <label htmlFor="baths-5" className="text-gray-500 rounded-lg border border-gray-200 px-4 py-2 cursor-pointer peer-checked:bg-gray-900 peer-checked:text-white hover:text-gray-600 hover:bg-grey-600">
                                 5
                             </label>
                         </li>
                         <li>
-                            <input onClick={handleRooms} type="radio" id="baths-6" name="baths" value="baths-6" class="hidden peer" />
-                            <label htmlFor="baths-6" class="text-gray-500 rounded-lg border border-gray-200 px-4 py-2 cursor-pointer peer-checked:bg-gray-900 peer-checked:text-white hover:text-gray-600 hover:bg-grey-600">
+                            <input onClick={handleRooms} type="radio" id="baths-6" name="baths" value="baths-6" className="hidden peer" />
+                            <label htmlFor="baths-6" className="text-gray-500 rounded-lg border border-gray-200 px-4 py-2 cursor-pointer peer-checked:bg-gray-900 peer-checked:text-white hover:text-gray-600 hover:bg-grey-600">
                                 6
                             </label>
                         </li>
                         <li>
-                            <input onClick={handleRooms} type="radio" id="baths-7" name="baths" value="baths-7" class="hidden peer" />
-                            <label htmlFor="baths-7" class="text-gray-500 rounded-lg border border-gray-200 px-4 py-2 cursor-pointer peer-checked:bg-gray-900 peer-checked:text-white hover:text-gray-600 hover:bg-grey-600">
+                            <input onClick={handleRooms} type="radio" id="baths-7" name="baths" value="baths-7" className="hidden peer" />
+                            <label htmlFor="baths-7" className="text-gray-500 rounded-lg border border-gray-200 px-4 py-2 cursor-pointer peer-checked:bg-gray-900 peer-checked:text-white hover:text-gray-600 hover:bg-grey-600">
                                 7
                             </label>
                         </li>
                         <li>
-                            <input onClick={handleRooms} type="radio" id="baths-8" name="baths" value="baths-8" class="hidden peer" />
-                            <label htmlFor="baths-8" class="text-gray-500 rounded-lg border border-gray-200 px-4 py-2 cursor-pointer peer-checked:bg-gray-900 peer-checked:text-white hover:text-gray-600 hover:bg-grey-600">
+                            <input onClick={handleRooms} type="radio" id="baths-8" name="baths" value="baths-8" className="hidden peer" />
+                            <label htmlFor="baths-8" className="text-gray-500 rounded-lg border border-gray-200 px-4 py-2 cursor-pointer peer-checked:bg-gray-900 peer-checked:text-white hover:text-gray-600 hover:bg-grey-600">
                                 +8
                             </label>
                         </li>
@@ -322,18 +323,18 @@ const Filters = () => {
                     <h4>{t("Essentials")}</h4>
                     <FormGroup className='flex-row'>
                         <Box className='flex flex-col w-2/5'>
-                            <FormControlLabel componentsProps={{typography:{fontSize:20}}} control={<Checkbox />} label="Wifi" value={"wifi"} onChange={handleEssentialsChange} />
-                            <FormControlLabel componentsProps={{typography:{fontSize:20}}} control={<Checkbox />} label="Kitchen" value={"kitchen"} onChange={handleEssentialsChange} />
-                            <FormControlLabel componentsProps={{typography:{fontSize:20}}} control={<Checkbox />} label="Washer" value={"washer"} onChange={handleEssentialsChange} />
-                            <FormControlLabel componentsProps={{typography:{fontSize:20}}} control={<Checkbox />} label="Dryer" value={"dryer"} onChange={handleEssentialsChange} />
-                            <FormControlLabel componentsProps={{typography:{fontSize:20}}} control={<Checkbox />} label="Air conditioning" value={"air conditioning"} onChange={handleEssentialsChange} />
+                            <FormControlLabel componentsProps={{typography:{fontSize:20}}} control={<Checkbox />} label="Wifi" value={"Wifi"} onChange={handleEssentialsChange} />
+                            <FormControlLabel componentsProps={{typography:{fontSize:20}}} control={<Checkbox />} label="Kitchen" value={"Kitchen"} onChange={handleEssentialsChange} />
+                            <FormControlLabel componentsProps={{typography:{fontSize:20}}} control={<Checkbox />} label="Washer" value={"Washer"} onChange={handleEssentialsChange} />
+                            <FormControlLabel componentsProps={{typography:{fontSize:20}}} control={<Checkbox />} label="Dryer" value={"Dryer"} onChange={handleEssentialsChange} />
+                            <FormControlLabel componentsProps={{typography:{fontSize:20}}} control={<Checkbox />} label="Air conditioning" value={"Air conditioning"} onChange={handleEssentialsChange} />
                         </Box>
                         <Box className='flex flex-col w-2/5'>
-                            <FormControlLabel componentsProps={{typography:{fontSize:20}}} control={<Checkbox />} label="Heating" value={"heating"} onChange={handleEssentialsChange} />
-                            <FormControlLabel componentsProps={{typography:{fontSize:20}}} control={<Checkbox />} label="Dedicated workspace" value={"dedicated workspace"} onChange={handleEssentialsChange} />
+                            <FormControlLabel componentsProps={{typography:{fontSize:20}}} control={<Checkbox />} label="Heating" value={"Heating"} onChange={handleEssentialsChange} />
+                            <FormControlLabel componentsProps={{typography:{fontSize:20}}} control={<Checkbox />} label="Dedicated workspace" value={"Dedicated workspace"} onChange={handleEssentialsChange} />
                             <FormControlLabel componentsProps={{typography:{fontSize:20}}} control={<Checkbox />} label="TV" value={"TV"} onChange={handleEssentialsChange} />
-                            <FormControlLabel componentsProps={{typography:{fontSize:20}}} control={<Checkbox />} label="Hair dryer" value={"hair dryer"} onChange={handleEssentialsChange} />
-                            <FormControlLabel componentsProps={{typography:{fontSize:20}}} control={<Checkbox />} label="Iron" value={"iron"} onChange={handleEssentialsChange} />
+                            <FormControlLabel componentsProps={{typography:{fontSize:20}}} control={<Checkbox />} label="Hair dryer" value={"Hair dryer"} onChange={handleEssentialsChange} />
+                            <FormControlLabel componentsProps={{typography:{fontSize:20}}} control={<Checkbox />} label="Iron" value={"Iron"} onChange={handleEssentialsChange} />
                         </Box>
                     </FormGroup>
                 </Box>

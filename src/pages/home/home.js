@@ -32,7 +32,7 @@ const Home = () => {
             {/* <Navbar /> */}
             <CatList />
 
-            <div className="mx-5 row row-cols-md-3 row-cols-1 row-cols-sm-2 row-cols-lg-4 mt-5">
+            <div className="mx-5 row row-cols-md-2 row-cols-1 row-cols-lg-4 mt-5">
                 {Units.map((card) => (
                     <SingleCard data={card} key={card.id} />
                 ))}
