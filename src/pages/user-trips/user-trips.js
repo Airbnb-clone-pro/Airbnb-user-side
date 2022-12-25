@@ -1,7 +1,9 @@
 import { CircularProgress, Divider } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
+import axiosInstance from "../../axios config/axiosInstance";
 import TripCart from "../../components/trips/trip-card";
 
 
@@ -12,12 +14,47 @@ const UserTrips = () => {
     const [isLoading, setLoading] = useState(false);
     const [buttonsRadio, setButtonRadio] = useState(0);
     const history = useHistory();
+    const user = useSelector((state) => state.user);
+    const token = localStorage.getItem("token");
+    console.log("user", user._id);
+    console.log("token", token);
+    let config = {
+        headers: {
+            "authorization": token,
+        },
+    };
+    useEffect(() => {
+
+        axiosInstance
+            .get(
+                `/reservations?lang=${i18n.language}`,
+                {
+                    user: user._id,
+                },
+                config
+            )
+            .then((res) => {
+                console.log(res.data);
+                // reservation-successful
+
+            })
+            .catch((err) => {
+                console.log(err);
+                console.log("user", user._id);
+                console.log("token", token);
+            });
+        console.log("user", user._id);
+        console.log("token", token);
+
+    }, [user]);
+
     const handleSearch = () => {
         history.push(`/`)
     }
     const handleRadio = (btnNum) => {
         setButtonRadio(btnNum)
     }
+
     return <>
         {isLoading ? (
             <div className="container p-5 m-5 d-flex justify-content-center">
