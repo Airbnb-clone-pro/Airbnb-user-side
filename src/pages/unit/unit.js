@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 import DatePicker from "react-datepicker";
 import "./datePicker-style/datepicker.scss";
 import CircularProgress from "@mui/material/CircularProgress";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, useLayoutEffect } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import axiosInstance from "../../axios config/axiosInstance";
 import Snackbar from "@mui/material/Snackbar";
@@ -50,6 +50,12 @@ const Unit = () => {
       setGuests(unit.guestsNumber);
     }
     console.log(width);
+    function handleResize() {
+
+      setWidth(ref.current.offsetWidth);
+    }
+    window.addEventListener('resize', handleResize)
+
   }, [isLoading]);
   window.addEventListener("scroll", function (event) {
     // console.log(this.scrollY);

@@ -24,6 +24,10 @@ const SingleCard = ({ data }) => {
 
   useEffect(() => {
     setWidth(ref.current.offsetWidth);
+    function handleResize() {
+      setWidth(ref.current.offsetWidth);
+    }
+    window.addEventListener('resize', handleResize)
 
   }, []);
   const goToUnitPage = () => {
@@ -31,12 +35,13 @@ const SingleCard = ({ data }) => {
     history.push(`/unit-details/${id}`)
   }
   return (
-    <div dir={`${i18n.language === 'en' ? 'ltr' : 'rtl'}`}>
-      <Card className="rounded-3 p-0 border-0" style={{}} ref={ref}
+    <div dir={`${i18n.language === 'en' ? 'ltr' : 'rtl'}`} className="mb-3">
+      <Card className="rounded-4 p-0 border-0 " style={{}} ref={ref}
       >
         <Swiper
           navigation={true}
-          className="w-100"
+          className="rounded-4 w-100"
+          style={{ height: width1 }}
           modules={[Navigation, Scrollbar, Pagination]}
           pagination={{
             dynamicBullets: true,
@@ -59,7 +64,7 @@ const SingleCard = ({ data }) => {
         </Swiper>
 
         <Card.Body onClick={() => { goToUnitPage() }}>
-          <Card.Title>{location?.city}, {location?.country}</Card.Title>
+          <Card.Title>{location?.state}, {location?.country}</Card.Title>
           <Card.Subtitle className="mb-2 text-muted">{title}</Card.Subtitle>
 
           <Card.Text className="mb-1">{date?.start}</Card.Text>

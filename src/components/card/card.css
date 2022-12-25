@@ -10,17 +10,16 @@
 .swiper-button-prev {
   top: 45%;
   background-color: white;
-  width: 36px;
-  height: 36px;
+  width: 32px;
+  height: 32px;
   border-radius: 50%;
   visibility: hidden;
 }
 
 .swiper-button-next:after,
 .swiper-button-prev::after {
-
   color: black;
-  font-size: 1rem;
+  font-size: 0.7rem;
   font-weight: bold;
   /* background-color: white; */
 }

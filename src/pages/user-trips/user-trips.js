@@ -60,6 +60,7 @@ const UserTrips = () => {
                 {/* ---------- component header ---------- */}
                 <h2 className="my-3 fw-bold">{t("Trips")}</h2>
                 <Divider style={{ background: "#757575" }} className="my-3" />
+
                 <div className="my-4">
                     <h4 className="">{t("No trips booked...yet!")}</h4>
                     <p className="text-secondary">{t("Time to dust off your bags and start planning your next adventure")}</p>
