@@ -21,6 +21,7 @@ import { FiUsers } from 'react-icons/fi';
 import axiosInstance from '../../axios config/axiosInstance';
 import { useDispatch } from 'react-redux';
 import { GetUnits } from '../../store/actions/getUnits';
+import {FaAirbnb} from 'react-icons/fa'
 
 
 const Navbar = (props) => {
@@ -86,7 +87,7 @@ const Navbar = (props) => {
     const dispatch = useDispatch()
     React.useEffect(() => {
         setQueryStr(
-            `date.start=${format(startDate, "MM/dd/yyyy")}&date.end=${format(endDate, "MM/dd/yyyy")}&guestsNumber=${numberOfGuests}`
+            `date.start=${format(startDate, "MM/dd/yyyy")}&date.end=${format(endDate, "MM/dd/yyyy")}&guestsNumber[gte]=${numberOfGuests}`
         )
     }, [setQueryStr, startDate, endDate, numberOfGuests])
 
@@ -104,7 +105,7 @@ const Navbar = (props) => {
     const [isScreenSmall, setISScreenSmall] = React.useState(false)
     React.useEffect(() => {
         function handleResize() {
-            console.log('resized to: ', window.innerWidth, 'x', window.innerHeight)
+            // console.log('resized to: ', window.innerWidth, 'x', window.innerHeight)
             if (window.innerWidth <= 720) {
                 setISScreenSmall(true)
             } else {
@@ -118,11 +119,12 @@ const Navbar = (props) => {
             {/* <div className='h-12 bg-light flex items-center justify-center'>
                 <h5 >{t("Introducing our 2022 Winter Release")}</h5>
             </div> */}
-            <div className="sticky top-0 z-50 bg-white h-20 lg:px-5 py-0" dir={`${i18n.language === 'en' ? 'ltr' : 'rtl'}`}>
+            <div className="sticky top-0 z-50 bg-white h-16 lg:px-5 py-0" dir={`${i18n.language === 'en' ? 'ltr' : 'rtl'}`}>
                 <div className="head block md:flex md:justify-between justify-center items-center sm:mx-6 md:mx-10 lg:mx-12 d-flex">
                     {/* Left */}
-                    <div className="hidden md:block w-auto flex" onClick={() => { history.push('/') }}>
-                        <img alt="" src={logo} className="object-cover my-10 h-5 lg:h-8" />
+                    <div className=" w-auto flex" onClick={() => { history.push('/') }}>
+                        <FaAirbnb className='text-pink-500 text-3xl'/>
+                        {!isScreenSmall && <h4 className='text-pink-500 ml-2'>airbnb</h4>}
                     </div>
                     {/* Middle */}
                     {location.pathname === '/' && !showSearch && <div onClick={() => { showSearchAndLogValues() }}><Search isScreenSmall={window.screen.width < 500 ? true : false} /></div>}
