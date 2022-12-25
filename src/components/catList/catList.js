@@ -21,6 +21,7 @@ import './catList.css'
 import { GetUnits } from '../../store/actions/getUnits';
 import { filterContext } from '../../contexts/filtersModel';
 import axiosInstance from '../../axios config/axiosInstance';
+import { searchContext } from '../../contexts/searchModal';
 
 
 const CatList = (props) => {
@@ -55,7 +56,11 @@ const CatList = (props) => {
 
     }
 
+    const {showSearch, setShowSearch} = useContext(searchContext);
+
     return (
+        <>
+        {!showSearch &&
         <div className='container-fluid sticky z-50 top-20 bg-white'>
             <div
                 className="row flex items-center"
@@ -118,6 +123,8 @@ const CatList = (props) => {
                 </div>
             </div >
         </div >
+        }
+        </>
     );
 };
 

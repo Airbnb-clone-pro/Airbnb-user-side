@@ -25,12 +25,15 @@ import UserTrips from "./pages/user-trips/user-trips";
 import Host from "./pages/host/host";
 import { GetCat } from "./store/actions/getUnits";
 import ReservationSuccessful from "./pages/reservation-sucee/reservation-success";
+import { SearchProvider } from "./contexts/searchModal";
+import Header from'./components/header/Header'
 
 function App() {
   const [showLogin, setShowLogin] = useState(false);
   const [showsignup, setShowsignup] = useState(false);
   const [isAuth, setAuth] = useState(false);
   const [showFilters, setShowFilters] = useState(false)
+  const [ showSearch, setShowSearch ] = useState(false)
 
   const dispatch = useDispatch();
   const token = localStorage.getItem("token");
@@ -65,7 +68,8 @@ function App() {
             <LoginProvider value={{ showLogin, setShowLogin }}>
               <SignupProvider value={{ showsignup, setShowsignup }}>
                 <FilterProvider value={{ showFilters, setShowFilters }}>
-                  <Navbar />
+                <SearchProvider value={{ showSearch, setShowSearch }}>
+                <Header />
                   <SignUp />
                   <Login />
                   <Filters />
@@ -110,6 +114,7 @@ function App() {
                     ) : <Redirect to='/' />}
 
                   </Switch>
+                  </SearchProvider>
                 </FilterProvider>
               </SignupProvider>
             </LoginProvider>

@@ -11,8 +11,17 @@ import { signupContext } from '../../contexts/singupModel';
 import { authContext } from '../../contexts/auth';
 import { Link, useHistory, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-
+import 'react-date-range/dist/styles.css'; // main css file
+import 'react-date-range/dist/theme/default.css'; // theme css file
 import Search from '../search/search';
+import { searchContext } from '../../contexts/searchModal';
+import { addDays, format } from 'date-fns';
+import { DateRange, DateRangePicker } from 'react-date-range';
+import { FiUsers } from 'react-icons/fi';
+import axiosInstance from '../../axios config/axiosInstance';
+import { useDispatch } from 'react-redux';
+import { GetUnits } from '../../store/actions/getUnits';
+
 
 const Navbar = (props) => {
 
@@ -53,25 +62,73 @@ const Navbar = (props) => {
     const handleClose = () => {
         setAnchorEl(null);
     };
-    const [value, setValue] = React.useState(0);
+    const { showSearch, setShowSearch } = React.useContext(searchContext);
+    const [startDate, setStartDate] = React.useState(new Date())
+    const [endDate, setEndDate] = React.useState(addDays(new Date(), 7))
+    const selectionRange = {
+        startDate: startDate,
+        endDate: endDate,
+        key: 'selection'
+    }
 
+    const handleSearchChange = (ranges) => {
+        setStartDate(ranges.selection.startDate)
+        setEndDate(ranges.selection.endDate)
+        console.log(startDate, endDate)
+    }
 
+    const showSearchAndLogValues = () => {
+        setShowSearch(true)
+        console.log(window.matchMedia("(max-width: 480px)").matches)
+    }
+    const [numberOfGuests, setNumberOfGuests] = React.useState(1)
+    const [queryStr, setQueryStr] = React.useState('')
+    const dispatch = useDispatch()
+    React.useEffect(() => {
+        setQueryStr(
+            `date.start=${format(startDate, "MM/dd/yyyy")}&date.end=${format(endDate, "MM/dd/yyyy")}&guestsNumber=${numberOfGuests}`
+        )
+    }, [setQueryStr, startDate, endDate, numberOfGuests])
+    
+    const handleSearchSubmit = () => {
+        axiosInstance.get(`/units/search/query?${queryStr}&lang=en`).then((res) => {
+            console.log(res.data);
+            console.log(queryStr)
+            dispatch(GetUnits(res.data))
+        }).catch((err) => {
+            console.log(err.message)
+        })
+        setShowSearch(false)
+    }
+
+    const [isScreenSmall, setISScreenSmall] = React.useState(false)
+    React.useEffect(() => {
+        function handleResize() {
+            console.log('resized to: ', window.innerWidth, 'x', window.innerHeight)
+            if (window.innerWidth <= 720) {
+                setISScreenSmall(true)
+            } else {
+                setISScreenSmall(false)
+            }
+        }
+        window.addEventListener('resize', handleResize)
+    })
     return (
         <>
             {/* <div className='h-12 bg-light flex items-center justify-center'>
                 <h5 >{t("Introducing our 2022 Winter Release")}</h5>
             </div> */}
-            <div className="sticky top-0 z-50 bg-white h-20 px-5" dir={`${i18n.language === 'en' ? 'ltr' : 'rtl'}`}>
-                <div className="head flex justify-between items-center sm:mx-6 md:mx-10 lg:mx-12">
+            <div className="sticky top-0 z-50 bg-white h-20 lg:px-5" dir={`${i18n.language === 'en' ? 'ltr' : 'rtl'}`}>
+                <div className="head block md:flex md:justify-between justify-center items-center sm:mx-6 md:mx-10 lg:mx-12">
                     {/* Left */}
-                    <div className="block w-auto flex" onClick={() => { history.push('/') }}>
+                    <div className="hidden md:block w-auto flex" onClick={() => { history.push('/') }}>
                         <img alt="" src={logo} className="object-cover my-10 h-5 lg:h-8" />
                     </div>
                     {/* Middle */}
-                    {location.pathname === '/' && <Search />}
+                    {location.pathname === '/' && !showSearch && <div onClick={() => { showSearchAndLogValues() }}><Search isScreenSmall={window.screen.width < 500 ? true : false} /></div>}
 
                     {/* Right */}
-                    <div className="flex items-center pr-3 font-semibold text-gray-600">
+                    <div className="hidden md:flex items-center pr-3 font-semibold text-gray-600">
 
                         {!isAuth ?
                             <p className="text-[17px] pt-3">{t("Airbnb your home")}</p> :
@@ -133,11 +190,9 @@ const Navbar = (props) => {
                                 <MenuItem onClick={handleShowLogin} dir={`${i18n.language === 'en' ? 'ltr' : 'rtl'}`}>
                                     {t("Log in")}
                                 </MenuItem>
-
                             }
                             {!isAuth &&
                                 <MenuItem onClick={handleShowSignup} className='py-0' dir={`${i18n.language === 'en' ? 'ltr' : 'rtl'}`}>
-
                                     {t("Sign Up")}
                                 </MenuItem>
                             }
@@ -170,7 +225,6 @@ const Navbar = (props) => {
                                 </MenuItem>
                             }
                             {/* <Divider /> */}
-
                             {isAuth &&
                                 <MenuItem className=''>
                                     Manage listing
@@ -194,7 +248,6 @@ const Navbar = (props) => {
                                     </MenuItem>
                                 </Link>
                             }
-
                             <MenuItem className='pb-0' dir={`${i18n.language === 'en' ? 'ltr' : 'rtl'}`}>
                                 {t("Help")}
                             </MenuItem>
@@ -206,7 +259,50 @@ const Navbar = (props) => {
                         </Menu>
                     </div>
                 </div>
-
+                {showSearch &&
+                    <div className='flex flex-col mx-auto bg-white' >
+                        <div className='mx-auto w-75 mb-10'>
+                        </div>
+                        <div className='row mx-auto flex'>
+                            {!isScreenSmall && window.innerWidth >= 720 ? (
+                                <DateRangePicker
+                                    onChange={handleSearchChange}
+                                    showSelectionPreview={true}
+                                    moveRangeOnFirstSelection={false}
+                                    months={2}
+                                    ranges={[selectionRange]}
+                                    direction='horizontal'
+                                    minDate={new Date()}
+                                    rangeColors={["#FD5B61"]}
+                                />) : (<DateRange
+                                    onChange={handleSearchChange}
+                                    showSelectionPreview={true}
+                                    moveRangeOnFirstSelection={false}
+                                    months={2}
+                                    ranges={[selectionRange]}
+                                    direction='vertical'
+                                    minDate={new Date()}
+                                    rangeColors={["#FD5B61"]}
+                                />)}
+                            <div className='flex items-center flex-start bg-white mb-4 mx-auto'>
+                                <h2 className='grow'>Number of Guests</h2>
+                                <div className='flex grow '>
+                                    <FiUsers className='h-12 text-lg' />
+                                    <input type="number"
+                                        className="w-14 pl-2 text-lg border-none outline-none text-red-400"
+                                        value={numberOfGuests}
+                                        onChange={(e) => { setNumberOfGuests(e.target.value) }}
+                                        min={1}
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                        <div className='flex w-75 mb-4'>
+                            <button className='flex-grow' onClick={() => { setShowSearch(false) }}>Close</button>
+                            <button className='flex-grow text-pink-400' onClick={handleSearchSubmit}>Search</button>
+                        </div>
+                    </div>
+                }
             </div>
         </>
     );
