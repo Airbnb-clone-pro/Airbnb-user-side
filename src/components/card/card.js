@@ -63,7 +63,7 @@ const SingleCard = ({ data }) => {
           })}
         </Swiper>
 
-        <Card.Body onClick={() => { goToUnitPage() }}>
+        <Card.Body onClick={() => { goToUnitPage() }} className="px-0">
           <Card.Title>{location?.state}, {location?.country}</Card.Title>
           <Card.Subtitle className="mb-2 text-muted">{title}</Card.Subtitle>
 

@@ -33,9 +33,12 @@ const CatList = (props) => {
 
 
     const handleShowFilters = () => setShowFilters(true)
-    // const [value, setValue] = React.useState(false);
 
+    const [value, setValue] = React.useState(0);
+    const handleChange = (event, newValue) => {
+        setValue(newValue);
 
+    };
     const dispatch = useDispatch()
     const lang = localStorage.getItem('lang')
     function getCatUnits(name) {
@@ -47,6 +50,9 @@ const CatList = (props) => {
 
         }).catch((err) => {
         })
+
+
+
     }
 
     return (
@@ -57,14 +63,14 @@ const CatList = (props) => {
             >
                 <hr />
                 <Tabs
-                    value={false}
-                    // onChange={handleChange}
+                    value={value}
+                    onChange={handleChange}
                     indicatorColor="secondary."
                     variant="scrollable"
                     scrollButtons
                     className='sm:mx-2 md:mx-5 lg:mx-10 col-10'
                 >
-                    <Tab icon={<LandslideIcon />} label={t("Amazing views")} name="Amazing views" onClick={(e) => { getCatUnits(e.target.name) }} />
+                    <Tab icon={<LandslideIcon />} label={t("Amazing views")} name="Amazing views" onClick={(e) => { getCatUnits(e.target.name) }} value='71' />
                     <Tab icon={<FeedIcon />} label={t('New')} name="New" onClick={(e) => { getCatUnits(e.target.name) }} />
                     <Tab icon={<FilterHdrIcon />} label={t("Top of the world")} name="Top of the world" onClick={(e) => { getCatUnits(e.target.name) }} />
                     <Tab icon={<WhatshotIcon />} label={t("Trending")} />
