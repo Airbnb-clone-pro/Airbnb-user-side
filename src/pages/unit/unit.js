@@ -114,7 +114,10 @@ const Unit = () => {
           <div className="d-flex flex-column">
             {/* -------- Unit title & rate & reviews & location */}
             <div>
-              <h3 className="fw-bold">{unit.title}</h3>
+              <div className="d-flex flex-row">
+                <h3 className="fw-bold">{unit.title}</h3>
+                {!unit?.available ? <p className="mx-3 bg-danger text-white px-2 rounded-3">{t("UnAvailable")}</p> : <></>}
+              </div>
               <div className="d-flex flex-row justify-content-between">
                 <div className="d-flex flex-row">
                   <i className="bi bi-star-fill"></i>
@@ -187,7 +190,7 @@ const Unit = () => {
                   </h4>
                   <p>
                     {" "}
-                    {`${unit.guestsNumber||""} ${t("guests")} . ${unit.bedrooms || "0"
+                    {`${unit.guestsNumber || ""} ${t("guests")} . ${unit.bedrooms || "0"
                       } ${t("bedrooms")} . ${unit.beds || "0"} ${t("beds")} . ${unit.bathrooms || "0"
                       } ${t("bathrooms")}`}
                   </p>
@@ -222,7 +225,7 @@ const Unit = () => {
               <Divider style={{ background: "#757575" }} className="my-3" />
               {/* ------------ unit description ------------ */}
               <div className="py-3">
-                <p className="unit-description">{unit.description||""}</p>
+                <p className="unit-description">{unit.description || ""}</p>
                 <p className="fw-bold text-decoration-underline">
                   {" "}
                   {t("Show more")}
@@ -235,9 +238,9 @@ const Unit = () => {
                 <div className="row row-cols-1 row-cols-md-2 my-3">
                   {unit.advantages
                     ? unit.advantages.map((offer, index) => {
-                      return (<div className="col d-flex flex-row align-content-center">
-                        <i className={`${offer.icon||""} fs-3 m-0 p-0`}></i>
-                        <p className="mx-3 pt-2">{offer.title||""}</p>
+                      return (<div className="col d-flex flex-row align-content-center" key={index}>
+                        <i className={`${offer.icon || ""} fs-3 m-0 p-0`}></i>
+                        <p className="mx-3 pt-2">{offer.title || ""}</p>
                       </div>);
                     })
                     : null}
@@ -379,7 +382,7 @@ const Unit = () => {
 
                   </button>
                 </div>
-                <button className="reserve-btn-grad" onClick={handleReserve} disabled={!startDate || !endDate}>
+                <button className="reserve-btn-grad" onClick={handleReserve} disabled={!startDate || !endDate || !unit.available}>
                   {t("Reserve")}
                 </button>
                 <div
