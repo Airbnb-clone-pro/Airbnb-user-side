@@ -136,7 +136,7 @@ const Unit = () => {
                     href="/"
                     style={{ fontSize: "15px" }}
                   >
-                    {`${unit["location"].state} , ${unit["location"].country} `}
+                    {`${unit["location"]?.state} , ${unit["location"]?.country} `}
                   </a>
                 </div>
                 <div className="d-none d-sm-flex flex-row ">
@@ -182,20 +182,20 @@ const Unit = () => {
                 <div className="">
                   <h4 className="fw-bold">
                     {" "}
-                    {`${unit.unitType || ""} ${t("hosted by")} ${unit.host.firstName ? unit.host.firstName : ""
-                      } ${unit.host.lastName ? unit.host.lastName : ""}`}
+                    {`${unit.unitType || ""} ${t("hosted by")} ${unit?.host?.firstName ? unit.host.firstName : ""
+                      } ${unit?.host?.lastName ? unit.host.lastName : ""}`}
                   </h4>
                   <p>
                     {" "}
-                    {`${unit.guestsNumber} ${t("guests")} . ${unit.bedrooms || "0"
+                    {`${unit.guestsNumber||""} ${t("guests")} . ${unit.bedrooms || "0"
                       } ${t("bedrooms")} . ${unit.beds || "0"} ${t("beds")} . ${unit.bathrooms || "0"
                       } ${t("bathrooms")}`}
                   </p>
                 </div>
                 <div>
                   <Avatar alt="" src="" sx={{ width: 56, height: 56 }}>
-                    {unit.host.firstName[0]
-                      ? unit.host.firstName[0].toUpperCase()
+                    {unit?.host?.firstName[0]
+                      ? unit?.host?.firstName[0].toUpperCase()
                       : null}
                   </Avatar>
                 </div>
@@ -222,7 +222,7 @@ const Unit = () => {
               <Divider style={{ background: "#757575" }} className="my-3" />
               {/* ------------ unit description ------------ */}
               <div className="py-3">
-                <p className="unit-description">{unit.description}</p>
+                <p className="unit-description">{unit.description||""}</p>
                 <p className="fw-bold text-decoration-underline">
                   {" "}
                   {t("Show more")}
@@ -236,8 +236,8 @@ const Unit = () => {
                   {unit.advantages
                     ? unit.advantages.map((offer, index) => {
                       return (<div className="col d-flex flex-row align-content-center">
-                        <i className={`${offer.icon} fs-3 m-0 p-0`}></i>
-                        <p className="mx-3 pt-2">{offer.title}</p>
+                        <i className={`${offer.icon||""} fs-3 m-0 p-0`}></i>
+                        <p className="mx-3 pt-2">{offer.title||""}</p>
                       </div>);
                     })
                     : null}
