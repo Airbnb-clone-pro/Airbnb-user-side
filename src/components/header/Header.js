@@ -22,6 +22,7 @@ import axiosInstance from '../../axios config/axiosInstance';
 import { useDispatch } from 'react-redux';
 import { GetUnits } from '../../store/actions/getUnits';
 import { FaAirbnb } from 'react-icons/fa'
+import NumberInput from '../inputNumber/inputNumber';
 
 
 const Navbar = (props) => {
@@ -82,14 +83,16 @@ const Navbar = (props) => {
         setShowSearch(true)
         console.log(window.matchMedia("(max-width: 480px)").matches)
     }
-    const [numberOfGuests, setNumberOfGuests] = React.useState(1)
+    // const [numberOfGuests, setNumberOfGuests] = React.useState(1)
+    const [numberOfAdults, setNumberOfAdults] = React.useState(0);
+    const [numberOfChildren, setNumberOfChildren] = React.useState(0);
     const [queryStr, setQueryStr] = React.useState('')
     const dispatch = useDispatch()
     React.useEffect(() => {
         setQueryStr(
-            `date.start=${format(startDate, "MM/dd/yyyy")}&date.end=${format(endDate, "MM/dd/yyyy")}&guestsNumber[gte]=${numberOfGuests}`
+            `date.start=${format(startDate, "MM/dd/yyyy")}&date.end=${format(endDate, "MM/dd/yyyy")}&guestsNumber[gte]=${numberOfAdults + numberOfChildren}`
         )
-    }, [setQueryStr, startDate, endDate, numberOfGuests])
+    }, [setQueryStr, startDate, endDate, numberOfAdults, numberOfChildren])
 
     const handleSearchSubmit = () => {
         axiosInstance.get(`/units/search/query?${queryStr}&lang=en`).then((res) => {
@@ -103,14 +106,19 @@ const Navbar = (props) => {
     }
 
     const [isScreenSmall, setISScreenSmall] = React.useState(false)
+    const [isMeduimScreen, setIsMeduimScreen] = React.useState(false)
     React.useEffect(() => {
         function handleResize() {
             // console.log('resized to: ', window.innerWidth, 'x', window.innerHeight)
             if (window.innerWidth <= 720) {
                 setISScreenSmall(true)
-            } else {
+                setIsMeduimScreen(false)
+            } else if (window.innerWidth > 720 && window.innerWidth < 880) {
+                setIsMeduimScreen(true)
                 setISScreenSmall(false)
-            }
+            }else if( window.innerWidth > 880)
+            setIsMeduimScreen(false)
+            setISScreenSmall(false)
         }
         window.addEventListener('resize', handleResize)
     })
@@ -262,10 +270,8 @@ const Navbar = (props) => {
                     </div>
                 </div>
                 {showSearch &&
-                    <div className='flex flex-col mx-auto bg-white' >
-                        <div className='mx-auto w-75 mb-10'>
-                        </div>
-                        <div className='row mx-auto flex'>
+                    <div className='flex flex-col bg-white ' >
+                        <div className='mx-auto row flex'>
                             {!isScreenSmall && window.innerWidth >= 720 ? (
                                 <DateRangePicker
                                     onChange={handleSearchChange}
@@ -273,7 +279,7 @@ const Navbar = (props) => {
                                     moveRangeOnFirstSelection={false}
                                     months={2}
                                     ranges={[selectionRange]}
-                                    direction='horizontal'
+                                    direction={`${(!isMeduimScreen && window.innerWidth>880)?'horizontal':'vertical'}`}
                                     minDate={new Date()}
                                     rangeColors={["#FD5B61"]}
                                 />) : (<DateRange
@@ -286,22 +292,23 @@ const Navbar = (props) => {
                                     minDate={new Date()}
                                     rangeColors={["#FD5B61"]}
                                 />)}
-                            <div className='flex items-center flex-start bg-white mb-4 mx-auto'>
-                                <h2 className='grow'>Number of Guests</h2>
-                                <div className='flex grow '>
-                                    <FiUsers className='h-12 text-lg' />
-                                    <input type="number"
-                                        className="w-14 pl-2 text-lg border-none outline-none text-red-400"
-                                        value={numberOfGuests}
-                                        onChange={(e) => { setNumberOfGuests(e.target.value) }}
-                                        min={1}
-                                    />
-                                </div>
-                            </div>
                         </div>
-                        <div className='flex w-75 mb-4'>
-                            <button className='flex-grow' onClick={() => { setShowSearch(false) }}>Close</button>
-                            <button className='flex-grow text-pink-400' onClick={handleSearchSubmit}>Search</button>
+                            <div className='mx-auto row flex pt-4'>
+                            <h4 className=''>Number of Guests</h4>
+                                <NumberInput
+                                    name={'Number of Adults'}
+                                    value={numberOfAdults}
+                                    setValue={setNumberOfAdults}
+                                />
+                                <NumberInput
+                                    name={'Number of Childeren'}
+                                    value={numberOfChildren}
+                                    setValue={setNumberOfChildren}
+                                />
+                            </div>
+                        <div className='flex justify-around pb-4'>
+                            <button className='' onClick={() => { setShowSearch(false) }}>Close</button>
+                            <button className=' text-pink-400' onClick={handleSearchSubmit}>Search</button>
                         </div>
                     </div>
                 }
