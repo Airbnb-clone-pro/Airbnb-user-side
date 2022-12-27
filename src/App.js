@@ -1,4 +1,3 @@
-import Navbar from "./components/header/Header";
 // import SignUp from './sign-up/sign-up';
 import SignUp from "./components/sign-up/signup";
 import Login from "./components/login/login";
@@ -6,13 +5,12 @@ import Login from "./components/login/login";
 import { LoginProvider } from "./contexts/loginModel";
 import { useEffect, useRef, useState } from "react";
 import { SignupProvider } from "./contexts/singupModel";
-import axiosInstance from "./axios config/axiosInstance";
 import { useDispatch, useSelector } from "react-redux";
 import { GetUser } from "./store/actions/getUser";
 import { AuthProvider } from "./contexts/auth";
 import Home from "./pages/home/home";
 import AccountSettings from "./pages/account-settings/account-settings";
-import { BrowserRouter as Router, Switch, Route, Link, Redirect } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
 import PersonalInfo from "./pages/personal-info/Personal-info";
 import Unit from "./pages/unit/unit";
 import "./pages/unit/unit.scss";
@@ -73,7 +71,6 @@ function App() {
                   <SignUp />
                   <Login />
                   <Filters />
-
                   <Switch>
                     <Route path="/" exact component={Home} />
                     <Route path="/unit-details/:unitId" exact component={Unit} />

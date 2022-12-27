@@ -22,6 +22,7 @@ import { GetUnits } from '../../store/actions/getUnits';
 import { filterContext } from '../../contexts/filtersModel';
 import axiosInstance from '../../axios config/axiosInstance';
 import { searchContext } from '../../contexts/searchModal';
+import { getHomeURL } from '../../store/actions/homePageURL';
 
 
 const CatList = (props) => {
@@ -48,7 +49,7 @@ const CatList = (props) => {
         axiosInstance.get(`/units/category/${name}?lang=${lang}`).then((res) => {
             console.log(res.data);
             dispatch(GetUnits(res.data))
-
+            dispatch(getHomeURL(`units/category/${name}?`))          
         }).catch((err) => {
         })
 
@@ -61,12 +62,11 @@ const CatList = (props) => {
     return (
         <>
             {!showSearch &&
-                <div className='container-fluid sticky z-50 top-16 bg-white my-1 px-0'>
+                <div className='container-fluid sticky z-50 top-20 bg-white py-1 px-0'>
                     <div
                         className="flex flex-row items-center px-0 "
                         dir={`${i18n.language === "en" ? "ltr" : "rtl"}`}
                     >
-                        <hr className='my-1' />
                         <Tabs
                             value={value}
                             onChange={handleChange}

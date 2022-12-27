@@ -2,31 +2,32 @@ import React from 'react';
 import SingleCard from './../../components/card/card'
 import CatList from '../../components/catList/catList';
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect } from 'react';
+import { useEffect, useContext } from 'react';
 import { GetUnits } from '../../store/actions/getUnits';
 import { useTranslation } from 'react-i18next';
 import axiosInstance from '../../axios config/axiosInstance';
+import { getHomeURL } from '../../store/actions/homePageURL';
 
 
 const Home = () => {
     const { t, i18n } = useTranslation();
 
     const dispatch = useDispatch()
-    const Units = useSelector(state => state.getUnits)
-    console.log(Units);
+    // console.log(Units);
     const lang = localStorage.getItem('lang');
-
+    
+    const link = useSelector(state => state.homePageURL)
+    
     useEffect(() => {
-        axiosInstance.get(`/units?lang=${lang}`).then((res) => {
-            console.log(res.data);
-            console.log();
+        axiosInstance.get(`/${link}lang=${lang}`).then((res) => {
+            console.log(res.data, link);
             dispatch(GetUnits(res.data))
-
         }).catch((err) => {
-
         })
-    }, [i18n.language]);
+    }, [link, i18n.language, dispatch]);
 
+    const Units = useSelector(state => state.getUnits)
+    
     return (
         <div className='px-5'>
             {/* <Navbar /> */}
