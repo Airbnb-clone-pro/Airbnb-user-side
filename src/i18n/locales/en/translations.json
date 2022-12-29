@@ -129,5 +129,7 @@
     "You cannot reserve , please login":"You cannot reserve , please login",
     "Reservation Successful":"Reservation Successful",
     "show place":"show place",
-    "UnAvailable":"UnAvailable"
+    "UnAvailable":"UnAvailable",
+    "Trip successfully cancelled":"Trip successfully cancelled",
+    "check your paypal balance":"check your paypal balance"
 }

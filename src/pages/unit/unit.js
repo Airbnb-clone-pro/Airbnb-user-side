@@ -43,7 +43,7 @@ const Unit = () => {
   }, [i18n.language]);
 
   useEffect(() => {
-    setWidth(ref.current.offsetWidth);
+    setWidth(ref?.current?.offsetWidth);
     if (!isLoading) {
       setStartDate(new Date(unit.date.start));
       setEndDate(new Date(unit.date.end));
@@ -52,7 +52,7 @@ const Unit = () => {
     console.log(width);
     function handleResize() {
 
-      setWidth(ref.current.offsetWidth);
+      setWidth(ref?.current?.offsetWidth);
     }
     window.addEventListener('resize', handleResize)
 
@@ -116,7 +116,7 @@ const Unit = () => {
             <div>
               <div className="d-flex flex-row">
                 <h3 className="fw-bold">{unit.title}</h3>
-                {!unit?.available ? <p className="mx-3 bg-danger text-white px-2 rounded-3">{t("UnAvailable")}</p> : <></>}
+                {!unit?.available ? <p className="mx-3 bg-danger text-white px-2 rounded-3 py-1 mt-1" style={{ height: "35px" }}>{t("UnAvailable")}</p> : <></>}
               </div>
               <div className="d-flex flex-row justify-content-between">
                 <div className="d-flex flex-row">

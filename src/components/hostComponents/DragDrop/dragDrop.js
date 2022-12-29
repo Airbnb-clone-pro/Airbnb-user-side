@@ -41,6 +41,7 @@ const DragDrop = () => {
         e.preventDefault();
 
         const data = new FormData();
+
         data.append("file", e.target.files[0]);
         data.append("upload_preset", "galleryApp");
         data.append("cloud_name", "dnbx27xwk");
@@ -49,7 +50,8 @@ const DragDrop = () => {
                 "https://api.cloudinary.com/v1_1/dnbx27xwk/image/upload",
                 data
             );
-            console.log(`${res.data["secure_url"]}`);
+            console.log(`${res.data["secure_url"]}`)
+
             setImgs([...imgs, `${res.data["secure_url"]}`])
             console.log(imgs);
         } catch (err) {

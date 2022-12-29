@@ -10,6 +10,7 @@ import { FiSmartphone } from 'react-icons/fi';
 
 import { FcGoogle, } from 'react-icons/fc';
 import { loginContext } from '../../contexts/loginModel';
+import { useTranslation } from 'react-i18next';
 
 
 
@@ -19,6 +20,7 @@ const Login = () => {
     const { showLogin, setShowLogin } = useContext(loginContext)
     const handleCloseLogin = () => setShowLogin(false)
 
+    const { t, i18n } = useTranslation();
 
 
 

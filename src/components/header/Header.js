@@ -3,7 +3,6 @@ import { useContext } from 'react';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import IconButton from '@mui/material/IconButton';
-import logo from '../../assets/logo2.png';
 import { BiWorld } from "react-icons/bi";
 import './header.css'
 import { loginContext } from '../../contexts/loginModel';
@@ -17,11 +16,12 @@ import Search from '../search/search';
 import { searchContext } from '../../contexts/searchModal';
 import { addDays, format } from 'date-fns';
 import { DateRange, DateRangePicker } from 'react-date-range';
-import { FiUsers } from 'react-icons/fi';
 import axiosInstance from '../../axios config/axiosInstance';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { GetUnits } from '../../store/actions/getUnits';
-import {FaAirbnb} from 'react-icons/fa'
+import { getHomeURL } from '../../store/actions/homePageURL';
+import { FaAirbnb } from 'react-icons/fa'
+import NumberInput from '../inputNumber/inputNumber';
 
 
 const Navbar = (props) => {
@@ -82,49 +82,63 @@ const Navbar = (props) => {
         setShowSearch(true)
         console.log(window.matchMedia("(max-width: 480px)").matches)
     }
-    const [numberOfGuests, setNumberOfGuests] = React.useState(1)
+    const [numberOfAdults, setNumberOfAdults] = React.useState(0);
+    const [numberOfChildren, setNumberOfChildren] = React.useState(0);
     const [queryStr, setQueryStr] = React.useState('')
     const dispatch = useDispatch()
     React.useEffect(() => {
         setQueryStr(
-            `date.start=${format(startDate, "MM/dd/yyyy")}&date.end=${format(endDate, "MM/dd/yyyy")}&guestsNumber[gte]=${numberOfGuests}`
+            `date.start=${format(startDate, "MM/dd/yyyy")}&date.end=${format(endDate, "MM/dd/yyyy")}&guestsNumber[gte]=${numberOfAdults + numberOfChildren}`
         )
-    }, [setQueryStr, startDate, endDate, numberOfGuests])
+    }, [setQueryStr, startDate, endDate, numberOfAdults, numberOfChildren])
 
+    const link = useSelector(state => state.homePageURL)
     const handleSearchSubmit = () => {
-        axiosInstance.get(`/units/search/query?${queryStr}&lang=en`).then((res) => {
+        axiosInstance.get(`/units/search/query?${queryStr}&lang=${localStorage.lang}`)
+        .then((res) => {
             console.log(res.data);
             console.log(queryStr)
             dispatch(GetUnits(res.data))
+            dispatch(getHomeURL(`units/search/query?${queryStr}&`))
+            console.log(link)
+            setShowSearch(false)
         }).catch((err) => {
             console.log(err.message)
         })
-        setShowSearch(false)
     }
 
     const [isScreenSmall, setISScreenSmall] = React.useState(false)
+    const [isMeduimScreen, setIsMeduimScreen] = React.useState(false)
+    const [isScreenLarge, setisScreenLarge] = React.useState(false)
     React.useEffect(() => {
         function handleResize() {
             // console.log('resized to: ', window.innerWidth, 'x', window.innerHeight)
             if (window.innerWidth <= 720) {
                 setISScreenSmall(true)
-            } else {
+                setIsMeduimScreen(false)
+                setisScreenLarge(false)
+            } else if (window.innerWidth > 720 && window.innerWidth < 880) {
                 setISScreenSmall(false)
-            }
+                setIsMeduimScreen(true)
+                setisScreenLarge(false)
+            }else if( window.innerWidth > 880)
+            setISScreenSmall(false)
+            setIsMeduimScreen(false)
+            setisScreenLarge(true)
         }
         window.addEventListener('resize', handleResize)
-    })
+    }, [isScreenSmall, isMeduimScreen, isScreenLarge])
     return (
         <>
             {/* <div className='h-12 bg-light flex items-center justify-center'>
                 <h5 >{t("Introducing our 2022 Winter Release")}</h5>
             </div> */}
-            <div className="sticky top-0 z-50 bg-white h-16 lg:px-5 py-0" dir={`${i18n.language === 'en' ? 'ltr' : 'rtl'}`}>
+            <div className="sticky top-0 z-50 bg-white h-20 lg:px-5 py-1" dir={`${i18n.language === 'en' ? 'ltr' : 'rtl'}`}>
                 <div className="head block md:flex md:justify-between justify-center items-center sm:mx-6 md:mx-10 lg:mx-12 d-flex">
                     {/* Left */}
-                    <div className=" w-auto flex" onClick={() => { history.push('/') }}>
-                        <FaAirbnb className='text-pink-500 text-3xl'/>
-                        {!isScreenSmall && <h4 className='text-pink-500 ml-2'>airbnb</h4>}
+                    <div className=" w-auto flex " style={{ fontWeight: "900" }} onClick={() => { dispatch(getHomeURL('units?')) }}>
+                        <FaAirbnb className='text-rose-500 text-3xl'/>
+                        {!isScreenSmall && <h4 className='text-rose-500 ml-2'>airbnb</h4>}
                     </div>
                     {/* Middle */}
                     {location.pathname === '/' && !showSearch && <div onClick={() => { showSearchAndLogValues() }}><Search isScreenSmall={window.screen.width < 500 ? true : false} /></div>}
@@ -262,10 +276,8 @@ const Navbar = (props) => {
                     </div>
                 </div>
                 {showSearch &&
-                    <div className='flex flex-col mx-auto bg-white' >
-                        <div className='mx-auto w-75 mb-10'>
-                        </div>
-                        <div className='row mx-auto flex'>
+                    <div className='flex flex-col bg-white ' >
+                        <div className='mx-auto row flex'>
                             {!isScreenSmall && window.innerWidth >= 720 ? (
                                 <DateRangePicker
                                     onChange={handleSearchChange}
@@ -273,7 +285,7 @@ const Navbar = (props) => {
                                     moveRangeOnFirstSelection={false}
                                     months={2}
                                     ranges={[selectionRange]}
-                                    direction='horizontal'
+                                    direction={`${(!isMeduimScreen && window.innerWidth>880)?'horizontal':'vertical'}`}
                                     minDate={new Date()}
                                     rangeColors={["#FD5B61"]}
                                 />) : (<DateRange
@@ -286,26 +298,28 @@ const Navbar = (props) => {
                                     minDate={new Date()}
                                     rangeColors={["#FD5B61"]}
                                 />)}
-                            <div className='flex items-center flex-start bg-white mb-4 mx-auto'>
-                                <h2 className='grow'>Number of Guests</h2>
-                                <div className='flex grow '>
-                                    <FiUsers className='h-12 text-lg' />
-                                    <input type="number"
-                                        className="w-14 pl-2 text-lg border-none outline-none text-red-400"
-                                        value={numberOfGuests}
-                                        onChange={(e) => { setNumberOfGuests(e.target.value) }}
-                                        min={1}
-                                    />
-                                </div>
-                            </div>
                         </div>
-                        <div className='flex w-75 mb-4'>
-                            <button className='flex-grow' onClick={() => { setShowSearch(false) }}>Close</button>
-                            <button className='flex-grow text-pink-400' onClick={handleSearchSubmit}>Search</button>
+                            <div className='mx-auto row flex pt-4'>
+                            <h4 className=''>Number of Guests</h4>
+                                <NumberInput
+                                    name={'Number of Adults'}
+                                    value={numberOfAdults}
+                                    setValue={setNumberOfAdults}
+                                />
+                                <NumberInput
+                                    name={'Number of Childeren'}
+                                    value={numberOfChildren}
+                                    setValue={setNumberOfChildren}
+                                />
+                            </div>
+                        <div className='flex justify-around pb-4'>
+                            <button className='' onClick={() => { setShowSearch(false) }}>Close</button>
+                            <button className=' text-pink-400' onClick={handleSearchSubmit}>Search</button>
                         </div>
                     </div>
                 }
             </div>
+            <hr className='sticky top-20 py-1' />
         </>
     );
 };
