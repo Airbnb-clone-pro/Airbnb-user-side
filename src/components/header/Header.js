@@ -95,16 +95,16 @@ const Navbar = (props) => {
     const link = useSelector(state => state.homePageURL)
     const handleSearchSubmit = () => {
         axiosInstance.get(`/units/search/query?${queryStr}&lang=${localStorage.lang}`)
-        .then((res) => {
-            console.log(res.data);
-            console.log(queryStr)
-            dispatch(GetUnits(res.data))
-            dispatch(getHomeURL(`units/search/query?${queryStr}&`))
-            console.log(link)
-            setShowSearch(false)
-        }).catch((err) => {
-            console.log(err.message)
-        })
+            .then((res) => {
+                console.log(res.data);
+                console.log(queryStr)
+                dispatch(GetUnits(res.data))
+                dispatch(getHomeURL(`units/search/query?${queryStr}&`))
+                console.log(link)
+                setShowSearch(false)
+            }).catch((err) => {
+                console.log(err.message)
+            })
     }
 
     const [isScreenSmall, setISScreenSmall] = React.useState(false)
@@ -121,8 +121,8 @@ const Navbar = (props) => {
                 setISScreenSmall(false)
                 setIsMeduimScreen(true)
                 setisScreenLarge(false)
-            }else if( window.innerWidth > 880)
-            setISScreenSmall(false)
+            } else if (window.innerWidth > 880)
+                setISScreenSmall(false)
             setIsMeduimScreen(false)
             setisScreenLarge(true)
         }
@@ -136,14 +136,21 @@ const Navbar = (props) => {
             <div className="sticky top-0 z-50 bg-white h-20 lg:px-5 py-1" dir={`${i18n.language === 'en' ? 'ltr' : 'rtl'}`}>
                 <div className="head block md:flex md:justify-between justify-center items-center sm:mx-6 md:mx-10 lg:mx-12 d-flex">
                     {/* Left */}
-                    <div className=" w-auto flex " style={{ fontWeight: "900" }} onClick={() => { dispatch(getHomeURL('units?')) }}>
-                        <FaAirbnb className='text-rose-500 text-3xl'/>
+                    <div className=" w-auto flex " style={{ fontWeight: "900" }} onClick={() => { dispatch(getHomeURL('units?')); history.push('/') }}>
+                        <FaAirbnb className='text-rose-500 text-3xl' />
                         {!isScreenSmall && <h4 className='text-rose-500 ml-2'>airbnb</h4>}
                     </div>
                     {/* Middle */}
                     {location.pathname === '/' && !showSearch && <div onClick={() => { showSearchAndLogValues() }}><Search isScreenSmall={window.screen.width < 500 ? true : false} /></div>}
 
-                    {/* Right */}
+                    {/* Rig
+
+جديد
+Hosted by
+
+12/25/2022
+
+$60nightht */}
                     <div className="hidden md:flex items-center pr-3 font-semibold text-gray-600">
 
                         {!isAuth ?
@@ -285,7 +292,7 @@ const Navbar = (props) => {
                                     moveRangeOnFirstSelection={false}
                                     months={2}
                                     ranges={[selectionRange]}
-                                    direction={`${(!isMeduimScreen && window.innerWidth>880)?'horizontal':'vertical'}`}
+                                    direction={`${(!isMeduimScreen && window.innerWidth > 880) ? 'horizontal' : 'vertical'}`}
                                     minDate={new Date()}
                                     rangeColors={["#FD5B61"]}
                                 />) : (<DateRange
@@ -299,19 +306,19 @@ const Navbar = (props) => {
                                     rangeColors={["#FD5B61"]}
                                 />)}
                         </div>
-                            <div className='mx-auto row flex pt-4'>
+                        <div className='mx-auto row flex pt-4'>
                             <h4 className=''>Number of Guests</h4>
-                                <NumberInput
-                                    name={'Number of Adults'}
-                                    value={numberOfAdults}
-                                    setValue={setNumberOfAdults}
-                                />
-                                <NumberInput
-                                    name={'Number of Childeren'}
-                                    value={numberOfChildren}
-                                    setValue={setNumberOfChildren}
-                                />
-                            </div>
+                            <NumberInput
+                                name={'Number of Adults'}
+                                value={numberOfAdults}
+                                setValue={setNumberOfAdults}
+                            />
+                            <NumberInput
+                                name={'Number of Childeren'}
+                                value={numberOfChildren}
+                                setValue={setNumberOfChildren}
+                            />
+                        </div>
                         <div className='flex justify-around pb-4'>
                             <button className='' onClick={() => { setShowSearch(false) }}>Close</button>
                             <button className=' text-pink-400' onClick={handleSearchSubmit}>Search</button>

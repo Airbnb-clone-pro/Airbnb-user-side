@@ -45,17 +45,23 @@ const Unit = () => {
   useEffect(() => {
     setWidth(ref?.current?.offsetWidth);
     if (!isLoading) {
-      setStartDate(new Date(unit.date.start));
-      setEndDate(new Date(unit.date.end));
+      setStartDate(
+        new Date(unit.date.start) >= new Date()
+          ? new Date(unit.date.start)
+          : new Date()
+      );
+      setEndDate(
+        new Date(unit.date.end) >= new Date()
+          ? new Date(unit.date.end)
+          : new Date()
+      );
       setGuests(unit.guestsNumber);
     }
     console.log(width);
     function handleResize() {
-
       setWidth(ref?.current?.offsetWidth);
     }
-    window.addEventListener('resize', handleResize)
-
+    window.addEventListener("resize", handleResize);
   }, [isLoading]);
   window.addEventListener("scroll", function (event) {
     // console.log(this.scrollY);
@@ -73,7 +79,11 @@ const Unit = () => {
   const handleReserve = () => {
     if (user && token) {
       history.push(
-        `/reservation/${unit.id}?startDate=${new Date(startDate).toLocaleDateString("en-US")}&endDate=${new Date(endDate).toLocaleDateString("en-US")}&guests=${guests}`
+        `/reservation/${unit.id}?startDate=${new Date(
+          startDate
+        ).toLocaleDateString("en-US")}&endDate=${new Date(
+          endDate
+        ).toLocaleDateString("en-US")}&guests=${guests}`
       );
     } else {
       setOpenAlert(true);
@@ -116,7 +126,16 @@ const Unit = () => {
             <div>
               <div className="d-flex flex-row">
                 <h3 className="fw-bold">{unit.title}</h3>
-                {!unit?.available ? <p className="mx-3 bg-danger text-white px-2 rounded-3 py-1 mt-1" style={{ height: "35px" }}>{t("UnAvailable")}</p> : <></>}
+                {!unit?.available ? (
+                  <p
+                    className="mx-3 bg-danger text-white px-2 rounded-3 py-1 mt-1"
+                    style={{ height: "35px" }}
+                  >
+                    {t("UnAvailable")}
+                  </p>
+                ) : (
+                  <></>
+                )}
               </div>
               <div className="d-flex flex-row justify-content-between">
                 <div className="d-flex flex-row">
@@ -238,10 +257,17 @@ const Unit = () => {
                 <div className="row row-cols-1 row-cols-md-2 my-3">
                   {unit.advantages
                     ? unit.advantages.map((offer, index) => {
-                      return (<div className="col d-flex flex-row align-content-center" key={index}>
-                        <i className={`${offer.icon || ""} fs-3 m-0 p-0`}></i>
-                        <p className="mx-3 pt-2">{offer.title || ""}</p>
-                      </div>);
+                      return (
+                        <div
+                          className="col d-flex flex-row align-content-center"
+                          key={index}
+                        >
+                          <i
+                            className={`${offer.icon || ""} fs-3 m-0 p-0`}
+                          ></i>
+                          <p className="mx-3 pt-2">{offer.title || ""}</p>
+                        </div>
+                      );
                     })
                     : null}
                 </div>
@@ -261,14 +287,23 @@ const Unit = () => {
                 </p>
                 <DatePicker
                   selected={startDate}
-                  minDate={new Date(unit.date.start)}
-                  maxDate={new Date(unit.date.end)}
+                  minDate={
+                    new Date(unit.date.start) >= new Date()
+                      ? new Date(unit.date.start)
+                      : new Date()
+                  }
+                  maxDate={
+                    new Date(unit.date.end) >= new Date()
+                      ? new Date(unit.date.end)
+                      : new Date()
+                  }
                   onChange={handleDateChange}
                   startDate={startDate}
                   endDate={endDate}
                   selectsRange
                   monthsShown={2}
                   inline
+                  disabled={!unit.available}
                 />
               </div>
             </div>
@@ -307,8 +342,8 @@ const Unit = () => {
                       style={{ fontSize: "13px" }}
                     >
                       {`${unit.numberOfRates
-                        ? `${unit.numberOfRates} ${t("reviews . ")}`
-                        : ""
+                          ? `${unit.numberOfRates} ${t("reviews . ")}`
+                          : ""
                         }`}
                     </a>
                   </div>
@@ -365,28 +400,80 @@ const Unit = () => {
                   >
                     <div className="row">
                       <div className="col-6">
-                        <p className="fw-bold p-0 m-0" style={{ fontSize: "14px" }}>
+                        <p
+                          className="fw-bold p-0 m-0"
+                          style={{ fontSize: "14px" }}
+                        >
                           {t("guests")}
                         </p>
                         <p className="p-0 m-0" style={{ fontSize: "15px" }}>
                           {guests}
                         </p>
                       </div>
-                      <div className='col-6 d-flex flex-row justify-content-end align-content-center'  >
-
-                        {guests <= unit.guestsNumber && guests > 1 ? <button className='mt-1 fw-bold rounded-circle border border-secondary  ' onClick={() => { setGuests(guests - 1) }} style={{ width: "32px", fontSize: '20px', height: "32px", }}>-</button> : <></>}
-                        {guests < unit.guestsNumber && guests >= 1 ? <button className='mt-1 fw-bold rounded-circle border border-secondary p-0 ms-3' onClick={() => { setGuests(guests + 1) }} style={{ width: "32px", fontSize: '20px', height: "32px", }}>+</button> : <></>}
-
+                      <div className="col-6 d-flex flex-row justify-content-end align-content-center">
+                        {guests <= unit.guestsNumber && guests > 1 ? (
+                          <button
+                            className="mt-1 fw-bold rounded-circle border border-secondary  "
+                            onClick={() => {
+                              setGuests(guests - 1);
+                            }}
+                            style={{
+                              width: "32px",
+                              fontSize: "20px",
+                              height: "32px",
+                            }}
+                          >
+                            -
+                          </button>
+                        ) : (
+                          <></>
+                        )}
+                        {guests < unit.guestsNumber && guests >= 1 ? (
+                          <button
+                            className="mt-1 fw-bold rounded-circle border border-secondary p-0 ms-3"
+                            onClick={() => {
+                              setGuests(guests + 1);
+                            }}
+                            style={{
+                              width: "32px",
+                              fontSize: "20px",
+                              height: "32px",
+                            }}
+                          >
+                            +
+                          </button>
+                        ) : (
+                          <></>
+                        )}
                       </div>
                     </div>
-
                   </button>
                 </div>
-                <button className="reserve-btn-grad" onClick={handleReserve} disabled={!startDate || !endDate || !unit.available}>
+                <button
+                  className={`reserve-btn-grad ${!startDate ||
+                      !endDate ||
+                      !unit.available ||
+                      new Date(startDate) >= new Date(endDate)||numberOfDays()%1!==0
+                      ? "reserve-btn-grad-disabled"
+                      : ""
+                    }`}
+                  onClick={handleReserve}
+                  disabled={
+                    !startDate ||
+                    !endDate ||
+                    !unit.available ||
+                    new Date(startDate) >= new Date(endDate) || numberOfDays() % 1 !== 0
+                  }
+                >
                   {t("Reserve")}
                 </button>
                 <div
-                  className={`w-100 my-3 ${startDate && endDate ? "" : "d-none"
+                  className={`w-100 my-3 ${startDate &&
+                      endDate &&
+                      new Date(startDate) < new Date(endDate) &&
+                      numberOfDays() % 1 === 0 && unit.available
+                      ? ""
+                      : "d-none"
                     }`}
                 >
                   <h5 className="fw-bold">{t("Price details")}</h5>
@@ -402,7 +489,7 @@ const Unit = () => {
                       "Total"
                     )} (USD)`}</p>
                     <p className="m-0 p-0 fw-bold fs-6">{`$${unit.pricePerNight * numberOfDays()
-                      }`}</p>
+                      }`}</p> 
                   </div>
                 </div>
               </div>

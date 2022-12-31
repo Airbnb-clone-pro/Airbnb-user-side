@@ -112,7 +112,7 @@ const TripCart = (props) => {
                         <p className="text-secondary m-0 p-0" style={{ fontSize: "14px" }}>
                             {trip?.unit?.placeType}
                         </p>
-                        <p className="m-0 p-0" style={{ fontSize: "14px" }}>
+                        <p className="m-0 p-0 trip-card-header" style={{ fontSize: "14px" }}>
                             {`${trip?.unit?.title} - ${trip?.unit?.location?.state},${trip?.unit?.location?.country}`}
                         </p>
                     </div>

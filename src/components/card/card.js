@@ -66,11 +66,12 @@ const SingleCard = ({ data }) => {
         </Swiper>
 
         <Card.Body onClick={() => { goToUnitPage() }} className="px-0">
-          <Card.Title className="d-flex justify-content-between mb-0 " style={{ fontSize: "16px", height: "30px" }}>{location?.state}, {location?.country}   <p className="mt-1 mx-2 fw-bold" style={{ fontSize: "13px" }}><i className="bi bi-star-fill"></i>
+          <Card.Title className="d-flex justify-content-between mb-0 pb-3" style={{ fontSize: "16px" }}><p className="m-0 p-0 grow-1 card-header-location">{location?.state}, {location?.country} </p> 
+           <div className="d-flex mt-1 mx-2 fw-bold grow-0" style={{ fontSize: "13px" }}><i className="bi bi-star-fill p-0 m-0"></i>
 
-            {" "}
-            {t("New")}{" "}
-          </p>
+            <p className="p-0 m-0">{" "}
+            {t("New")}{" "}</p>
+          </div>
           </Card.Title>
           <Card.Subtitle className="mb-1 text-muted">Hosted by {host?.firstName}  </Card.Subtitle>
 
