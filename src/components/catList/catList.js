@@ -70,14 +70,13 @@ const CatList = (props) => {
                         <Tabs
                             value={value}
                             onChange={handleChange}
-                            indicatorColor="secondary."
                             variant="scrollable"
                             scrollButtons
                             className='grow-1'
                         >
-                            <Tab icon={<LandslideIcon />} label={t("Amazing views")} name="Amazing views" onClick={(e) => { getCatUnits(e.target.name) }} value='71' />
-                            <Tab icon={<FeedIcon />} label={t('New')} name="New" onClick={(e) => { getCatUnits(e.target.name) }} />
-                            <Tab icon={<FilterHdrIcon />} label={t("Top of the world")} name="Top of the world" onClick={(e) => { getCatUnits(e.target.name) }} />
+                            <Tab icon={<LandslideIcon onClick={()=>{ getCatUnits("Amazing views")}}/>} label={t("Amazing views")} name="Amazing views" onClick={(e) => { getCatUnits(e.target.name) }} value={0} />
+                            <Tab icon={<FeedIcon onClick={()=>{ getCatUnits("New")}}/>} label={t('New')} name="New" onClick={(e) => { getCatUnits(e.target.name) }} value={2}/>
+                            <Tab icon={<FilterHdrIcon />} label={t("Top of the world")} name="Top of the world" onClick={(e) => { getCatUnits(e.target.name) }} value={3}/>
                             <Tab icon={<WhatshotIcon />} label={t("Trending")} />
                             <Tab icon={<AccessibleIcon />} label={t("Adapted")} />
                             <Tab icon={<SportsHandballIcon />} label={t("Playing")} />
@@ -95,8 +94,8 @@ const CatList = (props) => {
                             <Tab icon={<HouseIcon />} label={t("Tiny home")} />
                             <Tab icon={<LandslideIcon />} label={t("Amazing views")} />
                             <Tab icon={<LightIcon />} label={t("OMG!")} />
-                            <Tab icon={<PoolIcon />} label={t("Amazing pools")} value="892" />
-                            <Tab icon={<PoolIcon />} label={t("Amazing pools")} value="156" />
+                            <Tab icon={<PoolIcon />} label={t("Amazing pools")} />
+                            <Tab icon={<PoolIcon />} label={t("Amazing pools")} />
                             <Tab icon={<LandslideIcon />} label={t("Amazing views")} />
                             <Tab icon={<LightIcon />} label={t("OMG!")} />
                             <Tab icon={<PoolIcon />} label={t("Amazing pools")} />

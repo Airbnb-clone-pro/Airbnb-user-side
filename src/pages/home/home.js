@@ -29,7 +29,7 @@ const Home = () => {
     const Units = useSelector(state => state.getUnits)
     
     return (
-        <div className='px-5'>
+        <div id='homePage' className='px-5'>
             {/* <Navbar /> */}
             <CatList />
 
