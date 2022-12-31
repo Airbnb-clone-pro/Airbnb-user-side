@@ -49,7 +49,7 @@ const CatList = (props) => {
         axiosInstance.get(`/units/category/${name}?lang=${lang}`).then((res) => {
             console.log(res.data);
             dispatch(GetUnits(res.data))
-            dispatch(getHomeURL(`units/category/${name}?`))          
+            dispatch(getHomeURL(`units/category/${name}?`))
         }).catch((err) => {
         })
 
@@ -112,11 +112,9 @@ const CatList = (props) => {
                             <Tab icon={<LightIcon />} label={t("OMG!")} />
                             <Tab icon={<PoolIcon />} label={t("Amazing pools")} />
                         </Tabs>
+
                         <button className="btn btn-white lg:me-2 grow-0 border" onClick={handleShowFilters}>
-                            <div className='flex justify-around px-0'>
-                                <i className={`${i18n.language === 'en' ? "bi bi-sliders2-vertical me-2" : "bi bi-sliders2-vertical ms-1"}`}></i>
-                                <h6>{t("Filter")}</h6>
-                            </div>
+                            <h6>{t("Filter")}</h6>
                         </button>
                     </div >
                 </div >

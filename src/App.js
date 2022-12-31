@@ -25,6 +25,7 @@ import { GetCat } from "./store/actions/getUnits";
 import ReservationSuccessful from "./pages/reservation-sucee/reservation-success";
 import { SearchProvider } from "./contexts/searchModal";
 import Header from'./components/header/Header'
+import TripCancelled from "./pages/reservation-sucee/trip-cancel";
 
 function App() {
   const [showLogin, setShowLogin] = useState(false);
@@ -75,7 +76,9 @@ function App() {
                     <Route path="/" exact component={Home} />
                     <Route path="/unit-details/:unitId" exact component={Unit} />
                     <Route path="/reservation-successful" exact component={ReservationSuccessful} />
+                    <Route path="/Trip-Cancelled" exact component={TripCancelled} />
 
+                    
                     {isAuth ? (
                       <Route
                         path="/account-settings"

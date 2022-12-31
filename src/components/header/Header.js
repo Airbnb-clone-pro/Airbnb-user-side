@@ -140,14 +140,21 @@ const Navbar = (props) => {
             <div className="sticky top-0 z-50 bg-white h-20 lg:px-5 py-1" dir={`${i18n.language === 'en' ? 'ltr' : 'rtl'}`}>
                 <div className="head block md:flex md:justify-between justify-center items-center sm:mx-6 md:mx-10 lg:mx-12 d-flex">
                     {/* Left */}
-                    <div className=" w-auto flex " style={{ fontWeight: "900" }} onClick={() => { dispatch(getHomeURL('units?')) }}>
+                    <div className=" w-auto flex " style={{ fontWeight: "900" }} onClick={() => { dispatch(getHomeURL('units?')); history.push('/') }}>
                         <FaAirbnb className='text-rose-500 text-3xl' />
                         {!isScreenSmall && <h4 className='text-rose-500 ml-2'>airbnb</h4>}
                     </div>
                     {/* Middle */}
                     {location.pathname === '/' && !showSearch && <div onClick={() => { showSearchAndLogValues() }}><Search isScreenSmall={window.screen.width < 500 ? true : false} /></div>}
 
-                    {/* Right */}
+                    {/* Rig
+
+جديد
+Hosted by
+
+12/25/2022
+
+$60nightht */}
                     <div className="hidden md:flex items-center pr-3 font-semibold text-gray-600">
 
                         {!isAuth ?
