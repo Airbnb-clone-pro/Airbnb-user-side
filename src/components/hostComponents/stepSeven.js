@@ -5,13 +5,14 @@ import PlaceTypeCard from './cards/placeType';
 import CottageIcon from '@mui/icons-material/Cottage';
 import { useDispatch, useSelector } from 'react-redux';
 import { unit } from '../../store/actions/unit';
+import { addDays, format } from 'date-fns';
 
 const StepSeven = () => {
     const dispatch = useDispatch()
     let unite = useSelector(state => state.unit)
 
     const [price, setPrice] = useState(unite.pricePerNight ? unite.pricePerNight : 30)
-    const [date, setDaata] = useState({
+    const [date, setData] = useState({
         start: unite.date.start,
         end: unite.date.end,
 
@@ -49,19 +50,16 @@ const StepSeven = () => {
                 <div className='py-2 mb-5 ' style={{ maxWidth: '600px', minWidth: '300px' }}>
                     <div className="my-1 ">
                         <p className="m-0 py-1" style={{ fontSize: '22px' }}>From</p>
-                        <input type='date' className=' border border-secondary form-control ' style={{ width: '', height: '', fontSize: '', fontWeight: "bold" }} value={date.start} onChange={(e) => { setDaata({ ...date, start: e.target.value }) }} />
+                        <input type='date' className=' border border-secondary form-control ' style={{ width: '', height: '', fontSize: '', fontWeight: "bold" }} value={date.start} onChange={(e) => { setData({ ...date, start: format(new Date(e.target.value), "MM/dd/yyyy") }) }} />
                     </div>
                     <div className="my-3 ">
                         <p className="my-0 py-1" style={{ fontSize: '22px' }}>To</p>
-                        <input type='date' className=' border border-secondary form-control ' style={{ width: '', height: '', fontSize: '', fontWeight: "bold" }} value={date.end} onChange={(e) => { setDaata({ ...date, end: e.target.value }) }} />
+                        <input type='date' className=' border border-secondary form-control ' style={{ width: '', height: '', fontSize: '', fontWeight: "bold" }} value={date.end} onChange={(e) => { setData({ ...date, end: format(new Date(e.target.value), "MM/dd/yyyy") }) }} />
                     </div>
                 </div>
             </div >
 
         </div >
-
-        // </div >
-        //         </div >
 
     );
 }
