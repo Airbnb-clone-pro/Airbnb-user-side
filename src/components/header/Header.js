@@ -70,6 +70,7 @@ const Navbar = (props) => {
     const [endDate, setEndDate] = React.useState(addDays(new Date(), 7))
     const [showDateRange, setShowDateRange] = React.useState(true);
     const [showGuestsInput, setShowGuestsInput] = React.useState(false)
+    const [country, setCountry] = React.useState('')
     const selectionRange = {
         startDate: startDate,
         endDate: endDate,
@@ -92,9 +93,9 @@ const Navbar = (props) => {
     const dispatch = useDispatch()
     React.useEffect(() => {
         setQueryStr(
-            `date.start=${format(startDate, "MM/dd/yyyy")}&date.end=${format(endDate, "MM/dd/yyyy")}&guestsNumber[gte]=${numberOfAdults + numberOfChildren}`
+            `date.start=${format(startDate, "MM/dd/yyyy")}&guestsNumber[gte]=${numberOfAdults + numberOfChildren}${country && `&EnglishUnit.location.country=${country}`}`
         )
-    }, [setQueryStr, startDate, endDate, numberOfAdults, numberOfChildren])
+    }, [setQueryStr, startDate, endDate, numberOfAdults, numberOfChildren, country])
 
     const link = useSelector(state => state.homePageURL)
     const handleSearchSubmit = () => {
@@ -303,9 +304,13 @@ $60nightht */}
                                 numberOfChildren={numberOfChildren}
                                 setNumberOfChildren={setNumberOfChildren}
                                 isScreenLarge={isScreenLarge}
+                                handleSearchSubmit={handleSearchSubmit}
+                                country={country}
+                                setCountry={setCountry}
+                                setShowSearch={setShowSearch}
                             />
                         </div>
-                        {showDateRange && <div className='mx-auto row flex bg-white rounded'>
+                        {showDateRange && <div className='mx-auto row flex bg-white rounded-lg mt-2'>
                             <DateRange
                                 onChange={handleSearchChange}
                                 // showSelectionPreview={true}
@@ -318,10 +323,10 @@ $60nightht */}
                             />
                             <div className='flex justify-around pb-4'>
                                 <button className='' onClick={() => { setShowSearch(false) }}>Close</button>
-                                <button className=' text-pink-400' onClick={handleSearchSubmit}>Search</button>
+                                {/* <button className=' text-pink-400' onClick={handleSearchSubmit}>Search</button> */}
                             </div>
                         </div>}
-                        {showGuestsInput && <div className='mx-auto flex-col flex bg-white p-3'>
+                        {showGuestsInput && <div className='mx-auto flex-col flex bg-white p-3 rounded-lg mt-2'>
                             <h4 className=''>Number of Guests</h4>
                             <div className=''>
                                 <NumberInput
@@ -337,7 +342,7 @@ $60nightht */}
                             </div>
                             <div className='flex justify-around pb-4'>
                                 <button className='' onClick={() => { setShowSearch(false) }}>Close</button>
-                                <button className=' text-pink-400' onClick={handleSearchSubmit}>Search</button>
+                                {/* <button className=' text-pink-400' onClick={handleSearchSubmit}>Search</button> */}
                             </div>
                         </div>}
                     </div>
