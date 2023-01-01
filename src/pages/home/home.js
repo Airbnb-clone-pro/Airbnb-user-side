@@ -15,9 +15,9 @@ const Home = () => {
     const dispatch = useDispatch()
     // console.log(Units);
     const lang = localStorage.getItem('lang');
-    
+
     const link = useSelector(state => state.homePageURL)
-    
+
     useEffect(() => {
         axiosInstance.get(`/${link}lang=${lang}`).then((res) => {
             console.log(res.data, link);
@@ -27,13 +27,13 @@ const Home = () => {
     }, [link, i18n.language, dispatch]);
 
     const Units = useSelector(state => state.getUnits)
-    
+
     return (
         <div id='homePage' className='px-5'>
             {/* <Navbar /> */}
             <CatList />
 
-            <div className="row row-cols-md-2 row-cols-1 row-cols-lg-4 mt-4">
+            <div className="row row-cols-md-2 row-cols-1 row-cols-lg-4 mt-4" dir={`${i18n.language === 'en' ? 'ltr' : 'rtl'}`}>
                 {Units.map((card) => (
                     <SingleCard data={card} key={card.id} />
                 ))}

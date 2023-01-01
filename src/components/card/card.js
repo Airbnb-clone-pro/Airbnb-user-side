@@ -73,7 +73,7 @@ const SingleCard = ({ data }) => {
                 {t("New")}{" "}</p>
             </div>
           </Card.Title>
-          <Card.Subtitle className="mb-1 text-muted card-header-location pe-4">{title}</Card.Subtitle>
+          <Card.Subtitle className={`mb-1 text-muted card-header-location ${i18n.language === 'en' ? 'pe-4' : "ps-4"}`}>{title}</Card.Subtitle>
 
           <Card.Text className="mb-1 text-muted">{date?.start}</Card.Text>
           <Card.Text>

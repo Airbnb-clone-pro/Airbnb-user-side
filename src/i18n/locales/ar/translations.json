@@ -7,7 +7,6 @@
     "Update your password and secure your account": "تحديث كلمة المرور وتأمين حسابك",
     "Payments & payouts": "الدفعات ودفعات العائد",
     "Review payments, payouts, coupons, gift cards, and taxes": "مراجعة الدفعات والعائدات والكوبونات وبطاقات الهدايا والضرائب",
-    "Notifications": "الإشعارات",
     "Choose notification preferences and how you want to be contacted": "اختر تفضيلات الإشعار وكيف تريد الاتصال بك",
     "Privacy & sharing": "الخصوصية والمشاركة",
     "Control connected apps, what you share, and who sees it": "التحكم في التطبيقات المتصلة وما تشاركه ومن يراه",
@@ -189,5 +188,10 @@
     "Paid parking":"ركن مدفوع",
     "Essentials":"وسائل الراحة",
     "Trip successfully cancelled": "تم إلغاء الرحلة بنجاح",
-    "check your paypal balance":"تحقق من رصيدك على paypal"
+    "check your paypal balance":"تحقق من رصيدك على paypal",
+    "Manage listing":"ادارة اعلانات المساكن",
+    "Account":"الحساب",
+    "Logout":"تسجيل الخروج",
+    "Whitelists":"قوائم الأمنيات",
+    "Notifications":"الإشعارات"
 }

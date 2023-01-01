@@ -7,7 +7,6 @@
     "Update your password and secure your account": "Update your password and secure your account",
     "Payments & payouts": "Payments & payouts",
     "Review payments, payouts, coupons, gift cards, and taxes": "Review payments, payouts, coupons, gift cards, and taxes",
-    "Notifications": "Notifications",
     "Choose notification preferences and how you want to be contacted": "Choose notification preferences and how you want to be contacted",
     "Privacy & sharing": "Privacy & sharing",
     "Control connected apps, what you share, and who sees it": "Control connected apps, what you share, and who sees it",
@@ -189,5 +188,10 @@
     "Paid parking":"Paid parking",
     "Essentials":"Essentials",
     "Trip successfully cancelled":"Trip successfully cancelled",
-    "check your paypal balance":"check your paypal balance"
+    "check your paypal balance":"check your paypal balance",
+    "Manage listing":"Manage listing",
+    "Account":"Account",
+    "Logout":"Logout",
+    "Whitelists":"Whitelists",
+    "Notifications":"Notifications"
 }

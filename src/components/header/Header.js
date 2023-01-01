@@ -235,8 +235,8 @@ $60nightht */}
                                 </MenuItem>
                             }
                             {isAuth &&
-                                <MenuItem>
-                                    Notifications
+                                <MenuItem dir={`${i18n.language === 'en' ? 'ltr' : 'rtl'}`}>
+                                    {t("Notifications")}
                                 </MenuItem>
                             }
                             {isAuth &&
@@ -257,7 +257,7 @@ $60nightht */}
                             {/* <Divider /> */}
                             {isAuth &&
                                 <MenuItem className=''>
-                                    Manage listing
+                                    {t("Manage listing")}
                                 </MenuItem>
                             }
                             {!isAuth &&
