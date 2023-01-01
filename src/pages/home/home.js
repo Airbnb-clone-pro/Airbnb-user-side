@@ -40,7 +40,7 @@ const Home = () => {
                     <CircularProgress style={{ color: "#ff5b60" }} />
                 </div>
             ) :
-                <div className="row row-cols-md-2 row-cols-1 row-cols-lg-4 mt-4">
+                <div className="row row-cols-md-2 row-cols-1 row-cols-lg-4 mt-4" dir={`${i18n.language === "en" ? "ltr" : "rtl"}`}>
                     {Units.map((card) => (
                         <SingleCard data={card} key={card.id} />
                     ))}
