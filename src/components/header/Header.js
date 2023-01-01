@@ -155,7 +155,7 @@ Hosted by
 12/25/2022
 
 $60nightht */}
-                    <div className="hidden md:flex items-center pr-3 font-semibold text-gray-600">
+                    <div className="hidden md:flex items-center pr-3 font-semibold text-gray-600 ">
 
                         {!isAuth ?
                             <p className="text-[17px] pt-3" style={{ fontSize: "15px" }}>{t("Airbnb your home")}</p> :
@@ -335,15 +335,15 @@ $60nightht */}
                                     setValue={setNumberOfChildren}
                                 />
                             </div>
-                                <div className='flex justify-around pb-4'>
-                                    <button className='' onClick={() => { setShowSearch(false) }}>Close</button>
-                                    <button className=' text-pink-400' onClick={handleSearchSubmit}>Search</button>
-                                </div>
+                            <div className='flex justify-around pb-4'>
+                                <button className='' onClick={() => { setShowSearch(false) }}>Close</button>
+                                <button className=' text-pink-400' onClick={handleSearchSubmit}>Search</button>
+                            </div>
                         </div>}
                     </div>
                 }
+                <hr className='my-4 text-secondary bg-secondary' />
             </div>
-            <hr />
         </>
     );
 };

@@ -16,7 +16,7 @@ import { useEffect, useRef, useState } from "react";
 
 const SingleCard = ({ data }) => {
   const { host, location, pricePerNight
-    , date, images, id } = data;
+    , date, images, id, title } = data;
   const { t, i18n } = useTranslation()
   const history = useHistory();
   const ref = useRef("");
@@ -66,18 +66,18 @@ const SingleCard = ({ data }) => {
         </Swiper>
 
         <Card.Body onClick={() => { goToUnitPage() }} className="px-0">
-          <Card.Title className="d-flex justify-content-between mb-0 pb-3" style={{ fontSize: "16px" }}><p className="m-0 p-0 grow-1 card-header-location">{location?.state}, {location?.country} </p> 
-           <div className="d-flex mt-1 mx-2 fw-bold grow-0" style={{ fontSize: "13px" }}><i className="bi bi-star-fill p-0 m-0"></i>
+          <Card.Title className="d-flex justify-content-between mb-0 pb-2" style={{ fontSize: "16px" }}><p className="m-0 p-0 grow-1 card-header-location">{location?.state}, {location?.country} </p>
+            <div className="d-flex mt-1 mx-2 fw-bold grow-0 pe-2" style={{ fontSize: "13px" }}><i className="bi bi-star-fill p-0 m-0"></i>
 
-            <p className="p-0 m-0">{" "}
-            {t("New")}{" "}</p>
-          </div>
+              <p className="p-0 m-0">{" "}
+                {t("New")}{" "}</p>
+            </div>
           </Card.Title>
-          <Card.Subtitle className="mb-1 text-muted">Hosted by {host?.firstName}  </Card.Subtitle>
+          <Card.Subtitle className="mb-1 text-muted card-header-location pe-4">{title}</Card.Subtitle>
 
           <Card.Text className="mb-1 text-muted">{date?.start}</Card.Text>
           <Card.Text>
-            <b className=" me-1">${pricePerNight}</b>night
+            <b className=" me-1">${pricePerNight}</b>{t("night")}
           </Card.Text>
         </Card.Body>
       </Card>
