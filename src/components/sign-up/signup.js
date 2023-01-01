@@ -5,6 +5,7 @@ import axiosInstance from '../../axios config/axiosInstance';
 import { useDispatch } from 'react-redux';
 import { signupContext } from '../../contexts/singupModel';
 import { useHistory } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 
 const Signup = (props) => {
@@ -12,7 +13,8 @@ const Signup = (props) => {
     const { showsignup, setShowsignup } = useContext(signupContext)
     const handleCloseSignup = () => setShowsignup(false)
 
-
+    const dispatch = useDispatch()
+    const { t, i18n } = useTranslation();
     const [user, setUser] = useState({
         firstName: "",
         lastName: "",
@@ -41,8 +43,7 @@ const Signup = (props) => {
             setUser({ ...user, firstName: evt.target.value })
 
             setErrors({
-                ...errors, fNameError: (evt.target.value.length === 0) ?
-                    " First name is required. " : (evt.target.value.length < 3) ? " First name must be at least 3 characters. " : ""
+                ...errors, fNameError: (evt.target.value.length === 0) ? `${t(" First name is required.")}` : (evt.target.value.length < 3) ? `${t(" First name must be at least 3 characters.")}` : ""
             })
 
         } else if (evt.target.name === "lastName") {
@@ -50,7 +51,7 @@ const Signup = (props) => {
             setUser({ ...user, lastName: evt.target.value })
 
             setErrors({
-                ...errors, lNameError: (evt.target.value.length === 0) ? " Last name is required." : (evt.target.value.length < 3) ? " Last name  must be at least 3 characters." : ""
+                ...errors, lNameError: (evt.target.value.length === 0) ? `${t(" Last name is required.")}` : (evt.target.value.length < 3) ? `${t(" Last name  must be at least 3 characters.")}` : ""
             })
 
         } else if (evt.target.name === "birthDate") {
@@ -60,7 +61,7 @@ const Signup = (props) => {
 
             setErrors({
                 ...errors, birthDateError: (evt.target.value.length === 0) ?
-                    " This field is required." : ""
+                    `${t(" This field is required.")}` : ""
             })
         } else if (evt.target.name === "email") {
 
@@ -68,8 +69,8 @@ const Signup = (props) => {
 
             setErrors({
                 ...errors, emailError: (evt.target.value.length === 0) ?
-                    " This field is required." : (!emailRegex.test(evt.target.value)) ?
-                        " Invalid Email format." : ""
+                    `${t(" This field is required.")}` : (!emailRegex.test(evt.target.value)) ?
+                        `${t(" Invalid Email format.")}` : ""
             })
         } else if (evt.target.name === "password") {
 
@@ -77,8 +78,8 @@ const Signup = (props) => {
 
             setErrors({
                 ...errors, passwordError: (evt.target.value.length === 0) ?
-                    " Password is required" : (!PassRegex.test(evt.target.value)) ?
-                        " Password must be at least 8 characters, contains at least one uppercase , one lowercase letter,one special char.  " : ""
+                    `${t(" Password is required")}` : (!PassRegex.test(evt.target.value)) ?
+                        `${t(" Password must be at least 8 characters, contains at least one uppercase , one lowercase letter,one special char.  ")}` : ""
             })
         } else if (evt.target.name === "birthDate") {
 
@@ -89,7 +90,7 @@ const Signup = (props) => {
 
             setErrors({
                 ...errors, birthDateError: (evt.target.value.length === 0) ?
-                    " Birth date is required" : ""
+                    `${t(" Birth date is required")}` : ""
             })
         }
 
@@ -113,20 +114,20 @@ const Signup = (props) => {
                     }
                 } else {
                     setErrors({
-                        ...errors, loginError: " Cannot Signup. Please try again later."
+                        ...errors, signupError: `${t(" Cannot Sign up. Please try again later.")}`
                     })
 
                     setUser({ ...user, password: "" })
                 }
             }).catch((err) => {
                 setErrors({
-                    ...errors, signupError: " Cannot Signup. Please try again later."
+                    ...errors, signupError: `${t(" Cannot Sign up. Please try again later.")}`
                 })
                 setUser({ ...user, password: "" })
             })
         } else {
             setErrors({
-                ...errors, signupError: " Cannot Signup. Please try again later."
+                ...errors, signupError: `${t(" Cannot Sign up. Please try again later.")}`
             })
 
             setUser({ ...user, password: "" })
@@ -143,9 +144,9 @@ const Signup = (props) => {
 
 
                 <Modal.Body style={{ borderRadius: '2rem' }} className="">
-                    <div className="signup-container ">
+                    <div className="signup-container " dir={`${i18n.language === "en" ? "ltr" : "rtl"}`}>
                         <div className="finish-signup p-0">
-                            <h5 className="text-center" closeButton>Finish signing up</h5>
+                            <h5 className="text-center" closeButton>{t("Finish signing up")}</h5>
                         </div>
                         <form onSubmit={(e) => { handleForm(e) }} className=" "  >
 
@@ -155,7 +156,7 @@ const Signup = (props) => {
                                         value={user.firstName}
                                         name="firstName"
                                         onChange={(e) => { handleInputChange(e) }}
-                                        placeholder="First name"
+                                        placeholder={t("First name")}
                                     />
 
                                 </div>
@@ -166,12 +167,12 @@ const Signup = (props) => {
                                         value={user.lastName}
                                         name="lastName"
                                         onChange={(e) => { handleInputChange(e) }}
-                                        placeholder="Last name"
+                                        placeholder={t("Last name")}
                                     />
                                 </div>
                             </div >
-                            <p className={`error ${!errors.fNameError && !errors.lNameError ? "d-none" : ""} `}><i className=" fa-solid fa-circle-exclamation "></i>{errors.fNameError + errors.lNameError}</p>
-                            <span>Make sure it matches the name on your government ID.</span>
+                            <p className={`error ${!errors.fNameError && !errors.lNameError ? "d-none" : ""} `}><i className=" fa-solid fa-circle-exclamation "> </i>{errors.fNameError + errors.lNameError}</p>
+                            <span>{t("Make sure it matches the name on your government ID")}</span>
                             <br />
                             <div>
                                 <div className="input-container">
@@ -180,15 +181,14 @@ const Signup = (props) => {
                                         value={user.birthDate}
                                         name="birthDate"
                                         onChange={(e) => { handleInputChange(e) }}
-                                        placeholder="BirthDate"
+                                        placeholder={t("Birth date")}
                                     />
                                 </div>
                                 <p className={`error ${!errors.birthDateError ? "d-none" : ""} `}><i className=" fa-solid fa-circle-exclamation "></i>{errors.birthDateError}</p>
                             </div>
 
                             <span>
-                                To sign up, you need to be at least 18. Your birthday won’t be
-                                shared with other people who use Airbnb.
+                                {t("To sign up, you need to be at least 18")}
                             </span>
                             <br />
                             <div>
@@ -197,12 +197,12 @@ const Signup = (props) => {
                                         value={user.email}
                                         name="email"
                                         onChange={(e) => { handleInputChange(e) }}
-                                        placeholder="Email"
+                                        placeholder={t("Email")}
                                     />
                                 </div>
                                 <p className={`error ${!errors.emailError ? "d-none" : ""} `}><i className=" fa-solid fa-circle-exclamation "></i>{errors.emailError}</p>
                             </div>
-                            <span>We'll email you trip confirmations and receipts.</span>
+                            <span>{t("We'll email you trip confirmations and receipts.")}</span>
                             <br />
 
 
@@ -214,18 +214,18 @@ const Signup = (props) => {
                                         value={user.password}
                                         name="password"
                                         onChange={(e) => { handleInputChange(e) }}
-                                        placeholder="password"
+                                        placeholder={t("password")}
                                     />
                                 </div>
                                 <p className={`error ${!errors.passwordError ? "d-none" : ""} `}><i className=" fa-solid fa-circle-exclamation "></i>{errors.passwordError}</p>
                             </div>
 
                             <span>
-                                By selecting Agree and continue below, I agree to Airbnb’s
-                                <a href="#">Terms of Service</a> ,
-                                <a href="#">Payments Terms of Service</a> ,{' '}
-                                <a href="#">Privacy Policy</a>, and{' '}
-                                <a href="#">Nondiscrimination Policy</a>.
+                                {t("By selecting Agree and continue below, I agree to Airbnb")}
+                                <a href="#">{t('Terms of Service')}</a> ,
+                                <a href="#">{t("Payments Terms of Service")}</a> ,{' '}
+                                <a href="#"> {t("Privacy Policy")}</a>, and{' '}
+                                <a href="#">{t("Nondiscrimination Policy")}</a>.
                             </span>
                             <br />
 
@@ -234,19 +234,17 @@ const Signup = (props) => {
                             <input
                                 type="submit"
                                 className="agree-btn"
-                                value="Agree and continue"
+                                value={t("Agree and continue")}
                                 name="submit-btn"
                             />
                             <p className=' small pt-5'>
-                                Airbnb will send you members-only deals, inspiration, marketing emails,
-                                and push notifications. You can opt out of receiving these at any time
-                                in your account settings or directly from the marketing notification.
+                                {t("Airbnb will send you members-only deals")}
                             </p>
                             <br />
                             <div className="send-reminder">
                                 <input type="checkbox" name="keep_contact" id="checkBox" />
                                 <label htmlFor="checkBox ">
-                                    <span className=' small p-0'>I don’t want to receive marketing messages from Airbnb.</span>
+                                    <span className=' small p-0'>{t("I don't want to receive marketing messages from Airbnb.")}</span>
                                 </label>
                             </div>
                         </form >

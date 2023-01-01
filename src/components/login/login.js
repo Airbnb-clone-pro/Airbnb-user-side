@@ -48,8 +48,8 @@ const Login = () => {
 
             setErrors({
                 ...errors, emailError: (evt.target.value.length === 0) ?
-                    " This field is required." : (!emailRegex.test(evt.target.value)) ?
-                        " Invalid Email format." : ""
+                    `${t(" This field is required.")}` : (!emailRegex.test(evt.target.value)) ?
+                        `${t(" Invalid Email format.")}` : ""
             })
         } else if (evt.target.name === "password") {
 
@@ -57,12 +57,12 @@ const Login = () => {
 
             setErrors({
                 ...errors, passwordError: (evt.target.value.length === 0) ?
-                    " Password is required" : (!PassRegex.test(evt.target.value)) ?
-                        " Password must be at least 8 characters, contains at least one uppercase , one lowercase letter,one special char.  " : ""
+                    `${t(" Password is required")}` : (!PassRegex.test(evt.target.value)) ?
+                        `${t(" Password must be at least 8 characters, contains at least one uppercase , one lowercase letter,one special char.  ")}` : ""
             })
         }
-
     }
+
 
 
 
@@ -84,26 +84,27 @@ const Login = () => {
                     }
                 } else {
                     setErrors({
-                        ...errors, loginError: " Cannot login. Invalid email or password."
+                        ...errors, loginError: `${t(" Cannot login. Invalid email or password.")}`
                     })
 
                     setUserLogin({ ...userLogin, password: "" })
                 }
             }).catch((err) => {
                 setErrors({
-                    ...errors, loginError: " Cannot login. Invalid email or password."
+                    ...errors, loginError: `${t(" Cannot login. Invalid email or password.")}`
                 })
                 setUserLogin({ ...userLogin, password: "" })
             })
         } else {
             setErrors({
-                ...errors, loginError: " Cannot login. Invalid email or password."
+                ...errors, loginError: `${t(" Cannot login. Invalid email or password.")}`
             })
 
-            setUserLogin({ ...userLogin, password: "" })
+            setUserLogin({
+                ...userLogin, password: ""
+            })
         }
     }
-
 
 
 
@@ -119,17 +120,17 @@ const Login = () => {
                 <Modal.Body style={{ borderRadius: '2rem' }} className="">
                     <div className="signup-container ">
                         <div className="finish-signup p-0">
-                            <h5 className="text-center">Log in </h5>
+                            <h5 className="text-center">{t("Log in")}</h5>
                         </div>
                         <form onSubmit={(e) => { handleForm(e) }} className=" " method='GET' >
-                            <h4 className='pb-2'>Welcome to Airbnb</h4>
+                            <h4 className='pb-2'>{t("Welcome to Airbnb")} </h4>
                             <div className='pb-2'>
                                 <div className={`input-container ${(errors.emailError ? "border-danger shadow-none" : "")}`}>
                                     <input type="text" className={`shadow-none ${(errors.emailError ? "border-danger shadow-none" : "")}`}
                                         value={userLogin.email}
                                         name="email"
                                         onChange={(e) => { handleInputChange(e) }}
-                                        placeholder="Email"
+                                        placeholder={t("Email")}
                                     />
                                 </div>
                                 <p className={`error shadow-none ${!errors.emailError ? "d-none" : ""} `}><i className=" fa-solid fa-circle-exclamation "></i>{errors.emailError}</p>
@@ -144,7 +145,7 @@ const Login = () => {
                                         value={userLogin.password}
                                         name="password"
                                         onChange={(e) => { handleInputChange(e) }}
-                                        placeholder="password"
+                                        placeholder={t("password")}
                                     />
                                 </div>
                                 <p className={`error ${!errors.passwordError ? "d-none" : ""} `}><i className=" fa-solid fa-circle-exclamation "></i>{errors.passwordError}</p>
@@ -155,7 +156,7 @@ const Login = () => {
                             <input
                                 type="submit"
                                 className="agree-btn"
-                                value=" continue"
+                                value={t(" continue")}
                                 name="submit-btn"
                             />
 
@@ -166,7 +167,7 @@ const Login = () => {
                                         <hr />
                                     </div>
                                     <div className="col-1" style={{ padding: 0, textAlign: 'center' }}>
-                                        or
+                                        {t("or")}
                                     </div>
                                     <div className="col-5" style={{ padding: 0 }}>
                                         <hr />
@@ -187,7 +188,7 @@ const Login = () => {
                                             />
                                         </div>
                                         <div className="facebook-text-container">
-                                            Continue With Facebook
+                                            {t("Continue With Facebook")}
                                         </div>
                                     </div>
                                 </div>
@@ -203,7 +204,7 @@ const Login = () => {
                                             <FcGoogle style={{ fontSize: '1.4rem' }} />
                                         </div>
                                         <div className="google-text-container">
-                                            Continue With Google
+                                            {t("Continue With Google")}
                                         </div>
                                     </div>
                                 </div>
@@ -217,7 +218,7 @@ const Login = () => {
                                                 }}
                                             />
                                         </div>
-                                        <div className="apple-text-container">Continue With Apple</div>
+                                        <div className="apple-text-container"> {t("Continue With Apple")}</div>
                                     </div>
                                 </div>
 
@@ -227,7 +228,7 @@ const Login = () => {
                                         <div className="email-icon-container">
                                             < FiSmartphone style={{ fontSize: '1.4rem' }} />
                                         </div>
-                                        <div className="email-text-container">Continue With Phone</div>
+                                        <div className="email-text-container"> {t("Continue With Phone")}</div>
                                     </div>
                                 </div>
                             </div>
@@ -241,6 +242,6 @@ const Login = () => {
         </div >
 
     );
-}
 
+}
 export default Login;
