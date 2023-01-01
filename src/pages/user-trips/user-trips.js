@@ -14,6 +14,7 @@ const UserTrips = () => {
     const [isLoading, setLoading] = useState(true);
     const [buttonsRadio, setButtonRadio] = useState(0);
     const [trips, setTrips] = useState([]);
+    const [reviews, setReviews] = useState([])
     const history = useHistory();
     const user = useSelector((state) => state.user);
     const token = localStorage.getItem("token");
@@ -29,7 +30,18 @@ const UserTrips = () => {
             console.log(res.data);
             // reservation-successful
             setTrips(res.data);
-            setLoading(false);
+            axiosInstance.get(`/review`, config).then((res) => {
+                console.log(res.data);
+                // reservation-successful
+                setReviews(res.data);
+                setLoading(false);
+            })
+                .catch((err) => {
+                    console.log(err);
+                    console.log("user", user._id);
+                    console.log("token", token);
+                });
+    
         })
             .catch((err) => {
                 console.log(err);
@@ -47,6 +59,16 @@ const UserTrips = () => {
     const handleRadio = (btnNum) => {
         setButtonRadio(btnNum)
     }
+    const isUnitReview=(unitId)=>{
+        for (let review of reviews)
+        {
+            if(review?.unit?._id===unitId)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
 
     return <>
         {isLoading ? (
@@ -62,6 +84,10 @@ const UserTrips = () => {
                 <h2 className="my-3 fw-bold">{t("Trips")}</h2>
                 <Divider style={{ background: "#757575" }} className="my-3" />
                 {trips.length ? <div className="my-4">
+                    <div>
+                        <p className="p-0 m-0 text-secondary">{`* ${t("cancellation before 48 hours")}`}</p>
+                        <p className="p-0 m-0 text-secondary">{`* ${t("you can refund 70% from total price")}`}</p>
+                    </div>
                     {/* <div className="btn-group mb-4" role="group" aria-label="Basic radio toggle button group">
                         <input type="radio" className="btn-check" name="btnradio" id="btnradio1" autocomplete="off" onClick={() => { handleRadio(0) }} checked={buttonsRadio === 0} disabled={buttonsRadio === 0} />
                         <label className="btn btn-outline-dark" htmlFor="btnradio1">All Trips</label>
@@ -78,7 +104,7 @@ const UserTrips = () => {
                     <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3" >
 
                         {trips.map((trip, index) => {
-                            return (<div className="col p-3" key={index}><div className="col-12 p-3 rounded-3" style={{ border: "1px solid #6f7174" }}><TripCart trip={trip} /></div></div>
+                            return (<div className="col p-3" key={index}><div className="col-12 p-3 rounded-3" style={{ border: "1px solid #6f7174" }}><TripCart trip={trip} isReview={isUnitReview(trip?.unit?._id)}/></div></div>
                             );
                         })}</div>
 

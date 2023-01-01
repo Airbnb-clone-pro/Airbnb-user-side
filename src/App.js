@@ -26,6 +26,7 @@ import ReservationSuccessful from "./pages/reservation-sucee/reservation-success
 import { SearchProvider } from "./contexts/searchModal";
 import Header from'./components/header/Header'
 import TripCancelled from "./pages/reservation-sucee/trip-cancel";
+import ReviewSuccessful from "./pages/reservation-sucee/review-succeful";
 
 function App() {
   const [showLogin, setShowLogin] = useState(false);
@@ -77,6 +78,7 @@ function App() {
                     <Route path="/unit-details/:unitId" exact component={Unit} />
                     <Route path="/reservation-successful" exact component={ReservationSuccessful} />
                     <Route path="/Trip-Cancelled" exact component={TripCancelled} />
+                    <Route path="/review-successful" exact component={ReviewSuccessful} />
 
                     
                     {isAuth ? (

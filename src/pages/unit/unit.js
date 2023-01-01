@@ -2,6 +2,7 @@ import { Divider } from "@mui/material";
 import Avatar from "@mui/material/Avatar";
 import { useTranslation } from "react-i18next";
 import DatePicker from "react-datepicker";
+import Rating from '@mui/material/Rating';
 import "./datePicker-style/datepicker.scss";
 import CircularProgress from "@mui/material/CircularProgress";
 import { useEffect, useState, useRef, useLayoutEffect } from "react";
@@ -15,6 +16,7 @@ const Unit = () => {
   const { t, i18n } = useTranslation();
   const params = useParams();
   const [unit, setUnit] = useState({});
+  const [reviews, setReviews] = useState([]);
   const token = localStorage.getItem("token");
   const user = useSelector((state) => state.user);
   const [isLoading, setLoading] = useState(true);
@@ -34,8 +36,16 @@ const Unit = () => {
       .then((res) => {
         console.log(res.data);
         setUnit(res.data);
-
-        setLoading(false);
+        axiosInstance
+          .get(`/review/${params.unitId}`)
+          .then((res) => {
+            console.log(res.data);
+            setReviews(res.data);
+            setLoading(false);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
       })
       .catch((err) => {
         console.log(err);
@@ -306,6 +316,57 @@ const Unit = () => {
                   disabled={!unit.available}
                 />
               </div>
+              <Divider style={{ background: "#757575" }} className="mb-3" />
+              {reviews.length > 0 ? (
+                <div className="py-3">
+                  <div className="d-flex flex">
+                    <i className="bi bi-star-fill"></i>
+                    <h5 className="mt-1 mx-2 fw-bold">
+                      {" "}
+                      {unit.avgRating === 1
+                        ? unit.avgRating
+                        : unit.avgRating || t("New")}{" "}
+                      .{" "}
+                    </h5>
+                    <h5 className="mt-1 mx-2 fw-bold">
+                      {unit.numberOfRates
+                        ? `${unit.numberOfRates} ${t("reviews . ")}`
+                        : ""}
+                    </h5>
+                  </div>
+                  {reviews ? (
+                    reviews.map((review, index) => {
+                      return (
+                        <>
+                          <div className="col-12 py-3">
+                            <div className="d-flex flex-row">
+                              <Avatar
+                                alt=""
+                                src=""
+                                sx={{ width: 56, height: 56 }}
+                              >
+                                {review?.user?.firstName[0]
+                                  ? review?.user?.firstName[0].toUpperCase()
+                                  : null}
+                              </Avatar>
+                              <div className="d-flex flex-column px-3 align-content-center">
+                                <h5 className="fw-bold">{`${review?.user?.firstName} ${review?.user?.lastName}`}</h5>
+                                <p className="text-secondary">{`${new Date(review?.createdAt).toLocaleDateString("en-US")}`}</p>
+                              </div>
+                              <Rating name="read-only" value={review?.rating || 1} readOnly />
+                            </div>
+                            <p>{`${review?.review}`}</p>
+                          </div>
+                        </>
+                      );
+                    })
+                  ) : (
+                    <></>
+                  )}
+                </div>
+              ) : (
+                <></>
+              )}
             </div>
             {/* ------------------------------------------------- */}
             {/* -------------Unit reservation ------------------- */}
@@ -342,8 +403,8 @@ const Unit = () => {
                       style={{ fontSize: "13px" }}
                     >
                       {`${unit.numberOfRates
-                          ? `${unit.numberOfRates} ${t("reviews . ")}`
-                          : ""
+                        ? `${unit.numberOfRates} ${t("reviews . ")}`
+                        : ""
                         }`}
                     </a>
                   </div>
@@ -451,29 +512,32 @@ const Unit = () => {
                 </div>
                 <button
                   className={`reserve-btn-grad ${!startDate ||
-                      !endDate ||
-                      !unit.available ||
-                      new Date(startDate) >= new Date(endDate)||numberOfDays()%1!==0
-                      ? "reserve-btn-grad-disabled"
-                      : ""
+                    !endDate ||
+                    !unit.available ||
+                    new Date(startDate) >= new Date(endDate) ||
+                    numberOfDays() % 1 !== 0
+                    ? "reserve-btn-grad-disabled"
+                    : ""
                     }`}
                   onClick={handleReserve}
                   disabled={
                     !startDate ||
                     !endDate ||
                     !unit.available ||
-                    new Date(startDate) >= new Date(endDate) || numberOfDays() % 1 !== 0
+                    new Date(startDate) >= new Date(endDate) ||
+                    numberOfDays() % 1 !== 0
                   }
                 >
                   {t("Reserve")}
                 </button>
                 <div
                   className={`w-100 my-3 ${startDate &&
-                      endDate &&
-                      new Date(startDate) < new Date(endDate) &&
-                      numberOfDays() % 1 === 0 && unit.available
-                      ? ""
-                      : "d-none"
+                    endDate &&
+                    new Date(startDate) < new Date(endDate) &&
+                    numberOfDays() % 1 === 0 &&
+                    unit.available
+                    ? ""
+                    : "d-none"
                     }`}
                 >
                   <h5 className="fw-bold">{t("Price details")}</h5>
@@ -489,13 +553,14 @@ const Unit = () => {
                       "Total"
                     )} (USD)`}</p>
                     <p className="m-0 p-0 fw-bold fs-6">{`$${unit.pricePerNight * numberOfDays()
-                      }`}</p> 
+                      }`}</p>
                   </div>
                 </div>
               </div>
             </div>
           </div>
           <Divider style={{ background: "#757575" }} className="mb-3" />
+
           <Snackbar
             open={openAlert}
             autoHideDuration={5000}

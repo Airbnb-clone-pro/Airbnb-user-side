@@ -188,10 +188,17 @@
     "Paid parking":"ركن مدفوع",
     "Essentials":"وسائل الراحة",
     "Trip successfully cancelled": "تم إلغاء الرحلة بنجاح",
-    "check your paypal balance":"تحقق من رصيدك على paypal",
     "Manage listing":"ادارة اعلانات المساكن",
     "Account":"الحساب",
     "Logout":"تسجيل الخروج",
     "Whitelists":"قوائم الأمنيات",
-    "Notifications":"الإشعارات"
+    "Notifications":"الإشعارات",
+    "check your paypal balance": "تحقق من رصيدك على paypal",
+    "Add Review": "أضافة تقييم",
+    "Review this place": "قم بتقييم هذا المكان",
+    "Enter your review here...": "ادخل تقييمك هنا ...",
+    "Cancel Trip": "إلغاء الرحلة",
+    "Your Rating": "تقييمك",
+    "cancellation before 48 hours":"الإلغاء قبل 48 ساعة",
+    "you can refund 70% from total price":"يمكنك استرداد 70٪ من السعر الإجمالي"
 }

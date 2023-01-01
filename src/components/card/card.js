@@ -16,7 +16,7 @@ import { useEffect, useRef, useState } from "react";
 
 const SingleCard = ({ data }) => {
   const { host, location, pricePerNight
-    , date, images, id, title } = data;
+    , date, images, id, title, avgRating } = data;
   const { t, i18n } = useTranslation()
   const history = useHistory();
   const ref = useRef("");
@@ -70,7 +70,9 @@ const SingleCard = ({ data }) => {
             <div className="d-flex mt-1 mx-2 fw-bold grow-0 pe-2" style={{ fontSize: "13px" }}><i className="bi bi-star-fill p-0 m-0"></i>
 
               <p className="p-0 m-0">{" "}
-                {t("New")}{" "}</p>
+                {avgRating === 1
+                  ? avgRating
+                  : avgRating || t("New")}{" "}</p>
             </div>
           </Card.Title>
           <Card.Subtitle className={`mb-1 text-muted card-header-location ${i18n.language === 'en' ? 'pe-4' : "ps-4"}`}>{title}</Card.Subtitle>
