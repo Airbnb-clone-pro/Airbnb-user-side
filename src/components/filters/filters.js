@@ -11,6 +11,7 @@ import { Checkbox, Divider, FormControlLabel, FormGroup, TextField } from '@mui/
 import { useDispatch } from 'react-redux';
 import axiosInstance from '../../axios config/axiosInstance';
 import { GetUnits } from '../../store/actions/getUnits';
+import { getHomeURL } from '../../store/actions/homePageURL';
 
 
 const Filters = () => {
@@ -83,9 +84,8 @@ const Filters = () => {
     const lang = localStorage.getItem('lang');
     const filterUnits = (query, lang) => {
         axiosInstance.get(`/units/search/query?${query}&lang=${lang}`).then((res) => {
-            console.log(res.data);
-            console.log(query)
             dispatch(GetUnits(res.data))
+            dispatch(getHomeURL(`units/search/query?${query}&`))
             console.log(placeType, essentials, hostLangs, rooms, beds, bathrooms)
             setRooms(0); setBathrooms(0); setBeds(0); setPlaceType([]); setEssentials([]); setHostLangs([])
             setShowFilters(false)

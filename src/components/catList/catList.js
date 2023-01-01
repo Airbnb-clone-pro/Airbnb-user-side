@@ -22,6 +22,7 @@ import { GetUnits } from '../../store/actions/getUnits';
 import { filterContext } from '../../contexts/filtersModel';
 import axiosInstance from '../../axios config/axiosInstance';
 import { searchContext } from '../../contexts/searchModal';
+import { getHomeURL } from '../../store/actions/homePageURL';
 
 
 const CatList = (props) => {
@@ -48,7 +49,7 @@ const CatList = (props) => {
         axiosInstance.get(`/units/category/${name}?lang=${lang}`).then((res) => {
             console.log(res.data);
             dispatch(GetUnits(res.data))
-
+            dispatch(getHomeURL(`units/category/${name}?`))
         }).catch((err) => {
         })
 
@@ -61,23 +62,21 @@ const CatList = (props) => {
     return (
         <>
             {!showSearch &&
-                <div className='container-fluid sticky z-50 top-16 bg-white my-1 px-0'>
+                <div className='container-fluid sticky z-50 top-20 bg-white py-1 px-0'>
                     <div
                         className="flex flex-row items-center px-0 "
                         dir={`${i18n.language === "en" ? "ltr" : "rtl"}`}
                     >
-                        <hr className='my-1' />
                         <Tabs
                             value={value}
                             onChange={handleChange}
-                            indicatorColor="secondary."
                             variant="scrollable"
                             scrollButtons
                             className='grow-1'
                         >
-                            <Tab icon={<LandslideIcon />} label={t("Amazing views")} name="Amazing views" onClick={(e) => { getCatUnits(e.target.name) }} value='71' />
-                            <Tab icon={<FeedIcon />} label={t('New')} name="New" onClick={(e) => { getCatUnits(e.target.name) }} />
-                            <Tab icon={<FilterHdrIcon />} label={t("Top of the world")} name="Top of the world" onClick={(e) => { getCatUnits(e.target.name) }} />
+                            <Tab icon={<LandslideIcon onClick={()=>{ getCatUnits("Amazing views")}}/>} label={t("Amazing views")} name="Amazing views" onClick={(e) => { getCatUnits(e.target.name) }} value={0} />
+                            <Tab icon={<FeedIcon onClick={()=>{ getCatUnits("New")}}/>} label={t('New')} name="New" onClick={(e) => { getCatUnits(e.target.name) }} value={2}/>
+                            <Tab icon={<FilterHdrIcon />} label={t("Top of the world")} name="Top of the world" onClick={(e) => { getCatUnits(e.target.name) }} value={3}/>
                             <Tab icon={<WhatshotIcon />} label={t("Trending")} />
                             <Tab icon={<AccessibleIcon />} label={t("Adapted")} />
                             <Tab icon={<SportsHandballIcon />} label={t("Playing")} />
@@ -95,8 +94,8 @@ const CatList = (props) => {
                             <Tab icon={<HouseIcon />} label={t("Tiny home")} />
                             <Tab icon={<LandslideIcon />} label={t("Amazing views")} />
                             <Tab icon={<LightIcon />} label={t("OMG!")} />
-                            <Tab icon={<PoolIcon />} label={t("Amazing pools")} value="892" />
-                            <Tab icon={<PoolIcon />} label={t("Amazing pools")} value="156" />
+                            <Tab icon={<PoolIcon />} label={t("Amazing pools")} />
+                            <Tab icon={<PoolIcon />} label={t("Amazing pools")} />
                             <Tab icon={<LandslideIcon />} label={t("Amazing views")} />
                             <Tab icon={<LightIcon />} label={t("OMG!")} />
                             <Tab icon={<PoolIcon />} label={t("Amazing pools")} />
@@ -113,11 +112,9 @@ const CatList = (props) => {
                             <Tab icon={<LightIcon />} label={t("OMG!")} />
                             <Tab icon={<PoolIcon />} label={t("Amazing pools")} />
                         </Tabs>
+
                         <button className="btn btn-white lg:me-2 grow-0 border" onClick={handleShowFilters}>
-                            <div className='flex justify-around px-0'>
-                                <i className={`${i18n.language === 'en' ? "bi bi-sliders2-vertical me-2" : "bi bi-sliders2-vertical ms-1"}`}></i>
-                                <h6>{t("Filter")}</h6>
-                            </div>
+                            <h6>{t("Filter")}</h6>
                         </button>
                     </div >
                 </div >

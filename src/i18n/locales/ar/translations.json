@@ -187,6 +187,7 @@
     "TV":"تليفزيون",
     "Free parking":"ركن مجاني",
     "Paid parking":"ركن مدفوع",
-    "Essentials":"وسائل الراحة"
-
+    "Essentials":"وسائل الراحة",
+    "Trip successfully cancelled": "تم إلغاء الرحلة بنجاح",
+    "check your paypal balance":"تحقق من رصيدك على paypal"
 }

@@ -3,7 +3,6 @@ import { useContext } from 'react';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import IconButton from '@mui/material/IconButton';
-import logo from '../../assets/logo2.png';
 import { BiWorld } from "react-icons/bi";
 import './header.css'
 import { loginContext } from '../../contexts/loginModel';
@@ -17,12 +16,13 @@ import Search from '../search/search';
 import { searchContext } from '../../contexts/searchModal';
 import { addDays, format } from 'date-fns';
 import { DateRange, DateRangePicker } from 'react-date-range';
-import { FiUsers } from 'react-icons/fi';
 import axiosInstance from '../../axios config/axiosInstance';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { GetUnits } from '../../store/actions/getUnits';
+import { getHomeURL } from '../../store/actions/homePageURL';
 import { FaAirbnb } from 'react-icons/fa'
 import NumberInput from '../inputNumber/inputNumber';
+import OpenedSearchBar from '../opendSeachBar/openedSearchBar';
 
 
 const Navbar = (props) => {
@@ -65,8 +65,11 @@ const Navbar = (props) => {
         setAnchorEl(null);
     };
     const { showSearch, setShowSearch } = React.useContext(searchContext);
+    // showSearch?document.getElementById('root').style.filter='blur(5px)':document.getElementById('root').style.filter='none'
     const [startDate, setStartDate] = React.useState(new Date())
     const [endDate, setEndDate] = React.useState(addDays(new Date(), 7))
+    const [showDateRange, setShowDateRange] = React.useState(true);
+    const [showGuestsInput, setShowGuestsInput] = React.useState(false)
     const selectionRange = {
         startDate: startDate,
         endDate: endDate,
@@ -83,7 +86,6 @@ const Navbar = (props) => {
         setShowSearch(true)
         console.log(window.matchMedia("(max-width: 480px)").matches)
     }
-    // const [numberOfGuests, setNumberOfGuests] = React.useState(1)
     const [numberOfAdults, setNumberOfAdults] = React.useState(0);
     const [numberOfChildren, setNumberOfChildren] = React.useState(0);
     const [queryStr, setQueryStr] = React.useState('')
@@ -94,50 +96,65 @@ const Navbar = (props) => {
         )
     }, [setQueryStr, startDate, endDate, numberOfAdults, numberOfChildren])
 
+    const link = useSelector(state => state.homePageURL)
     const handleSearchSubmit = () => {
-        axiosInstance.get(`/units/search/query?${queryStr}&lang=en`).then((res) => {
-            console.log(res.data);
-            console.log(queryStr)
-            dispatch(GetUnits(res.data))
-        }).catch((err) => {
-            console.log(err.message)
-        })
-        setShowSearch(false)
+        axiosInstance.get(`/units/search/query?${queryStr}&lang=${localStorage.lang}`)
+            .then((res) => {
+                console.log(res.data);
+                console.log(queryStr)
+                dispatch(GetUnits(res.data))
+                dispatch(getHomeURL(`units/search/query?${queryStr}&`))
+                console.log(link)
+                setShowSearch(false)
+            }).catch((err) => {
+                console.log(err.message)
+            })
     }
 
     const [isScreenSmall, setISScreenSmall] = React.useState(false)
     const [isMeduimScreen, setIsMeduimScreen] = React.useState(false)
+    const [isScreenLarge, setisScreenLarge] = React.useState(false)
     React.useEffect(() => {
         function handleResize() {
             // console.log('resized to: ', window.innerWidth, 'x', window.innerHeight)
             if (window.innerWidth <= 720) {
                 setISScreenSmall(true)
                 setIsMeduimScreen(false)
+                setisScreenLarge(false)
             } else if (window.innerWidth > 720 && window.innerWidth < 880) {
-                setIsMeduimScreen(true)
                 setISScreenSmall(false)
-            }else if( window.innerWidth > 880)
+                setIsMeduimScreen(true)
+                setisScreenLarge(false)
+            } else if (window.innerWidth > 880)
+                setISScreenSmall(false)
             setIsMeduimScreen(false)
-            setISScreenSmall(false)
+            setisScreenLarge(true)
         }
         window.addEventListener('resize', handleResize)
-    })
+    }, [isScreenSmall, isMeduimScreen, isScreenLarge])
     return (
         <>
             {/* <div className='h-12 bg-light flex items-center justify-center'>
                 <h5 >{t("Introducing our 2022 Winter Release")}</h5>
             </div> */}
-            <div className="sticky top-0 z-50 bg-white h-16 lg:px-5 py-0" dir={`${i18n.language === 'en' ? 'ltr' : 'rtl'}`}>
+            <div className="sticky top-0 z-50 bg-white h-20 lg:px-5 py-1" dir={`${i18n.language === 'en' ? 'ltr' : 'rtl'}`}>
                 <div className="head block md:flex md:justify-between justify-center items-center sm:mx-6 md:mx-10 lg:mx-12 d-flex">
                     {/* Left */}
-                    <div className=" w-auto flex " style={{ fontWeight: "900" }} onClick={() => { history.push('/') }}>
+                    <div className=" w-auto flex " style={{ fontWeight: "900" }} onClick={() => { dispatch(getHomeURL('units?')); history.push('/') }}>
                         <FaAirbnb className='text-rose-500 text-3xl' />
                         {!isScreenSmall && <h4 className='text-rose-500 ml-2'>airbnb</h4>}
                     </div>
                     {/* Middle */}
                     {location.pathname === '/' && !showSearch && <div onClick={() => { showSearchAndLogValues() }}><Search isScreenSmall={window.screen.width < 500 ? true : false} /></div>}
 
-                    {/* Right */}
+                    {/* Rig
+
+جديد
+Hosted by
+
+12/25/2022
+
+$60nightht */}
                     <div className="hidden md:flex items-center pr-3 font-semibold text-gray-600">
 
                         {!isAuth ?
@@ -148,6 +165,7 @@ const Navbar = (props) => {
                             <BiWorld className="" />
                             <div className="" style={{ fontSize: "15px" }}>{`${i18n.language === 'en' ? 'AR' : 'EN'}`}</div>
                         </button>
+
                         <IconButton
                             onClick={handleClick}
                             size="small"
@@ -155,6 +173,7 @@ const Navbar = (props) => {
                             aria-controls={open ? 'account-menu' : undefined}
                             aria-haspopup="true"
                             aria-expanded={open ? 'true' : undefined}
+                            disableRipple
                         >
                             <div className="overflow-hidden relative w-10 h-10 bg-gray-100 rounded-full dark:bg-gray-600">
                                 <svg className="absolute -left-1 w-12 h-12 text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd"></path></svg>
@@ -270,49 +289,61 @@ const Navbar = (props) => {
                     </div>
                 </div>
                 {showSearch &&
-                    <div className='flex flex-col bg-white ' >
-                        <div className='mx-auto row flex'>
-                            {!isScreenSmall && window.innerWidth >= 720 ? (
-                                <DateRangePicker
-                                    onChange={handleSearchChange}
-                                    showSelectionPreview={true}
-                                    moveRangeOnFirstSelection={false}
-                                    months={2}
-                                    ranges={[selectionRange]}
-                                    direction={`${(!isMeduimScreen && window.innerWidth>880)?'horizontal':'vertical'}`}
-                                    minDate={new Date()}
-                                    rangeColors={["#FD5B61"]}
-                                />) : (<DateRange
-                                    onChange={handleSearchChange}
-                                    showSelectionPreview={true}
-                                    moveRangeOnFirstSelection={false}
-                                    months={2}
-                                    ranges={[selectionRange]}
-                                    direction='vertical'
-                                    minDate={new Date()}
-                                    rangeColors={["#FD5B61"]}
-                                />)}
+                    <div className='flex flex-col' >
+                        <div className='flex justify-center'>
+                            <OpenedSearchBar
+                                startDate={startDate}
+                                endDate={endDate}
+                                setShowDateRange={setShowDateRange}
+                                showDateRange={showDateRange}
+                                showGuestsInput={showGuestsInput}
+                                setShowGuestsInput={setShowGuestsInput}
+                                numberOfAdults={numberOfAdults}
+                                setNumberOfAdults={setNumberOfAdults}
+                                numberOfChildren={numberOfChildren}
+                                setNumberOfChildren={setNumberOfChildren}
+                                isScreenLarge={isScreenLarge}
+                            />
                         </div>
-                            <div className='mx-auto row flex pt-4'>
+                        {showDateRange && <div className='mx-auto row flex bg-white rounded'>
+                            <DateRange
+                                onChange={handleSearchChange}
+                                // showSelectionPreview={true}
+                                moveRangeOnFirstSelection={false}
+                                months={2}
+                                ranges={[selectionRange]}
+                                direction={`${(!isMeduimScreen && window.innerWidth > 880) ? 'horizontal' : 'vertical'}`}
+                                minDate={new Date()}
+                                rangeColors={["#FD5B61"]}
+                            />
+                            <div className='flex justify-around pb-4'>
+                                <button className='' onClick={() => { setShowSearch(false) }}>Close</button>
+                                <button className=' text-pink-400' onClick={handleSearchSubmit}>Search</button>
+                            </div>
+                        </div>}
+                        {showGuestsInput && <div className='mx-auto flex-col flex bg-white p-3'>
                             <h4 className=''>Number of Guests</h4>
+                            <div className=''>
                                 <NumberInput
                                     name={'Number of Adults'}
                                     value={numberOfAdults}
                                     setValue={setNumberOfAdults}
                                 />
                                 <NumberInput
-                                    name={'Number of Childeren'}
+                                    name={'Number of Children'}
                                     value={numberOfChildren}
                                     setValue={setNumberOfChildren}
                                 />
                             </div>
-                        <div className='flex justify-around pb-4'>
-                            <button className='' onClick={() => { setShowSearch(false) }}>Close</button>
-                            <button className=' text-pink-400' onClick={handleSearchSubmit}>Search</button>
-                        </div>
+                                <div className='flex justify-around pb-4'>
+                                    <button className='' onClick={() => { setShowSearch(false) }}>Close</button>
+                                    <button className=' text-pink-400' onClick={handleSearchSubmit}>Search</button>
+                                </div>
+                        </div>}
                     </div>
                 }
             </div>
+            <hr />
         </>
     );
 };
