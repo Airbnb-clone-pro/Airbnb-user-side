@@ -11,7 +11,7 @@ const PayPalCheckoutButtons = (props) => {
     const [ErrorMessage, setErrorMessage] = useState("");
     const [orderID, setOrderID] = useState(false);
     const [payer, setPayer] = useState({});
-    const [captureId,setCaptureId] = useState("");
+    const [captureId, setCaptureId] = useState("");
 
     const user = useSelector((state) => state.user);
     const token = localStorage.getItem("token");
@@ -39,7 +39,7 @@ const PayPalCheckoutButtons = (props) => {
                         totalPrice,
                         paymentId: orderID,
                         payerEmail: payer.email_address,
-                        captureId:captureId
+                        captureId: captureId
                     },
                     config
                 )
@@ -87,7 +87,7 @@ const PayPalCheckoutButtons = (props) => {
     // check Approval
     const onApprove = (data, actions) => {
         return actions.order.capture().then(function (details) {
-            const { payer ,purchase_units } = details;
+            const { payer, purchase_units } = details;
             console.log("details ::: ", details);
             setSuccess(true);
             setCaptureId(purchase_units[0].payments.captures[0].id);
