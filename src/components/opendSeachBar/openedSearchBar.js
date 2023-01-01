@@ -71,7 +71,7 @@ const OpenedSearchBar = (props) => {
                 >
                     <span className='text-start ps-1 text-dark'>Where</span>
                     {/* <input type="text" className='border-0 ring-0 focus:ring-0 rounded-pill bg-light' value={country} placeholder='search countries' onChange={handleChange} /> */}
-                    <select className='border-0 ring-0 focus:ring-0 rounded-pill bg-light' onChange={(e) => { props.setCountry(e.target.value ) }}>
+                    <select className='border-0 ring-0 focus:ring-0 rounded-pill bg-light w-50' onChange={(e) => { props.setCountry(e.target.value ) }}>
                         {props.country ? <option selected >{props.country}</option> : <option disabled selected >Choose the country</option>}
                         {countries.map((c, index) => {
                             return <option key={index}>{c.country_name}</option>
