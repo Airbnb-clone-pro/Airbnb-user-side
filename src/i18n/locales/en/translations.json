@@ -131,5 +131,12 @@
     "show place":"show place",
     "UnAvailable":"UnAvailable",
     "Trip successfully cancelled":"Trip successfully cancelled",
-    "check your paypal balance":"check your paypal balance"
+    "check your paypal balance":"check your paypal balance",
+    "Add Review":"Add Review",
+    "Review this place":"Reviw this place",
+    "Enter your review here...":"Enter your review here...",
+    "Cancel Trip":"Cancel Trip",
+    "Your Rating":"Your Rating",
+    "cancellation before 48 hours":"cancellation before 48 hours",
+    "you can refund 70% from total price":"you can refund 70% from total price"
 }

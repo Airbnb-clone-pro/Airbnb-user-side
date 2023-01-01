@@ -4,7 +4,7 @@ import { useHistory } from "react-router-dom";
 
 
 
-const TripCancelled = () => {
+const ReviewSuccessful = () => {
     const { t, i18n } = useTranslation();
     const history = useHistory();
     useEffect(() => {
@@ -22,8 +22,7 @@ const TripCancelled = () => {
                 <div style={{ borderRadius: "200px", height: "200px", width: "200px", background: "#F8FAF5", margin: "0 auto" }}>
                     <i className="checkmark rsp-i">✓</i>
                 </div>
-                <h1 className="rsp-h1">{t("Trip successfully cancelled")}</h1>
-                <h3>{t("check your paypal balance")}</h3>
+                <h1 className="rsp-h1">{t("Review Successful")}</h1>
                 
                 
             </div>
@@ -32,4 +31,4 @@ const TripCancelled = () => {
 
 }
 
-export default TripCancelled;
+export default ReviewSuccessful;
