@@ -152,7 +152,9 @@ const Unit = () => {
                   <i className="bi bi-star-fill"></i>
                   <h6 className="mt-1 mx-2 fw-bold">
                     {" "}
-                    {unit.rate || t("New")} .{" "}
+                    {unit.avgRating === 1
+                      ? t("New") : unit.avgRating
+                    } {" "}
                   </h6>
                   <a
                     className="text-dark fw-semibold"
@@ -324,8 +326,8 @@ const Unit = () => {
                     <h5 className="mt-1 mx-2 fw-bold">
                       {" "}
                       {unit.avgRating === 1
-                        ? unit.avgRating
-                        : unit.avgRating || t("New")}{" "}
+                        ? t("New") : unit.avgRating
+                      }{" "}
                       .{" "}
                     </h5>
                     <h5 className="mt-1 mx-2 fw-bold">
