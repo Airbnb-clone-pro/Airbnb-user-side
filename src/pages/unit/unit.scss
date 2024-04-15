@@ -53,6 +53,7 @@
   }
 }
 
+
 .unit-description {
   overflow: hidden;
   text-overflow: ellipsis;
@@ -61,11 +62,18 @@
   line-clamp: 4;
   -webkit-box-orient: vertical;
 }
-
-.reservation-box{
-  position: fixed;
-  top :150px;
+.trip-card-header {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* number of lines to show */
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
 }
+
+
+
+
 
 .reservation-button-group{
   color:black !important; 
@@ -97,8 +105,18 @@
   display: block;
 }
 
+.reserve-btn-grad-disabled{
+  opacity: 0.3;
+}
+
 .reserve-btn-grad:hover {
   background-position: right center; /* change the direction of the change here */
   color: #fff;
   text-decoration: none;
+}
+@media (min-width: 768px) {
+  .reservation-box{
+    position: fixed;
+    top :150px;
+  }
 }

@@ -2,9 +2,10 @@ import React, { useState, useContext } from 'react';
 import './sign-up.css'
 import { Modal } from 'react-bootstrap';
 import axiosInstance from '../../axios config/axiosInstance';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { signupContext } from '../../contexts/singupModel';
 import { useHistory } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 
 const Signup = (props) => {
@@ -13,7 +14,7 @@ const Signup = (props) => {
     const handleCloseSignup = () => setShowsignup(false)
 
     const dispatch = useDispatch()
-
+    const { t, i18n } = useTranslation();
     const [user, setUser] = useState({
         firstName: "",
         lastName: "",
@@ -28,6 +29,7 @@ const Signup = (props) => {
         birthDateError: "",
         emailError: "",
         passwordError: "",
+        signupError: ""
     })
 
 
@@ -41,8 +43,7 @@ const Signup = (props) => {
             setUser({ ...user, firstName: evt.target.value })
 
             setErrors({
-                ...errors, fNameError: (evt.target.value.length === 0) ?
-                    " First name is required. " : (evt.target.value.length < 3) ? " First name must be at least 3 characters. " : ""
+                ...errors, fNameError: (evt.target.value.length === 0) ? `${t(" First name is required.")}` : (evt.target.value.length < 3) ? `${t(" First name must be at least 3 characters.")}` : ""
             })
 
         } else if (evt.target.name === "lastName") {
@@ -50,7 +51,7 @@ const Signup = (props) => {
             setUser({ ...user, lastName: evt.target.value })
 
             setErrors({
-                ...errors, lNameError: (evt.target.value.length === 0) ? " Last name is required." : (evt.target.value.length < 3) ? " Last name  must be at least 3 characters." : ""
+                ...errors, lNameError: (evt.target.value.length === 0) ? `${t(" Last name is required.")}` : (evt.target.value.length < 3) ? `${t(" Last name  must be at least 3 characters.")}` : ""
             })
 
         } else if (evt.target.name === "birthDate") {
@@ -60,7 +61,7 @@ const Signup = (props) => {
 
             setErrors({
                 ...errors, birthDateError: (evt.target.value.length === 0) ?
-                    " This field is required." : ""
+                    `${t(" This field is required.")}` : ""
             })
         } else if (evt.target.name === "email") {
 
@@ -68,8 +69,8 @@ const Signup = (props) => {
 
             setErrors({
                 ...errors, emailError: (evt.target.value.length === 0) ?
-                    " This field is required." : (!emailRegex.test(evt.target.value)) ?
-                        " Invalid Email format." : ""
+                    `${t(" This field is required.")}` : (!emailRegex.test(evt.target.value)) ?
+                        `${t(" Invalid Email format.")}` : ""
             })
         } else if (evt.target.name === "password") {
 
@@ -77,8 +78,8 @@ const Signup = (props) => {
 
             setErrors({
                 ...errors, passwordError: (evt.target.value.length === 0) ?
-                    " Password is required" : (!PassRegex.test(evt.target.value)) ?
-                        " Password must be at least 8 characters, contains at least one uppercase , one lowercase letter,one special char.  " : ""
+                    `${t(" Password is required")}` : (!PassRegex.test(evt.target.value)) ?
+                        `${t(" Password must be at least 8 characters, contains at least one uppercase , one lowercase letter,one special char.  ")}` : ""
             })
         } else if (evt.target.name === "birthDate") {
 
@@ -89,7 +90,7 @@ const Signup = (props) => {
 
             setErrors({
                 ...errors, birthDateError: (evt.target.value.length === 0) ?
-                    " Birth date is required" : ""
+                    `${t(" Birth date is required")}` : ""
             })
         }
 
@@ -102,27 +103,34 @@ const Signup = (props) => {
 
         ev.preventDefault();
         if (!errors.fNameError && !errors.lNameError && !errors.emailError && !errors.passwordError && !errors.birthDateError) {
-            // dispatch(setUserState(user))
-            // console.log(user);
             axiosInstance.post('/users', user).then((res) => {
-                console.log(res);
-                console.log(res.data.token);
-                if (res.data.token) {
-                    localStorage.setItem('token', res.data.token);
-                    setShowsignup(false)
-                    history.push('/')
+                if (res.status === 201) {
+                    if (res.data.token) {
+                        localStorage.setItem('token', res.data.token);
+                        setShowsignup(false)
+                        history.push('/')
+                        setUser({})
+                        setErrors({})
+                    }
+                } else {
+                    setErrors({
+                        ...errors, signupError: `${t(" Cannot Sign up. Please try again later.")}`
+                    })
 
-                    // ev.target.submit()
-
-                    // alert("Form Sent Successfully")
+                    setUser({ ...user, password: "" })
                 }
             }).catch((err) => {
-
+                setErrors({
+                    ...errors, signupError: `${t(" Cannot Sign up. Please try again later.")}`
+                })
+                setUser({ ...user, password: "" })
+            })
+        } else {
+            setErrors({
+                ...errors, signupError: `${t(" Cannot Sign up. Please try again later.")}`
             })
 
-
-        } else {
-            alert("Please Enter Valid Date")
+            setUser({ ...user, password: "" })
         }
     }
 
@@ -130,77 +138,71 @@ const Signup = (props) => {
 
 
         <div className=''>
-            {/* <Button variant="primary" onClick={handleShow}>
-                Launch demo modal
-            </Button> */}
+
             <Modal show={showsignup} onHide={handleCloseSignup} className="" {...props}
-            // size="lg"
-            // aria-labelledby="contained-modal-title-vcenter"
-            // centered
             >
 
 
                 <Modal.Body style={{ borderRadius: '2rem' }} className="">
-                    <div className="signup-container ">
+                    <div className="signup-container " dir={`${i18n.language === "en" ? "ltr" : "rtl"}`}>
                         <div className="finish-signup p-0">
-                            <h5 className="text-center" closeButton>Finish signing up</h5>
+                            <h5 className="text-center" closeButton>{t("Finish signing up")}</h5>
                         </div>
                         <form onSubmit={(e) => { handleForm(e) }} className=" "  >
 
                             <div className={` full-name ${(errors.fNameError || errors.lNameError ? "border-danger shadow-none" : "")}  `}>
                                 <div className={`name-input ${(errors.fNameError ? "border-danger shadow-none" : "")} `}>
-                                    <input type="text" className=''
+                                    <input type="text" className='  shadow-none'
                                         value={user.firstName}
                                         name="firstName"
                                         onChange={(e) => { handleInputChange(e) }}
-                                        placeholder="First name"
+                                        placeholder={t("First name")}
                                     />
 
                                 </div>
 
                                 <div className="name-input last-name">
                                     <input type="text"
-                                        className={``}
+                                        className={`shadow-none`}
                                         value={user.lastName}
                                         name="lastName"
                                         onChange={(e) => { handleInputChange(e) }}
-                                        placeholder="Last name"
+                                        placeholder={t("Last name")}
                                     />
                                 </div>
                             </div >
-                            <p className={`error ${!errors.fNameError && !errors.lNameError ? "d-none" : ""} `}><i className=" fa-solid fa-circle-exclamation "></i>{errors.fNameError + errors.lNameError}</p>
-                            <span>Make sure it matches the name on your government ID.</span>
+                            <p className={`error ${!errors.fNameError && !errors.lNameError ? "d-none" : ""} `}><i className=" fa-solid fa-circle-exclamation "> </i>{errors.fNameError + errors.lNameError}</p>
+                            <span>{t("Make sure it matches the name on your government ID")}</span>
                             <br />
                             <div>
                                 <div className="input-container">
 
-                                    <input type="date" className={``}
+                                    <input type="date" className={`shadow-none`}
                                         value={user.birthDate}
                                         name="birthDate"
                                         onChange={(e) => { handleInputChange(e) }}
-                                        placeholder="BirthDate"
+                                        placeholder={t("Birth date")}
                                     />
                                 </div>
                                 <p className={`error ${!errors.birthDateError ? "d-none" : ""} `}><i className=" fa-solid fa-circle-exclamation "></i>{errors.birthDateError}</p>
                             </div>
 
                             <span>
-                                To sign up, you need to be at least 18. Your birthday won’t be
-                                shared with other people who use Airbnb.
+                                {t("To sign up, you need to be at least 18")}
                             </span>
                             <br />
                             <div>
-                                <div className={`input-container ${(errors.emailError ? "border-danger shadow-none" : "")}`}>
-                                    <input type="text" className={` ${(errors.emailError ? "border-danger shadow-none" : "")}`}
+                                <div className={`input-container shadow-none ${(errors.emailError ? "border-danger shadow-none" : "")}`}>
+                                    <input type="text" className={` shadow-none ${(errors.emailError ? "border-danger shadow-none" : "")}`}
                                         value={user.email}
                                         name="email"
                                         onChange={(e) => { handleInputChange(e) }}
-                                        placeholder="Email"
+                                        placeholder={t("Email")}
                                     />
                                 </div>
                                 <p className={`error ${!errors.emailError ? "d-none" : ""} `}><i className=" fa-solid fa-circle-exclamation "></i>{errors.emailError}</p>
                             </div>
-                            <span>We'll email you trip confirmations and receipts.</span>
+                            <span>{t("We'll email you trip confirmations and receipts.")}</span>
                             <br />
 
 
@@ -208,40 +210,41 @@ const Signup = (props) => {
                                 <div className={` input-container ${(errors.passwordError ? "border-danger shadow-none" : "")}`}>
 
                                     <input type="text"
+                                        className='shadow-none'
                                         value={user.password}
                                         name="password"
                                         onChange={(e) => { handleInputChange(e) }}
-                                        placeholder="password"
+                                        placeholder={t("password")}
                                     />
                                 </div>
                                 <p className={`error ${!errors.passwordError ? "d-none" : ""} `}><i className=" fa-solid fa-circle-exclamation "></i>{errors.passwordError}</p>
                             </div>
 
                             <span>
-                                By selecting Agree and continue below, I agree to Airbnb’s
-                                <a href="#">Terms of Service</a> ,
-                                <a href="#">Payments Terms of Service</a> ,{' '}
-                                <a href="#">Privacy Policy</a>, and{' '}
-                                <a href="#">Nondiscrimination Policy</a>.
+                                {t("By selecting Agree and continue below, I agree to Airbnb")}
+                                <a href="#">{t('Terms of Service')}</a> ,
+                                <a href="#">{t("Payments Terms of Service")}</a> ,{' '}
+                                <a href="#"> {t("Privacy Policy")}</a>, and{' '}
+                                <a href="#">{t("Nondiscrimination Policy")}</a>.
                             </span>
                             <br />
+
+                            <p className={`error ${!errors.signupError ? "d-none" : ""} `}><i className=" fa-solid fa-circle-exclamation "> </i>{errors.signupError}</p>
+
                             <input
                                 type="submit"
                                 className="agree-btn"
-                                value="Agree and continue"
+                                value={t("Agree and continue")}
                                 name="submit-btn"
-                            // onClick={(e) => { handleForm(e) }}
                             />
                             <p className=' small pt-5'>
-                                Airbnb will send you members-only deals, inspiration, marketing emails,
-                                and push notifications. You can opt out of receiving these at any time
-                                in your account settings or directly from the marketing notification.
+                                {t("Airbnb will send you members-only deals")}
                             </p>
                             <br />
                             <div className="send-reminder">
                                 <input type="checkbox" name="keep_contact" id="checkBox" />
                                 <label htmlFor="checkBox ">
-                                    <span className=' small p-0'>I don’t want to receive marketing messages from Airbnb.</span>
+                                    <span className=' small p-0'>{t("I don't want to receive marketing messages from Airbnb.")}</span>
                                 </label>
                             </div>
                         </form >

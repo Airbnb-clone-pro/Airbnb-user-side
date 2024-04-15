@@ -1,6 +1,6 @@
 import React from 'react';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { grey, pink } from '@mui/material/colors';
+import { blueGrey, grey, pink } from '@mui/material/colors';
 
 
 const AppThemeProvider = (props) => {
@@ -15,7 +15,8 @@ const AppThemeProvider = (props) => {
         },
         palette: {
             primary: {
-                main: grey[700]
+                main: grey[700],
+                dark: blueGrey[900]
             },
             secondary: {
                 main: pink[500]
@@ -67,6 +68,31 @@ const AppThemeProvider = (props) => {
                     disableRipple: true,
                 },
             },
+            MuiFormControlLabel: {
+                defaultProps: {
+                    sx: {
+                        color: (theme) => theme.palette.primary.main,
+                },
+            },
+            
+            componentsProps:{
+                typography:{
+                    fontSize:20,
+                    
+                }
+            }
+            },
+            MuiCheckbox: {
+                defaultProps: {
+                    disableRipple: true,
+                    sx: {
+                        color: (theme) => theme.palette.primary.dark,
+                        '&.Mui-checked': {
+                            color: (theme) => theme.palette.primary.dark
+                        }
+                    }
+                }
+            }
         },
     })
 

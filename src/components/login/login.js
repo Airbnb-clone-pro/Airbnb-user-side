@@ -1,7 +1,6 @@
 import React, { useContext, useState } from 'react';
 import '../sign-up/sign-up.css'
 import { Modal } from 'react-bootstrap';
-import Button from 'react-bootstrap/Button';
 import axiosInstance from '../../axios config/axiosInstance';
 import { useHistory } from 'react-router-dom';
 
@@ -11,6 +10,7 @@ import { FiSmartphone } from 'react-icons/fi';
 
 import { FcGoogle, } from 'react-icons/fc';
 import { loginContext } from '../../contexts/loginModel';
+import { useTranslation } from 'react-i18next';
 
 
 
@@ -20,6 +20,7 @@ const Login = () => {
     const { showLogin, setShowLogin } = useContext(loginContext)
     const handleCloseLogin = () => setShowLogin(false)
 
+    const { t, i18n } = useTranslation();
 
 
 
@@ -31,6 +32,7 @@ const Login = () => {
     const [errors, setErrors] = useState({
         emailError: "",
         passwordError: "",
+        loginError: ""
     })
 
 
@@ -46,8 +48,8 @@ const Login = () => {
 
             setErrors({
                 ...errors, emailError: (evt.target.value.length === 0) ?
-                    " This field is required." : (!emailRegex.test(evt.target.value)) ?
-                        " Invalid Email format." : ""
+                    `${t(" This field is required.")}` : (!emailRegex.test(evt.target.value)) ?
+                        `${t(" Invalid Email format.")}` : ""
             })
         } else if (evt.target.name === "password") {
 
@@ -55,12 +57,12 @@ const Login = () => {
 
             setErrors({
                 ...errors, passwordError: (evt.target.value.length === 0) ?
-                    " Password is required" : (!PassRegex.test(evt.target.value)) ?
-                        " Password must be at least 8 characters, contains at least one uppercase , one lowercase letter,one special char.  " : ""
+                    `${t(" Password is required")}` : (!PassRegex.test(evt.target.value)) ?
+                        `${t(" Password must be at least 8 characters, contains at least one uppercase , one lowercase letter,one special char.  ")}` : ""
             })
         }
-
     }
+
 
 
 
@@ -71,19 +73,36 @@ const Login = () => {
         if (!errors.emailError && !errors.passwordError) {
 
             axiosInstance.post('/users/login', userLogin).then((res) => {
-                console.log(res);
-                if (res.data.token) {
-                    localStorage.setItem('token', res.data.token);
 
-                    setShowLogin(false)
-                    // ev.target.submit()
-                    history.push('/')
-                    // alert("Form Sent Successfully")
+                if (res.status === 200) {
+                    if (res.data.token) {
+                        localStorage.setItem('token', res.data.token);
+                        setShowLogin(false)
+                        history.push('/')
+                        setUserLogin({ ...userLogin, password: "" })
+                        setErrors({})
+                    }
+                } else {
+                    setErrors({
+                        ...errors, loginError: `${t(" Cannot login. Invalid email or password.")}`
+                    })
+
+                    setUserLogin({ ...userLogin, password: "" })
                 }
             }).catch((err) => {
+                setErrors({
+                    ...errors, loginError: `${t(" Cannot login. Invalid email or password.")}`
+                })
+                setUserLogin({ ...userLogin, password: "" })
             })
         } else {
-            alert("Please Enter Valid Date")
+            setErrors({
+                ...errors, loginError: `${t(" Cannot login. Invalid email or password.")}`
+            })
+
+            setUserLogin({
+                ...userLogin, password: ""
+            })
         }
     }
 
@@ -92,37 +111,29 @@ const Login = () => {
 
 
 
-
-
-
     return (
-
-
 
         <div className=''>
 
             <Modal show={showLogin} onHide={handleCloseLogin} className=""
-            // size="lg"
-            // aria-labelledby="contained-modal-title-vcenter"
-            // centered
             >
                 <Modal.Body style={{ borderRadius: '2rem' }} className="">
                     <div className="signup-container ">
                         <div className="finish-signup p-0">
-                            <h5 className="text-center">Log in </h5>
+                            <h5 className="text-center">{t("Log in")}</h5>
                         </div>
                         <form onSubmit={(e) => { handleForm(e) }} className=" " method='GET' >
-                            <h4 className='pb-2'>Welcome to Airbnb</h4>
+                            <h4 className='pb-2'>{t("Welcome to Airbnb")} </h4>
                             <div className='pb-2'>
                                 <div className={`input-container ${(errors.emailError ? "border-danger shadow-none" : "")}`}>
-                                    <input type="text" className={` ${(errors.emailError ? "border-danger shadow-none" : "")}`}
+                                    <input type="text" className={`shadow-none ${(errors.emailError ? "border-danger shadow-none" : "")}`}
                                         value={userLogin.email}
                                         name="email"
                                         onChange={(e) => { handleInputChange(e) }}
-                                        placeholder="Email"
+                                        placeholder={t("Email")}
                                     />
                                 </div>
-                                <p className={`error ${!errors.emailError ? "d-none" : ""} `}><i className=" fa-solid fa-circle-exclamation "></i>{errors.emailError}</p>
+                                <p className={`error shadow-none ${!errors.emailError ? "d-none" : ""} `}><i className=" fa-solid fa-circle-exclamation "></i>{errors.emailError}</p>
                             </div>
 
 
@@ -130,20 +141,22 @@ const Login = () => {
                                 <div className={` input-container ${(errors.passwordError ? "border-danger shadow-none" : "")}`}>
 
                                     <input type="text"
+                                        className='shadow-none'
                                         value={userLogin.password}
                                         name="password"
                                         onChange={(e) => { handleInputChange(e) }}
-                                        placeholder="password"
+                                        placeholder={t("password")}
                                     />
                                 </div>
                                 <p className={`error ${!errors.passwordError ? "d-none" : ""} `}><i className=" fa-solid fa-circle-exclamation "></i>{errors.passwordError}</p>
                             </div>
                             <br />
+                            <p className={`error ${!errors.loginError ? "d-none" : ""} `}><i className=" fa-solid fa-circle-exclamation "> </i>{errors.loginError}</p>
 
                             <input
                                 type="submit"
                                 className="agree-btn"
-                                value=" continue"
+                                value={t(" continue")}
                                 name="submit-btn"
                             />
 
@@ -154,7 +167,7 @@ const Login = () => {
                                         <hr />
                                     </div>
                                     <div className="col-1" style={{ padding: 0, textAlign: 'center' }}>
-                                        or
+                                        {t("or")}
                                     </div>
                                     <div className="col-5" style={{ padding: 0 }}>
                                         <hr />
@@ -175,7 +188,7 @@ const Login = () => {
                                             />
                                         </div>
                                         <div className="facebook-text-container">
-                                            Continue With Facebook
+                                            {t("Continue With Facebook")}
                                         </div>
                                     </div>
                                 </div>
@@ -191,7 +204,7 @@ const Login = () => {
                                             <FcGoogle style={{ fontSize: '1.4rem' }} />
                                         </div>
                                         <div className="google-text-container">
-                                            Continue With Google
+                                            {t("Continue With Google")}
                                         </div>
                                     </div>
                                 </div>
@@ -205,7 +218,7 @@ const Login = () => {
                                                 }}
                                             />
                                         </div>
-                                        <div className="apple-text-container">Continue With Apple</div>
+                                        <div className="apple-text-container"> {t("Continue With Apple")}</div>
                                     </div>
                                 </div>
 
@@ -215,7 +228,7 @@ const Login = () => {
                                         <div className="email-icon-container">
                                             < FiSmartphone style={{ fontSize: '1.4rem' }} />
                                         </div>
-                                        <div className="email-text-container">Continue With Phone</div>
+                                        <div className="email-text-container"> {t("Continue With Phone")}</div>
                                     </div>
                                 </div>
                             </div>
@@ -229,6 +242,6 @@ const Login = () => {
         </div >
 
     );
-}
 
+}
 export default Login;

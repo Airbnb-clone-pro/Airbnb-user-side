@@ -1,10 +1,14 @@
 import { combineReducers } from 'redux';
-import { getCatReducer } from './getCat';
+import { getUnitsReducer } from './getUnits';
 import { getUserReducer } from './getUser';
+import { URLReducer } from './homePageURL';
 import { eleReducer } from './setElement';
+import { unitReducer } from './unit';
 
 export default combineReducers({
     element: eleReducer,
     user: getUserReducer,
-    cat: getCatReducer
+    getUnits: getUnitsReducer,
+    unit: unitReducer,
+    homePageURL: URLReducer
 }) 

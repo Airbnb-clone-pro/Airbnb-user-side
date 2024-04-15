@@ -12,29 +12,38 @@ import { useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
 import logo from '../../assets/02.webp';
 import { useHistory } from "react-router-dom";
+import { useEffect, useRef, useState } from "react";
 
 const SingleCard = ({ data }) => {
-  const { title, location, pricePerNight
-    , date, images, id } = data;
+  const { host, location, pricePerNight
+    , date, images, id, title, avgRating } = data;
   const { t, i18n } = useTranslation()
   const history = useHistory();
-  // const images = [
-  //   logo,
-  //   logo,
-  //   logo,
-  //   logo,
-  //   logo,
-  // ]
+  const ref = useRef("");
+  const [width1, setWidth] = useState(0);
+
+  useEffect(() => {
+    setWidth(ref?.current?.offsetWidth);
+    function handleResize() {
+      setWidth(ref?.current?.offsetWidth);
+    }
+    window.addEventListener('resize', handleResize)
+
+  }, []);
+  console.log(host);
   const goToUnitPage = () => {
+
     console.log(data);
     history.push(`/unit-details/${id}`)
   }
   return (
-    <div dir={`${i18n.language === 'en' ? 'ltr' : 'rtl'}`}>
-      <Card className="rounded-0 p-0 border-0" >
+    <div dir={`${i18n.language === 'en' ? 'ltr' : 'rtl'}`} className="mb-4">
+      <Card className="rounded-4 p-0 border-0 " style={{}} ref={ref}
+      >
         <Swiper
           navigation={true}
-          className="w-100"
+          className="rounded-4 w-100"
+          style={{ height: width1 }}
           modules={[Navigation, Scrollbar, Pagination]}
           pagination={{
             dynamicBullets: true,
@@ -48,7 +57,7 @@ const SingleCard = ({ data }) => {
                   alt={`img-${index}`}
                   src={imgSrc}
                   className="rounded-0"
-                  width="100%"
+                  height="100%"
                   onClick={() => { goToUnitPage() }}
                 />
               </SwiperSlide>
@@ -56,18 +65,25 @@ const SingleCard = ({ data }) => {
           })}
         </Swiper>
 
-        <Card.Body onClick={() => { goToUnitPage() }}>
-          <Card.Title>{location?.city}, {location?.country}</Card.Title>
-          <Card.Subtitle className="mb-2 text-muted">{title}</Card.Subtitle>
+        <Card.Body onClick={() => { goToUnitPage() }} className="px-0">
+          <Card.Title className="d-flex justify-content-between mb-0 pb-2" style={{ fontSize: "16px" }}><p className="m-0 p-0 grow-1 card-header-location">{location?.state}, {location?.country} </p>
+            <div className="d-flex mt-1 mx-2 fw-bold grow-0 pe-2" style={{ fontSize: "13px" }}><i className="bi bi-star-fill p-0 m-0"></i>
 
-          <Card.Text className="mb-1">{date?.start}</Card.Text>
+              <p className="p-0 m-0">{" "}
+                {avgRating === 1
+                  ? t("New")
+                  : avgRating}{" "}</p>
+            </div>
+          </Card.Title>
+          <Card.Subtitle className={`mb-1 text-muted card-header-location ${i18n.language === 'en' ? 'pe-4' : "ps-4"}`}>{title}</Card.Subtitle>
 
+          <Card.Text className="mb-1 text-muted">{date?.start}</Card.Text>
           <Card.Text>
-            <b className="text-black-50 me-1">${pricePerNight}</b>night
+            <b className=" me-1">${pricePerNight}</b>{t("night")}
           </Card.Text>
         </Card.Body>
       </Card>
-    </div>
+    </div >
   );
 };
 
